@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+ehthumbs.db
+Thumbs.db
+
+# LLVM
+*.dSYM/
+
+# Python
+__pycache__/
