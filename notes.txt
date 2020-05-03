@@ -1,0 +1,104 @@
+# update packages
+sudo apt update
+sudo apt upgrade
+
+# change password
+passwd
+
+# rename user and group
+sudo passwd root
+logout
+# as root:
+sudo usermod -l andrew ubuntu
+sudo usermod -d /home/andrew -m andrew
+sudo groupmod -n andrew ubuntu
+id andrew
+logout
+
+# rename hostname
+hostnamectl
+sudo hostnamectl set-hostname rpi
+# add "127.0.0.1 rpi"
+sudo vim /etc/hosts
+# set "preserve_hostname: true"
+sudo vim /etc/cloud/cloud.cfg
+hostnamectl
+
+# set timezone
+timedatectl
+timedatectl list-timezones
+sudo timedatectl set-timezone America/Los_Angeles
+
+# set shell to tmux with fish
+chsh -s /usr/bin/tmux
+sudo apt install fish -y
+echo "set -g default-shell /usr/bin/fish" >> ~/.tmux.conf
+# disable greeting
+echo "set fish_greeting" >> ~/.config/fish/config.fish
+
+# install ifconfig
+sudo apt install net-tools -y
+
+# setup ssh
+# lookup IP address
+ip a | grep inet
+# on remote machine:
+ssh andrew@192.168.1.38
+# if failed:
+# on rpi:
+# check status of ssh daemon
+systemctl status ssh
+# temporarily enable password authentication
+sudo cp -p /etc/ssh/sshd_config{,.bak}
+# change "PasswordAuthentication no" to "#PasswordAuthentication yes"
+sudo vim /etc/ssh/sshd_config
+# restart sshd
+sudo systemctl restart ssh
+# on remote machine:
+ssh andrew@192.168.1.38
+logout
+ssh-keygen -t rsa -b 4096 -o -a 100 -C 'andrew@rpi' -f ~/.ssh/rpi
+ssh-copy-id -i ~/.ssh/rpi andrew@192.168.1.38
+echo "Host rpi
+	HostName 192.168.1.38
+	User andrew
+	IdentityFile ~/.ssh/rpi
+	IdentitiesOnly yes" >> ~/.ssh/config
+ssh rpi
+# on rpi:
+# disable password authentication
+sudo mv /etc/ssh/sshd_config{.bak,}
+sudo systemctl restart ssh
+
+# C tools
+sudo apt install clang g++ cmake make gdb valgrind -y
+
+# web browser
+sudo apt install lynx -y
+echo 'alias ddg="lynx https://duckduckgo.com/lite"' >> ~/.config/fish/config.fish
+
+# list user-installed packages
+sudo apt install aptitude
+aptitude search '~i!~M'
+
+# vim cut/paste
+# select lines in visual mode
+V
+# select in visual mode
+v
+# cut selection
+d
+# paste before cursor
+P
+# paste after cursor
+p
+
+# WIP attempt to use Fira Code
+# sudo apt install fonts-firacode
+# sudo apt install fontconfig
+# fc-list
+# sudo apt install fbterm
+# sudo setcap 'cap_sys_tty_config+ep' $(command -v fbterm)
+# sudo usermod -aG video andrew
+
+
