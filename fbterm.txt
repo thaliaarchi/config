@@ -1,0 +1,8 @@
+# failed attempt to use Fira Code
+
+$ sudo apt install fonts-firacode
+$ sudo apt install fontconfig
+$ fc-list
+$ sudo apt install fbterm
+$ sudo setcap 'cap_sys_tty_config+ep' $(command -v fbterm)
+$ sudo usermod -aG video andrew
