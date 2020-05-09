@@ -47,12 +47,12 @@ $ sudo systemctl restart ssh
 # on remote machine:
 $ ssh andrew@192.168.1.38
 $ logout
-$ ssh-keygen -t rsa -b 4096 -a 100 -C 'andrew@rpi' -f ~/.ssh/rpi
-$ ssh-copy-id -i ~/.ssh/rpi andrew@192.168.1.38
+$ ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_rpi
+$ ssh-copy-id -i ~/.ssh/id_rpi andrew@192.168.1.38
 $ echo "Host rpi
 	HostName 192.168.1.38
 	User andrew
-	IdentityFile ~/.ssh/rpi
+	IdentityFile ~/.ssh/id_rpi
 	IdentitiesOnly yes" >> ~/.ssh/config
 $ ssh rpi
 # on rpi:
