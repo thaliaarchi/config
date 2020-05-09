@@ -10,11 +10,6 @@ $ sudo vim /etc/hosts
 $ sudo vim /etc/cloud/cloud.cfg
 $ hostnamectl
 
-# set timezone
-$ timedatectl
-$ timedatectl list-timezones
-$ sudo timedatectl set-timezone America/Los_Angeles
-
 # update packages
 $ sudo apt update
 $ sudo apt upgrade
@@ -70,7 +65,3 @@ $ echo 'alias ddg="lynx https://duckduckgo.com/lite"' >> ~/.config/fish/config.f
 # list user-installed packages
 $ sudo apt install aptitude
 $ aptitude search '~i!~M'
-
-# git
-$ git config --global user.name "Andrew Archibald"
-$ git config --global user.email "andrew@aarchibald.com"
