@@ -1,25 +1,9 @@
 # change password
 passwd
 
-# rename hostname
-$ hostnamectl
-$ sudo hostnamectl set-hostname rpi
-# add "127.0.0.1 rpi"
-$ sudo vim /etc/hosts
-# set "preserve_hostname: true"
-$ sudo vim /etc/cloud/cloud.cfg
-$ hostnamectl
-
 # update packages
 $ sudo apt update
 $ sudo apt upgrade
-
-# set shell to tmux with fish
-$ chsh -s $(command -v tmux)
-$ sudo apt install fish -y
-$ echo "set -g default-shell $(command -v fish)" >> ~/.tmux.conf
-# disable greeting
-$ echo "set fish_greeting" >> ~/.config/fish/config.fish
 
 # install ifconfig and iwconfig
 $ sudo apt install net-tools wireless-tools -y
@@ -63,5 +47,5 @@ $ sudo apt install lynx -y
 $ echo 'alias ddg="lynx https://duckduckgo.com/lite"' >> ~/.config/fish/config.fish
 
 # list user-installed packages
-$ sudo apt install aptitude
+$ sudo apt install aptitude -y
 $ aptitude search '~i!~M'

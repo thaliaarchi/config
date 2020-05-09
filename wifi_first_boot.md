@@ -1,14 +1,18 @@
-Setting up WiFi before first boot
+# Setting up WiFi before first boot
 
-$ cd /Volumes/system-boot
-$ cp -p network-config{,.bak}
-$ vim network-config
+Find and edit the `network-config` file in the root of the Raspberry
+Pi's boot partition:
 
-Uncomment `wifis` section and add your network SSID and password.
-If the SSID contains spaces, enclose it in quotes.
-Quoted strings must be escaped for YAML.
+```sh
+cd /Volumes/system-boot
+cp -p network-config{,.bak}
+vim network-config
+cat network-config
+```
 
-$ cat network-config.bak
+Uncomment `wifis` section and add your network SSID and password. If the
+SSID contains spaces, enclose it in quotes. Make sure to escape
+backslashes in quoted strings for YAML.
 
     # This file contains a netplan-compatible configuration which cloud-init
     # will apply on first-boot. Please refer to the cloud-init documentation and
