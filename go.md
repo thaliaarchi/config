@@ -6,7 +6,7 @@
 
    ```sh
    wget https://dl.google.com/go/go$VERSION.linux-arm64.tar.gz
-   tar -C /usr/local -xzf go$VERSION.linux-arm64.tar.gz
+   sudo tar -C /usr/local -xzf go$VERSION.linux-arm64.tar.gz
     ```
 
 4. Add `/usr/local/go/bin` to `PATH`:
