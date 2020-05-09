@@ -1,16 +1,6 @@
 # change password
 passwd
 
-# rename user and group
-$ sudo passwd root
-$ logout
-# as root account:
-$ usermod -l andrew ubuntu
-$ usermod -d /home/andrew -m andrew
-$ groupmod -n andrew ubuntu
-$ id andrew
-$ logout
-
 # rename hostname
 $ hostnamectl
 $ sudo hostnamectl set-hostname rpi
