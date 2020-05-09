@@ -1,4 +1,4 @@
-# Installing Go
+# Install Go
 
 1. Visit https://golang.org/dl/
 2. Find the latest release for Linux ARM64 (ARMv8)
