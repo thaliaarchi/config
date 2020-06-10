@@ -11,6 +11,46 @@ export EMAIL=andrew@aarchibald.com
 export EDITOR=vim
 export GIT_EDITOR=vim
 
+# Bash 4+
+# https://github.com/Homebrew/homebrew-command-not-found#requirements
+PATH="/usr/local/bin/bash:$PATH"
+
+# Homebrew Command Not Found
+# https://github.com/Homebrew/homebrew-command-not-found
+# Installation check is slow, so I removed it:
+# if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
+eval "$(brew command-not-found-init)"
+
+# Powerline
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+source "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
+
+# Reset permissions
+# find . -type d -exec chmod 755 {} \;
+# find . -type f -exec chmod 644 {} \;
+
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+# Folder-based applications
+export PATH="$HOME/lib/bin:$PATH"
+
+# Go
+export PATH="$HOME/go/bin:$PATH"
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Yorick
+export PATH="$HOME/dev/github.com/dhmunro/yorick/relocate/bin:$PATH"
+
+# Whitespace
+export PATH="$HOME/dev/compsoc.dur.ac.uk/whitespace/WSpace/bin:$PATH"
+
+# LLVM (keg only, see Homebrew caveats)
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+
 # Shell Options
 #
 # See man bash for more options...

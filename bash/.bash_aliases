@@ -1,11 +1,6 @@
 # To override the alias instruction use a \ before,
 # ie \rm will call the real rm not the alias.
 
-# Interactive operation...
-#alias rm='rm -i'
-#alias cp='cp -i'
-#alias mv='mv -i'
-
 # Default to human readable figures
 alias df='df -h'
 alias du='du -h'
@@ -24,13 +19,24 @@ alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'
 
+# Enable ls color output for macOS
+# https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
+# export CLICOLOR=1
+# export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
+# alias l='ls -h'
+# alias ls='ls -h'
+# alias la='ls -Ah'
+# alias ll='ls -Alh'
+
 # Directory aliases
 alias ~='cd $HOME'
 alias ..='cd ..'
+alias dev='cd $HOME/dev'
+alias godev='cd $HOME/go/src'
 
 # Git
 alias master='git checkout master'
-source "$HOME/.config/git-completion.bash"
+source "$HOME/.config/bash_completion/git-completion.bash"
 
 alias g='git'
 alias branch='git branch'
@@ -55,3 +61,21 @@ __git_complete fetch _git_fetch
 __git_complete glog _git_log
 __git_complete pull _git_pull
 __git_complete push _git_push
+
+# SSH remotes
+alias bb='ssh -t schizo "ssh blackbird"'
+alias de='ssh -t schizo "ssh germany"'
+
+# SSH into a random CS lab machine
+alias cs='CS_MACHINES=($(cat ~/cs_machines_random)); RANDOM_MACHINE="${CS_MACHINES[$RANDOM % ${#CS_MACHINES[@]}]}"; echo "ssh $RANDOM_MACHINE"; ssh "$RANDOM_MACHINE"'
+
+# Aliases
+alias weather='curl wttr.in'
+
+# rsync command for copying from an NTFS drive.
+# Permissions are not preserved; symlinks and times are preserved.
+# Attributes set to rwxr-xr-x for dirs, rw-r--r-- for files.
+# Excludes Thumbs.db and desktop.ini.
+alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
+
+alias ascii4='wspace $HOME/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'

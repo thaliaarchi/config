@@ -1,5 +1,29 @@
 #!/bin/sh
 
+clonedev() {
+  url="$1"
+  path="${url#https://}"
+  path="${path#http://}"
+  path="${path%.git}"
+  repo="${path##*/}"
+  path="${path%/*}"
+  mkdir -p "$HOME/dev/$path"
+  git clone "$url" "$HOME/dev/$path/$repo"
+}
+
+# Syntax highlighted cat
+# https://stackoverflow.com/questions/7851134/syntax-highlighting-colorizing-cat/14799752#14799752
+alias codecat='pygmentize -g -O style=solarized-dark,linenos=1'
+function codeless() {
+  codecat "$@" | less -R
+}
+
+# Preview Markdown files like man
+# http://blog.metamatt.com/blog/2013/01/09/previewing-markdown-files-from-the-terminal/
+function mdless() {
+  pandoc -s -f markdown -t man "$@" | groff -T utf8 -man | less
+}
+
 function tcommit() {
   repo=$(git rev-parse --show-toplevel)
   staged_files=$(git -C "$repo" diff --name-only --staged --diff-filter=d)
