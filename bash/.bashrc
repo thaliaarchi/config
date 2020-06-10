@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
@@ -104,10 +106,6 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls'
 # Whenever displaying the prompt, write the previous line to disk
 # export PROMPT_COMMAND="history -a"
 
-# Umask
-
-# /etc/profile sets 022, removing write perms to group + others.
-# Set a more restrictive umask: i.e. no exec perms for others:
-# umask 027
-# Paranoid: neither group nor others have any perms:
+# /etc/profile sets 022, removing write perms to group and others.
+# Neither group nor others have any perms:
 umask 077

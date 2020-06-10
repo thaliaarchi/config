@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # To override the alias instruction use a \ before,
 # ie \rm will call the real rm not the alias.
 

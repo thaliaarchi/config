@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 clonedev() {
   url="$1"
