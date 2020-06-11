@@ -49,6 +49,9 @@ alias whence='type -a'  # where, of a sort
 # Directory aliases
 alias '\~'='cd ~'
 alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 alias dev='cd ~/dev'
 alias godev='cd ~/go/src'
 
