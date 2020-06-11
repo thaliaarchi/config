@@ -1,5 +1,7 @@
 #!/bin/bash
 
+config_dir="$(dirname "$(readlink -e "${BASH_SOURCE[0]}")")"
+
 # To override the alias instruction use a \ before,
 # ie \rm will call the real rm not the alias.
 
@@ -38,7 +40,6 @@ alias godev='cd $HOME/go/src'
 
 # Git
 alias master='git checkout master'
-source "$HOME/.config/bash_completion/git-completion.bash"
 
 alias g='git'
 alias branch='git branch'
@@ -51,7 +52,9 @@ alias fetch='git fetch'
 alias glog='git log'
 alias pull='git pull'
 alias push='git push'
+
 # https://stackoverflow.com/questions/342969/how-do-i-get-bash-completion-to-work-with-aliases
+source "$config_dir/git-completion.bash"
 __git_complete g __git_main
 __git_complete branch _git_branch
 __git_complete checkout _git_checkout

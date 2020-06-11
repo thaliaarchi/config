@@ -18,6 +18,10 @@ function link
   ln -s $config_dir/$src $dest
 end
 
+if not test -f $config_dir/bash/git-completion.bash
+  wget 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' -O $config_dir/bash/git-completion.bash
+end
+
 link fish/config.fish ~/.config/fish/config.fish
 link bash/bash_profile ~/.bash_profile
 link bash/bashrc ~/.bashrc

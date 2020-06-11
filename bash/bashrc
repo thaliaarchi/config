@@ -3,8 +3,10 @@
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
-[ -f "$HOME/.bash_aliases" ]   && source "$HOME/.bash_aliases"
-[ -f "$HOME/.bash_functions" ] && source "$HOME/.bash_functions"
+config_dir="$(dirname "$(readlink -e "${BASH_SOURCE[0]}")")"
+
+source "$config_dir/bash_aliases"
+source "$config_dir/bash_functions"
 [ -d "$HOME/bin" ]  && PATH="$HOME/bin:$PATH"
 [ -d "$HOME/man" ]  && MANPATH="$HOME/man:$MANPATH"
 [ -d "$HOME/info" ] && INFOPATH="$HOME/info:$INFOPATH"
