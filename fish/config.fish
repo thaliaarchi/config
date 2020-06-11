@@ -39,3 +39,8 @@ alias ddg="lynx https://duckduckgo.com/lite"
 alias weather="curl wttr.in"
 
 set PATH $PATH /usr/local/go/bin
+
+# Load local configuration
+if test -e ~/.config/fish/config_local.fish
+  source ~/.config/fish/config_local.fish
+end
