@@ -3,7 +3,11 @@
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
-config_dir="$(dirname "$(readlink -e "${BASH_SOURCE[0]}")")"
+READLINK=readlink
+if uname | grep -q "Darwin"; then
+  READLINK=greadlink
+fi
+config_dir="$(dirname "$($READLINK -e "${BASH_SOURCE[0]}")")"
 
 source "$config_dir/bash_aliases"
 source "$config_dir/bash_functions"

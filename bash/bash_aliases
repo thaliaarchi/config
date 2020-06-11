@@ -1,6 +1,10 @@
 #!/bin/bash
 
-config_dir="$(dirname "$(readlink -e "${BASH_SOURCE[0]}")")"
+READLINK=readlink
+if uname | grep -q "Darwin"; then
+  READLINK=greadlink
+fi
+config_dir="$(dirname "$($READLINK -e "${BASH_SOURCE[0]}")")"
 
 # To override the alias instruction use a \ before,
 # ie \rm will call the real rm not the alias.

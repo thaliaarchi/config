@@ -2,7 +2,11 @@
 
 # Install links to config
 
-set config_dir (dirname (readlink -e (status -f)))
+set READLINK readlink
+if uname | grep -q "Darwin"
+  set READLINK greadlink
+end
+set config_dir (dirname ($READLINK -e (status -f)))
 
 function link
   set src $argv[1]
