@@ -27,8 +27,8 @@ alias tcommit-berlin='TZ=":Europe/Berlin" tcommit'
 if uname | grep -q Darwin
   # Enable ls color output
   # https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
-  set --export CLICOLOR 1
-  set --export LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
+  set -x CLICOLOR 1
+  set -x LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
   alias ls='ls -hF'
 else
   alias ls='ls -hF --color=tty'
