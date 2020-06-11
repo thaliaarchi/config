@@ -68,10 +68,14 @@ function tcommit() {
   fi
 }
 
-alias tcommit-oregon='TZ=":America/Los_Angeles" tcommit'
+alias tcommit-pacific='TZ=":America/Los_Angeles" tcommit'
+alias tcommit-mountain='TZ=":America/Denver" tcommit'
+alias tcommit-berlin='TZ=":Europe/Berlin" tcommit'
 
 __git_complete tcommit _git_commit
-__git_complete tcommit-oregon _git_commit
+__git_complete tcommit-pacific _git_commit
+__git_complete tcommit-mountain _git_commit
+__git_complete tcommit-berlin _git_commit
 
 
 # Some example functions:

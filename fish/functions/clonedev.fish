@@ -1,4 +1,4 @@
-function clonedev --description 'Clone git repo to ~/dev'
+function clonedev --description='Clone git repo to ~/dev'
   set url $argv[1]
   if test -z $url
     echo "Usage: clonedev URL"

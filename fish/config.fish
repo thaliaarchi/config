@@ -19,6 +19,9 @@ alias pull='git pull'
 alias push='git push'
 
 alias master='git checkout master'
+alias tcommit-pacific='TZ=":America/Los_Angeles" tcommit'
+alias tcommit-mountain='TZ=":America/Denver" tcommit'
+alias tcommit-berlin='TZ=":Europe/Berlin" tcommit'
 
 # Directory listings
 if uname | grep -q Darwin
