@@ -21,12 +21,19 @@ alias push='git push'
 alias master='git checkout master'
 
 # Directory listings
-alias ls='ls -hF --color=tty'  # classify files in color
-alias ll='ls -l'               # long list
-alias la='ls -A'               # all but . and ..
+if uname | grep -q "Darwin"
+  # Enable ls color output
+  # https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
+  set --export CLICOLOR 1
+  set --export LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
+  alias ls='ls -hF'
+else
+  alias ls='ls -hF --color=tty'
+end
+alias ll='ls -l'
+alias la='ls -A'  # all but . and ..
+alias lla='ls -lA'
 alias l='ls -CF'
-alias dir='ls --color=auto --format=vertical'
-alias vdir='ls --color=auto --format=long'
 
 # Misc
 alias grep='grep --color'
