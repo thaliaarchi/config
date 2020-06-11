@@ -11,9 +11,9 @@ config_dir="$(dirname "$($READLINK -e "${BASH_SOURCE[0]}")")"
 
 source "$config_dir/bash_aliases"
 source "$config_dir/bash_functions"
-[ -d "$HOME/bin" ]  && PATH="$HOME/bin:$PATH"
-[ -d "$HOME/man" ]  && MANPATH="$HOME/man:$MANPATH"
-[ -d "$HOME/info" ] && INFOPATH="$HOME/info:$INFOPATH"
+[ -d "$HOME/bin" ]  && PATH="$PATH:$HOME/bin"
+[ -d "$HOME/man" ]  && MANPATH="$MANPATH:$HOME/man"
+[ -d "$HOME/info" ] && INFOPATH="$INFOPATH:$HOME/info"
 
 export EMAIL=andrew@aarchibald.com
 export EDITOR=vim

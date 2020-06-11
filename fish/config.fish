@@ -74,6 +74,16 @@ alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.
 alias bb='ssh -t schizo "ssh blackbird"'
 alias de='ssh -t schizo "ssh germany"'
 
+if test -d ~/bin
+  set PATH $PATH ~/bin
+end
+if test -d ~/man
+  set MANPATH $MANPATH ~/man
+end
+if test -d ~/info
+  set INFOPATH $INFOPATH ~/info
+end
+
 for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin /usr/local/opt/llvm/bin ~/dev/github.com/andrewarchi/whitespace-haskell/bin ~/dev/github.com/LLNL/yorick/relocate/bin
   if test -d $dir
     set PATH $dir $PATH
