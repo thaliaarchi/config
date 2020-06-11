@@ -1,3 +1,4 @@
+# Disable greeting
 set fish_greeting
 
 set EMAIL andrew@aarchibald.com
