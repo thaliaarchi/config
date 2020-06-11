@@ -1,5 +1,9 @@
 set fish_greeting
 
+set EMAIL andrew@aarchibald.com
+set EDITOR vim
+set GIT_EDITOR vim
+
 # Git
 alias g='git'
 alias branch='git branch'
@@ -38,7 +42,11 @@ alias cgrep="cgrep -n"      # show line numbers
 alias ddg="lynx https://duckduckgo.com/lite"
 alias weather="curl wttr.in"
 
-set PATH $PATH /usr/local/go/bin
+for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin
+  if test -d $dir
+    set PATH $PATH $dir
+  end
+end
 
 # Load local configuration
 if test -e ~/.config/fish/config_local.fish
