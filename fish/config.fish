@@ -74,15 +74,9 @@ alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.
 alias bb='ssh -t schizo "ssh blackbird"'
 alias de='ssh -t schizo "ssh germany"'
 
-if test -d ~/bin
-  set PATH $PATH ~/bin
-end
-if test -d ~/man
-  set MANPATH $MANPATH ~/man
-end
-if test -d ~/info
-  set INFOPATH $INFOPATH ~/info
-end
+# /etc/profile sets 022, removing write perms to group and others.
+# Neither group nor others have any perms:
+umask 077
 
 for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin /usr/local/opt/llvm/bin ~/dev/github.com/andrewarchi/whitespace-haskell/bin ~/dev/github.com/LLNL/yorick/relocate/bin
   if test -d $dir
@@ -90,11 +84,14 @@ for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin /usr/local/opt/llvm/bin
   end
 end
 
+if test -d ~/man
+  set MANPATH ~/man $MANPATH
+end
+if test -d ~/info
+  set INFOPATH ~/info $INFOPATH
+end
+
 # Load local configuration
 if test -e ~/.config/fish/config_local.fish
   source ~/.config/fish/config_local.fish
 end
-
-# /etc/profile sets 022, removing write perms to group and others.
-# Neither group nor others have any perms:
-umask 077

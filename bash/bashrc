@@ -11,13 +11,30 @@ config_dir="$(dirname "$($READLINK -e "${BASH_SOURCE[0]}")")"
 
 source "$config_dir/bash_aliases"
 source "$config_dir/bash_functions"
-[ -d "$HOME/bin" ]  && PATH="$PATH:$HOME/bin"
-[ -d "$HOME/man" ]  && MANPATH="$MANPATH:$HOME/man"
-[ -d "$HOME/info" ] && INFOPATH="$INFOPATH:$HOME/info"
 
 export EMAIL=andrew@aarchibald.com
 export EDITOR=vim
 export GIT_EDITOR=vim
+
+# /etc/profile sets 022, removing write perms to group and others.
+# Neither group nor others have any perms:
+umask 077
+
+PATH="$HOME/bin:$PATH"
+PATH="/usr/local/go/bin:$PATH"
+PATH="$HOME/go/bin:$PATH"
+PATH="$HOME/.cargo/bin:$PATH"
+# LLVM (keg only, see Homebrew caveats)
+PATH="/usr/local/opt/llvm/bin:$PATH"
+PATH="$HOME/dev/github.com/andrewarchi/whitespace-haskell/bin:$PATH"
+PATH="$HOME/dev/github.com/LLNL/yorick/relocate/bin:$PATH"
+export PATH
+
+[ -d "$HOME/bin" ]  && PATH="$HOME/bin:$PATH"
+[ -d "$HOME/man" ]  && MANPATH="$HOME/man:$MANPATH"
+[ -d "$HOME/info" ] && INFOPATH="$HOME/info:$INFOPATH"
+
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source "/usr/local/etc/profile.d/bash_completion.sh"
 
 if uname | grep -q Darwin; then
   # Homebrew-installed Bash
@@ -36,31 +53,6 @@ if uname | grep -q Darwin; then
   POWERLINE_BASH_SELECT=1
   source "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
 fi
-
-# Reset permissions
-# find . -type d -exec chmod 755 {} \;
-# find . -type f -exec chmod 644 {} \;
-
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source "/usr/local/etc/profile.d/bash_completion.sh"
-
-# Folder-based applications
-export PATH="$HOME/bin:$PATH"
-
-# Go
-export PATH="/usr/local/go/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
-
-# Whitespace
-export PATH="$HOME/dev/github.com/andrewarchi/whitespace-haskell/bin:$PATH"
-
-# Yorick
-export PATH="$HOME/dev/github.com/dhmunro/yorick/relocate/bin:$PATH"
-
-# LLVM (keg only, see Homebrew caveats)
-export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 # Shell Options
 #
@@ -114,7 +106,3 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls'
 
 # Whenever displaying the prompt, write the previous line to disk
 # export PROMPT_COMMAND="history -a"
-
-# /etc/profile sets 022, removing write perms to group and others.
-# Neither group nor others have any perms:
-umask 077

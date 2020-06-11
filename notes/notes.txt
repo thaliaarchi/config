@@ -49,3 +49,7 @@ $ echo 'alias ddg="lynx https://duckduckgo.com/lite"' >> ~/.config/fish/config.f
 # list user-installed packages
 $ sudo apt install aptitude -y
 $ aptitude search '~i!~M'
+
+# reset permissions
+$ find . -type d -exec chmod 755 {} \;
+$ find . -type f -exec chmod 644 {} \;
