@@ -7,7 +7,7 @@
 alias df='df -h'
 alias du='du -h'
 
-# Misc :)
+# Misc
 alias whence='type -a'                        # where, of a sort
 alias grep='grep --color'                     # show differences in color
 alias egrep='egrep --color=auto'              # show differences in color

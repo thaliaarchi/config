@@ -1,0 +1,25 @@
+#!/usr/bin/env fish
+
+# Install links to config
+
+set config_dir (dirname (readlink -e (status -f)))
+
+function link
+  set src $argv[1]
+  set dest $argv[2]
+
+  if test -L $dest
+    rm $dest
+  end
+  if test -e $dest
+    echo "File exists at $dest"
+    return
+  end
+  ln -s $config_dir/$src $dest
+end
+
+link fish/config.fish ~/.config/fish/config.fish
+link bash/bash_profile ~/.bash_profile
+link bash/bashrc ~/.bashrc
+link screen/screnrc ~/.screenrc
+link tmux/tmux.conf ~/.tmux.conf

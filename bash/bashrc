@@ -13,27 +13,29 @@ export EMAIL=andrew@aarchibald.com
 export EDITOR=vim
 export GIT_EDITOR=vim
 
-# Bash 4+
-# https://github.com/Homebrew/homebrew-command-not-found#requirements
-PATH="/usr/local/bin/bash:$PATH"
+if uname | grep -q "Darwin"; then
+  # Homebrew-installed Bash
+  PATH="/usr/local/bin/bash:$PATH"
 
-# Homebrew Command Not Found
-# https://github.com/Homebrew/homebrew-command-not-found
-# Installation check is slow, so I removed it:
-# if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
-eval "$(brew command-not-found-init)"
+  # Homebrew Command Not Found
+  # https://github.com/Homebrew/homebrew-command-not-found
+  # Requires Bash 4+
+  # Installation check is slow, so I removed it:
+  # if brew command command-not-found-init > /dev/null 2>&1; then eval "$(brew command-not-found-init)"; fi
+  eval "$(brew command-not-found-init)"
 
-# Powerline
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-source "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
+  # Powerline
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  source "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
+fi
 
 # Reset permissions
 # find . -type d -exec chmod 755 {} \;
 # find . -type f -exec chmod 644 {} \;
 
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source "/usr/local/etc/profile.d/bash_completion.sh"
 
 # Folder-based applications
 export PATH="$HOME/lib/bin:$PATH"
