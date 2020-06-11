@@ -27,6 +27,7 @@ if not test -f $config_dir/bash/git-completion.bash
 end
 
 link fish/config.fish ~/.config/fish/config.fish
+link fish/functions ~/.config/fish/functions
 link bash/bash_profile ~/.bash_profile
 link bash/bashrc ~/.bashrc
 link screen/screnrc ~/.screenrc
