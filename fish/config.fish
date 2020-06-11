@@ -21,7 +21,7 @@ alias push='git push'
 alias master='git checkout master'
 
 # Directory listings
-if uname | grep -q "Darwin"
+if uname | grep -q Darwin
   # Enable ls color output
   # https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
   set --export CLICOLOR 1
@@ -43,16 +43,34 @@ alias df='df -h'        # human readable figures
 alias du='du -h'        # human readable figures
 alias whence='type -a'  # where, of a sort
 
+# Directory aliases
+alias '\~'='cd ~'
+alias ..='cd ..'
+alias dev='cd ~/dev'
+alias godev='cd ~/go/src'
+
 # Code Search
-alias csearch="csearch -n"  # show line numbers
-alias cgrep="cgrep -n"      # show line numbers
+alias csearch='csearch -n'  # show line numbers
+alias cgrep='cgrep -n'      # show line numbers
 
-alias ddg="lynx https://duckduckgo.com/lite"
-alias weather="curl wttr.in"
+alias ddg='lynx https://duckduckgo.com/lite'
+alias weather='curl wttr.in'
 
-for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin
+# rsync command for copying from an NTFS drive.
+# Permissions are not preserved; symlinks and times are preserved.
+# Attributes set to rwxr-xr-x for dirs, rw-r--r-- for files.
+# Excludes Thumbs.db and desktop.ini.
+alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
+
+alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
+
+# SSH remotes
+alias bb='ssh -t schizo "ssh blackbird"'
+alias de='ssh -t schizo "ssh germany"'
+
+for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin ~/dev/github.com/andrewarchi/whitespace-haskell/bin ~/dev/github.com/dhmunro/yorick/relocate/bin /usr/local/opt/llvm/bin
   if test -d $dir
-    set PATH $PATH $dir
+    set PATH $dir $PATH
   end
 end
 
@@ -60,3 +78,7 @@ end
 if test -e ~/.config/fish/config_local.fish
   source ~/.config/fish/config_local.fish
 end
+
+# /etc/profile sets 022, removing write perms to group and others.
+# Neither group nor others have any perms:
+umask 077

@@ -3,7 +3,7 @@
 # Install links to config
 
 set READLINK readlink
-if uname | grep -q "Darwin"
+if uname | grep -q Darwin
   set READLINK greadlink
 end
 set config_dir (dirname ($READLINK -e (status -f)))

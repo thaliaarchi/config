@@ -4,7 +4,7 @@
 [[ "$-" != *i* ]] && return
 
 READLINK=readlink
-if uname | grep -q "Darwin"; then
+if uname | grep -q Darwin; then
   READLINK=greadlink
 fi
 config_dir="$(dirname "$($READLINK -e "${BASH_SOURCE[0]}")")"
@@ -19,7 +19,7 @@ export EMAIL=andrew@aarchibald.com
 export EDITOR=vim
 export GIT_EDITOR=vim
 
-if uname | grep -q "Darwin"; then
+if uname | grep -q Darwin; then
   # Homebrew-installed Bash
   PATH="/usr/local/bin/bash:$PATH"
 
@@ -44,19 +44,20 @@ fi
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source "/usr/local/etc/profile.d/bash_completion.sh"
 
 # Folder-based applications
-export PATH="$HOME/lib/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # Go
+export PATH="/usr/local/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# Whitespace
+export PATH="$HOME/dev/github.com/andrewarchi/whitespace-haskell/bin:$PATH"
+
 # Yorick
 export PATH="$HOME/dev/github.com/dhmunro/yorick/relocate/bin:$PATH"
-
-# Whitespace
-export PATH="$HOME/dev/compsoc.dur.ac.uk/whitespace/WSpace/bin:$PATH"
 
 # LLVM (keg only, see Homebrew caveats)
 export PATH="/usr/local/opt/llvm/bin:$PATH"

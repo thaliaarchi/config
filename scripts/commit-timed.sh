@@ -9,7 +9,7 @@ if [ ! "$staged_files" ]; then
 fi
 
 DATE=date
-if uname | grep -q "Darwin"; then
+if uname | grep -q Darwin; then
   # brew install coreutils
   DATE=gdate
 fi
