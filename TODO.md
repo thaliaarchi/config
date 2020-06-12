@@ -6,3 +6,4 @@
 - Split notes.txt
 - Expand WiFi notes
 - Add signal-cli installation
+- Configure Ubuntu MOTD
