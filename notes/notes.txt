@@ -46,6 +46,8 @@ $ sudo apt install clang gcc g++ cmake make gdb valgrind -y
 $ sudo apt install lynx -y
 $ echo 'alias ddg="lynx https://duckduckgo.com/lite"' >> ~/.config/fish/config.fish
 
+sudo apt install unzip -y
+
 # list user-installed packages
 $ sudo apt install aptitude -y
 $ aptitude search '~i!~M'
