@@ -51,6 +51,13 @@ if uname | grep -q Darwin; then
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
   source "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
+
+  # ungoogled-chromium
+  # https://github.com/ungoogled-software/ungoogled-chromium-macos#setting-up-the-build-environment
+  # https://github.com/pyenv/pyenv#basic-github-checkout
+  if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+  fi
 fi
 
 # Shell Options
