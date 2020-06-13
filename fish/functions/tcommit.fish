@@ -40,7 +40,7 @@ function tcommit --description='Git commit at file modification time' --wraps='g
 
   echo
   read -P 'Commit? (y/n) ' -n 1 reply
-  if string match -i 'y' $reply
+  if string match -q -i 'y' $reply
     GIT_AUTHOR_DATE=$ad GIT_COMMITTER_DATE=$cd git -C $repo commit $argv
   end
 end
