@@ -20,12 +20,11 @@ export GIT_EDITOR=vim
 # Neither group nor others have any perms:
 umask 077
 
-PATH="$HOME/bin:$PATH"
-PATH="/usr/local/go/bin:$PATH"
-PATH="$HOME/go/bin:$PATH"
-PATH="$HOME/.cargo/bin:$PATH"
-# LLVM (keg only, see Homebrew caveats)
-PATH="/usr/local/opt/llvm/bin:$PATH"
+PATH="$HOME/bin:$PATH"                # User bin
+PATH="/usr/local/go/bin:$PATH"        # Go standard tools
+PATH="$HOME/go/bin:$PATH"             # Go binaries
+PATH="$HOME/.cargo/bin:$PATH"         # Rust
+PATH="/usr/local/opt/llvm/bin:$PATH"  # LLVM (keg only, see Homebrew caveats)
 PATH="$HOME/dev/github.com/andrewarchi/whitespace-haskell/bin:$PATH"
 PATH="$HOME/dev/github.com/LLNL/yorick/relocate/bin:$PATH"
 export PATH

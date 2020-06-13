@@ -10,5 +10,5 @@ if not test -f ghidra_{$VERSION}_PUBLIC_$DATE.zip
   wget https://ghidra-sre.org/ghidra_{$VERSION}_PUBLIC_$DATE.zip
 end
 unzip ghidra_{$VERSION}_PUBLIC_$DATE.zip
-sudo mv ghidra_{$VERSION}_PUBLIC /usr/local/ghidra_$VERSION
-sudo ln -s /usr/local/ghidra_$VERSION/ghidraRun /usr/local/bin/ghidra
+sudo mv ghidra_{$VERSION}_PUBLIC /opt/ghidra_$VERSION
+ln -s /opt/ghidra_$VERSION/ghidraRun ~/bin/ghidra
