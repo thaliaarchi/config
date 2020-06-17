@@ -1,0 +1,31 @@
+# setup ssh
+
+# lookup IP address
+$ ip a | grep inet
+# on remote machine:
+$ ssh andrew@192.168.1.38
+# if failed:
+# on raspi:
+# check status of ssh daemon
+$ systemctl status ssh
+# temporarily enable password authentication
+$ sudo cp -p /etc/ssh/sshd_config{,.bak}
+# change "PasswordAuthentication no" to "#PasswordAuthentication yes"
+$ sudo vim /etc/ssh/sshd_config
+# restart sshd
+$ sudo systemctl restart ssh
+# on remote machine:
+$ ssh andrew@192.168.1.38
+$ logout
+$ ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_raspi
+$ ssh-copy-id -i ~/.ssh/id_raspi andrew@192.168.1.38
+$ echo "Host raspi
+	HostName 192.168.1.38
+	User andrew
+	IdentityFile ~/.ssh/id_raspi
+	IdentitiesOnly yes" >> ~/.ssh/config
+$ ssh raspi
+# on raspi:
+# disable password authentication
+$ sudo mv /etc/ssh/sshd_config{.bak,}
+$ sudo systemctl restart ssh
