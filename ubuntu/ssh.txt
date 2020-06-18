@@ -4,6 +4,7 @@
 $ ip a | grep inet
 # on remote machine:
 $ ssh andrew@192.168.1.38
+
 # if failed:
 # on raspi:
 # check status of ssh daemon
@@ -17,8 +18,14 @@ $ sudo systemctl restart ssh
 # on remote machine:
 $ ssh andrew@192.168.1.38
 $ logout
-$ ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_raspi
-$ ssh-copy-id -i ~/.ssh/id_raspi andrew@192.168.1.38
+
+Generate a key and copy it to the remote machine:
+
+```sh
+ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_raspi
+ssh-copy-id -i ~/.ssh/id_raspi andrew@192.168.1.38
+```
+
 $ echo "Host raspi
 	HostName 192.168.1.38
 	User andrew
