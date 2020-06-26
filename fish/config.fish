@@ -7,6 +7,7 @@ set GIT_EDITOR vim
 
 # Git
 alias g='git'
+alias gadd='git add'
 alias branch='git branch'
 alias checkout='git checkout'
 alias check='git checkout'
@@ -14,7 +15,9 @@ alias clone='git clone'
 alias commit='git commit'
 alias gdiff='git diff'
 alias fetch='git fetch'
+alias ginit='git init'
 alias glog='git log'
+alias merge='git merge'
 alias pull='git pull'
 alias push='git push'
 
