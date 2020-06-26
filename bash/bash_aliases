@@ -24,6 +24,7 @@ alias glog='git log'
 alias merge='git merge'
 alias pull='git pull'
 alias push='git push'
+alias gstatus='git status'
 
 # https://stackoverflow.com/questions/342969/how-do-i-get-bash-completion-to-work-with-aliases
 source "$config_dir/git-completion.bash"

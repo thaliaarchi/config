@@ -20,6 +20,7 @@ alias glog='git log'
 alias merge='git merge'
 alias pull='git pull'
 alias push='git push'
+alias gstatus='git status'
 
 alias master='git checkout master'
 alias tcommit-pacific='TZ=":America/Los_Angeles" tcommit'
