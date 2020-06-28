@@ -1,11 +1,116 @@
 # Arch Linux setup
 
-Change root password
+1. Sign into the alarm account with the default password `alarm` and
+   change its password:
 
-```sh
-su
-passwd root
-```
+    ```sh
+    ssh alarm@192.168.1.46
+    passwd
+    ```
 
+2. Switch to root with the default password `root` and change its
+   password:
 
-pacman -S sudo man git vim
+    ```sh
+    su -
+    passwd
+    ```
+
+3. Enable remote SSH sign-in for root and restart sshd:
+
+    ```sh
+    sed -i.bak 's/^#PermitRootLogin prohibit-password$/PermitRootLogin yes/g' /etc/ssh/sshd_config
+    systemctl restart sshd
+    ```
+
+4. Logout from root and alarm, then SSH directly into root:
+
+    ```sh
+    logout
+    logout
+    ssh root@192.168.1.46
+    ```
+
+5. Set the static and pretty hostname:
+
+    ```sh
+    hostnamectl set-hostname marionberryphi
+    hostnamectl set-hostname --pretty 'Marionberry Phi'
+    ```
+
+6. Rename alarm user:
+
+    ```sh
+    killall -u alarm
+    id alarm
+    usermod -l andrew alarm
+    groupmod -n andrew alarm
+    usermod -d /home/andrew -m andrew
+    usermod -c 'Andrew Archibald' andrew
+    id andrew
+    ```
+
+7. Allow the wheel group to execute any command:
+
+    ```sh
+    groups andrew
+    pacman -S sudo vim
+    EDITOR=vim visudo
+    ```
+
+    It should look like this:
+
+    ```sh
+    less /etc/sudoers
+    ...
+    ## Uncomment to allow members of the group wheel to execute any command
+    %wheel ALL=(ALL) ALL
+    ...
+    ```
+
+8. Disable SSH sign-in for root and logout:
+
+    ```sh
+    mv /etc/ssh/sshd_config{.bak,}
+    systemctl restart sshd
+    logout
+    ```
+
+9. Generate and copy an SSH key:
+
+    ```sh
+    ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_raspi
+    ssh-copy-id -i ~/.ssh/id_raspi andrew@192.168.1.46
+    ```
+
+10. Add an entry to your SSH config:
+
+    ```sh
+    echo `Host marionberryphi
+        HostName 192.168.1.38
+        User andrew
+        IdentityFile ~/.ssh/id_raspi
+        IdentitiesOnly yes` >> ~/.ssh/config
+    ```
+
+11. Sign in and set change shell to fish:
+
+    ```sh
+    ssh marionberryphi
+    sudo pacman -S fish
+    chsh -s $(which fish)
+    logout
+    ssh marionberryphi
+    ```
+
+12. Install configuration:
+
+    ```sh
+    sudo pacman -S git man wget
+    mkdir -p ~/dev/github.com/andrewarchi
+    cd ~/dev/github.com/andrewarchi
+    git clone https://github.com/andrewarchi/config
+    cd config
+    rm ~/.bashrc ~/.bash_profile
+    ./install.fish
+    ```

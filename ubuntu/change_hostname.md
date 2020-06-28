@@ -3,18 +3,19 @@
 ```sh
 hostnamectl
 sudo hostnamectl set-hostname newname
+sudo hostnamectl set-hostname --pretty "New Name"
 ```
 
-Add `127.0.0.1 newname` to hosts:
+Add the hostname to hosts:
 
 ```sh
-sudo vim /etc/hosts
+echo '127.0.0.1 newname' | sudo tee /etc/hosts
 ```
 
-In cloud-init settings, set `preserve_hostname: true`:
+In cloud-init settings, enable `preserve_hostname`:
 
 ```sh
-sudo vim /etc/cloud/cloud.cfg
+sudo sed -i.bak 's/^preserve_hostname: false$/preserve_hostname: true/g' /etc/cloud/cloud.cfg
 ```
 
 See changes:
