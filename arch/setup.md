@@ -178,7 +178,18 @@
 
     4. Login again for locale changes to take effect.
 
-16. Install other packages:
+16. Setup WiFi. (Adapted from
+    https://raspberrypi.stackexchange.com/questions/7987/wifi-configuration-on-arch-linux-arm)
+
+    ```sh
+    cd /etc/netctl
+    sudo install -m600 examples/wireless-wpa wireless-home
+    sudo vim wireless-home
+    sudo netctl start wireless-home
+    sudo netctl enable wireless-home
+    ```
+
+17. Install other packages:
 
     ```sh
     sudo pacman -S man tmux screen
