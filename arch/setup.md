@@ -31,11 +31,12 @@
     ssh root@192.168.1.46
     ```
 
-5. Set the static and pretty hostname:
+5. Set the static and pretty hostname and add the hostname to `hosts`:
 
     ```sh
     hostnamectl set-hostname marionberryphi
     hostnamectl set-hostname --pretty 'Marionberry Phi'
+    echo '127.0.0.1 marionberryphi' | sudo tee -a /etc/hosts
     ```
 
 6. Rename alarm user:
@@ -86,11 +87,11 @@
 10. Add an entry to your SSH config:
 
     ```sh
-    echo `Host marionberryphi
+    echo 'Host marionberryphi
         HostName 192.168.1.38
         User andrew
         IdentityFile ~/.ssh/id_raspi
-        IdentitiesOnly yes` >> ~/.ssh/config
+        IdentitiesOnly yes' >> ~/.ssh/config
     ```
 
 11. Sign in and set change shell to fish:
@@ -106,11 +107,46 @@
 12. Install configuration:
 
     ```sh
-    sudo pacman -S git man wget
+    sudo pacman -S git wget
     mkdir -p ~/dev/github.com/andrewarchi
     cd ~/dev/github.com/andrewarchi
     git clone https://github.com/andrewarchi/config
     cd config
     rm ~/.bashrc ~/.bash_profile
     ./install.fish
+    ```
+
+13. Set the locale.
+
+    1. Display the currently set locale and list all enabled locales:
+
+        ```sh
+        locale
+        locale -a
+        ```
+
+    2. Uncomment the desired locales in `/etc/locale.gen` and generate
+       the locales:
+
+        ```sh
+        sudo sed -i.bak -r 's/^#\s*(en_US\.UTF-8 UTF-8)/\1/' /etc/locale.gen
+        sudo sed -i -r 's/^#\s*(de_DE\.UTF-8 UTF-8)/\1/' /etc/locale.gen
+        sudo locale-gen
+        ```
+
+    3. Set the system locale and fallbacks:
+
+        ```sh
+        echo 'LANG=en_US.UTF-8
+        LANGUAGE=en_US:en:de_DE:de' | sudo tee /etc/locale.conf
+        sudo localectl set-locale LANG=en_US.UTF-8
+        sudo localectl set-locale LANGUAGE=en_US:en:de_DE:de
+        ```
+
+    4. Login again for locale changes to take effect.
+
+14. Install other packages:
+
+    ```sh
+    sudo pacman -S man tmux screen
     ```
