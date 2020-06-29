@@ -78,6 +78,16 @@ alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.
 alias bb='ssh -t schizo "ssh blackbird"'
 alias de='ssh -t schizo "ssh germany"'
 
+# Set host color based on hostname
+switch (cat /proc/sys/kernel/hostname)
+case raspi
+  set -g fish_color_host_remote red
+case blueberrye
+  set -g fish_color_host_remote blue
+case marionberryphi
+  set -g fish_color_host_remote magenta
+end
+
 # https://github.com/ungoogled-software/ungoogled-chromium-macos#setting-up-the-build-environment
 # https://github.com/pyenv/pyenv#basic-github-checkout
 command -q pyenv; and pyenv init - | source
