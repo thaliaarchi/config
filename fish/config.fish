@@ -79,7 +79,7 @@ alias bb='ssh -t schizo "ssh blackbird"'
 alias de='ssh -t schizo "ssh germany"'
 
 # Set host color based on hostname
-switch (cat /proc/sys/kernel/hostname)
+switch (hostname)
 case raspi
   set -g fish_color_host_remote red
 case blueberrye

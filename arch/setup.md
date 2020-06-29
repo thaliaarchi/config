@@ -133,7 +133,7 @@
 13. Install configuration:
 
     ```sh
-    sudo pacman -S wget
+    sudo pacman -S wget inetutils
     mkdir -p ~/dev/github.com/andrewarchi
     cd ~/dev/github.com/andrewarchi
     git clone git@github.com:andrewarchi/config
