@@ -81,11 +81,14 @@ alias de='ssh -t schizo "ssh germany"'
 # Set host color based on hostname
 switch (hostname)
 case raspi
-  set -g fish_color_host_remote red
+  set -g fish_color_host c31c4a red
+  set -g fish_color_host_remote $fish_color_host
 case blueberrye
-  set -g fish_color_host_remote blue
+  set -g fish_color_host blue
+  set -g fish_color_host_remote $fish_color_host
 case marionberryphi
-  set -g fish_color_host_remote magenta
+  set -g fish_color_host magenta
+  set -g fish_color_host_remote $fish_color_host
 end
 
 # https://github.com/ungoogled-software/ungoogled-chromium-macos#setting-up-the-build-environment
