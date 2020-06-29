@@ -116,13 +116,23 @@
     ./install.fish
     ```
 
-13. Set the locale.
+13. Set the timezone to your location:
+
+    ```sh
+    timedatectl list-timezones
+    sudo timedatectl set-timezone America/Los_Angeles
+    sudo timedatectl set-timezone America/Denver
+    sudo timedatectl set-timezone Europe/Berlin
+    ```
+
+14. Set the locale.
 
     1. Display the currently set locale and list all enabled locales:
 
         ```sh
         locale
         locale -a
+        localectl status
         ```
 
     2. Uncomment the desired locales in `/etc/locale.gen` and generate
@@ -134,18 +144,15 @@
         sudo locale-gen
         ```
 
-    3. Set the system locale and fallbacks:
+    3. Set the system locale:
 
         ```sh
-        echo 'LANG=en_US.UTF-8
-        LANGUAGE=en_US:en:de_DE:de' | sudo tee /etc/locale.conf
         sudo localectl set-locale LANG=en_US.UTF-8
-        sudo localectl set-locale LANGUAGE=en_US:en:de_DE:de
         ```
 
     4. Login again for locale changes to take effect.
 
-14. Install other packages:
+15. Install other packages:
 
     ```sh
     sudo pacman -S man tmux screen
