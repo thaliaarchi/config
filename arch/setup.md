@@ -88,10 +88,10 @@
 
     ```sh
     echo 'Host marionberryphi
-        HostName 192.168.1.38
-        User andrew
-        IdentityFile ~/.ssh/id_raspi
-        IdentitiesOnly yes' >> ~/.ssh/config
+      HostName 192.168.1.38
+      User andrew
+      IdentityFile ~/.ssh/id_raspi
+      IdentitiesOnly yes' >> ~/.ssh/config
     ```
 
 11. Sign in and set change shell to fish:
@@ -104,19 +104,45 @@
     ssh marionberryphi
     ```
 
-12. Install configuration:
+12. Setup git.
+
+    1. Configure global settings:
+
+        ```sh
+        sudo pacman -S git
+        git config --global user.email 'name@example.com'
+        git config --global user.name 'Full Name'
+        git config --global pull.rebase false  # merge (the default strategy)
+        ```
+
+    2. Generate an SSH key and add it to your SSH config:
+
+        ```sh
+        ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_github
+        echo 'Host *
+          IdentitiesOnly yes
+
+        Host github.com
+          User git
+          IdentityFile ~/.ssh/id_github' >> ~/.ssh/config
+        ```
+
+    3. Add the SSH key to your GitHub account at
+       https://github.com/settings/keys.
+
+13. Install configuration:
 
     ```sh
-    sudo pacman -S git wget
+    sudo pacman -S wget
     mkdir -p ~/dev/github.com/andrewarchi
     cd ~/dev/github.com/andrewarchi
-    git clone https://github.com/andrewarchi/config
+    git clone git@github.com:andrewarchi/config
     cd config
     rm ~/.bashrc ~/.bash_profile
     ./install.fish
     ```
 
-13. Set the timezone to your location:
+14. Set the timezone to your location:
 
     ```sh
     timedatectl list-timezones
@@ -125,7 +151,7 @@
     sudo timedatectl set-timezone Europe/Berlin
     ```
 
-14. Set the locale.
+15. Set the locale.
 
     1. Display the currently set locale and list all enabled locales:
 
@@ -152,7 +178,7 @@
 
     4. Login again for locale changes to take effect.
 
-15. Install other packages:
+16. Install other packages:
 
     ```sh
     sudo pacman -S man tmux screen

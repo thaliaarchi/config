@@ -7,7 +7,7 @@ git config --global user.name "Your Name"
 
 ## GitHub SSH key
 
-Generate an SSH key and add it to your config:
+Generate an SSH key and add it to your SSH config:
 
 ```sh
 ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_github
@@ -19,4 +19,5 @@ Host github.com
   IdentityFile ~/.ssh/id_github' >> ~/.ssh/config
 ```
 
-Add the SSH key to your account at https://github.com/settings/keys.
+Add the SSH key to your GitHub account at
+https://github.com/settings/keys.
