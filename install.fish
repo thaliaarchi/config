@@ -11,6 +11,7 @@ set config_dir (dirname ($READLINK -e (status -f)))
 function link
   set src $argv[1]
   set dest $argv[2]
+  set dest_dir (dirname $dest)
 
   if test -L $dest
     rm $dest
@@ -19,14 +20,17 @@ function link
     echo "File exists at $dest"
     return
   end
+  if ! test -d $dest_dir
+    mkdir -p $dest_dir
+  end
   ln -s $config_dir/$src $dest
 end
 
-if not test -f $config_dir/bash/git-completion.bash
+if ! test -f $config_dir/bash/git-completion.bash
   wget 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' -O $config_dir/bash/git-completion.bash
 end
 
-if test -f ~/.config/neofetch/config.conf
+if ! test -L $dest; and test -f ~/.config/neofetch/config.conf
   if neofetch --print_config | cmp -s ~/.config/neofetch/config.conf -
     rm ~/.config/neofetch/config.conf
   else

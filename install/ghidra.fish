@@ -6,7 +6,7 @@
 set VERSION 9.1.2
 set DATE 20200212
 
-if not test -f ghidra_{$VERSION}_PUBLIC_$DATE.zip
+if ! test -f ghidra_{$VERSION}_PUBLIC_$DATE.zip
   wget https://ghidra-sre.org/ghidra_{$VERSION}_PUBLIC_$DATE.zip
 end
 unzip ghidra_{$VERSION}_PUBLIC_$DATE.zip
