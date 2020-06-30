@@ -192,5 +192,5 @@
 17. Install other packages:
 
     ```sh
-    sudo pacman -S man tmux screen
+    sudo pacman -S man tmux screen jq
     ```
