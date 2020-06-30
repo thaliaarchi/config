@@ -26,9 +26,18 @@ if not test -f $config_dir/bash/git-completion.bash
   wget 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' -O $config_dir/bash/git-completion.bash
 end
 
-link fish/config.fish ~/.config/fish/config.fish
-link fish/functions ~/.config/fish/functions
-link bash/bash_profile ~/.bash_profile
-link bash/bashrc ~/.bashrc
+if test -f ~/.config/neofetch/config.conf
+  if neofetch --print_config | cmp -s ~/.config/neofetch/config.conf -
+    rm ~/.config/neofetch/config.conf
+  else
+    echo 'neofetch config is modified from default'
+  end
+end
+
 link screen/screnrc ~/.screenrc
 link tmux/tmux.conf ~/.tmux.conf
+link neofetch/config.conf ~/.config/neofetch/config.conf
+link fish/functions ~/.config/fish/functions
+link fish/config.fish ~/.config/fish/config.fish
+link bash/bashrc ~/.bashrc
+link bash/bash_profile ~/.bash_profile

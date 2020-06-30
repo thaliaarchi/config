@@ -113,3 +113,7 @@ end
 if test -e ~/.config/fish/config_local.fish
   source ~/.config/fish/config_local.fish
 end
+
+if status is-login
+  command -q neofetch; and neofetch
+end

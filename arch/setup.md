@@ -192,5 +192,5 @@
 17. Install other packages:
 
     ```sh
-    sudo pacman -S man tmux screen jq
+    sudo pacman -S man tmux screen jq screenfetch neofetch
     ```
