@@ -30,17 +30,20 @@ if ! test -f $config_dir/bash/git-completion.bash
   wget 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' -O $config_dir/bash/git-completion.bash
 end
 
-if ! test -L $dest; and test -f ~/.config/neofetch/config.conf
-  if neofetch --print_config | cmp -s ~/.config/neofetch/config.conf -
-    rm ~/.config/neofetch/config.conf
+
+set nfconf ~/.config/neofetch/config.conf
+if test -f $nfconf
+  if test -L $nfconf; or neofetch --print_config | cmp -s $nfconf -
+    rm $nfconf
   else
-    echo 'neofetch config is modified from default'
+    set v (neofetch --version | head -n1)
+    echo 'Neofetch config is modified from default or Neofetch is older than 4.0.2 ('$v')'
   end
 end
+link neofetch/config.conf $nfconf
 
 link screen/screnrc ~/.screenrc
 link tmux/tmux.conf ~/.tmux.conf
-link neofetch/config.conf ~/.config/neofetch/config.conf
 link fish/functions ~/.config/fish/functions
 link fish/config.fish ~/.config/fish/config.fish
 link bash/bashrc ~/.bashrc
