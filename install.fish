@@ -26,8 +26,8 @@ function link
   ln -s $config_dir/$src $dest
 end
 
-if ! test -f $config_dir/bash/git-completion.bash
-  wget 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' -O $config_dir/bash/git-completion.bash
+if ! test -f $config_dir/dotfiles/bash/git-completion.bash
+  wget 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' -O $config_dir/dotfiles/bash/git-completion.bash
 end
 
 
@@ -40,11 +40,11 @@ if test -f $nfconf
     echo 'Neofetch config is modified from default or Neofetch is older than 4.0.2 ('$v')'
   end
 end
-link neofetch/config.conf $nfconf
+link dotfiles/neofetch.conf $nfconf
 
-link screen/screnrc ~/.screenrc
-link tmux/tmux.conf ~/.tmux.conf
-link fish/functions ~/.config/fish/functions
-link fish/config.fish ~/.config/fish/config.fish
-link bash/bashrc ~/.bashrc
-link bash/bash_profile ~/.bash_profile
+link dotfiles/screnrc ~/.screenrc
+link dotfiles/tmux.conf ~/.tmux.conf
+link dotfiles/fish/functions ~/.config/fish/functions
+link dotfiles/fish/config.fish ~/.config/fish/config.fish
+link dotfiles/bash/bashrc ~/.bashrc
+link dotfiles/bash/bash_profile ~/.bash_profile
