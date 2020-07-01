@@ -1,0 +1,29 @@
+login with kali/kali
+passwd
+logout
+ssh-copy-id -i ~/.ssh/id_raspi blackberryi
+ssh blackberryi
+sudo apt upgrade && sudo apt update
+select yes for wireshark
+sudo apt install fish
+chsh -s $(which fish)
+logout
+login
+sudo timedatectl set-timezone America/Los_Angeles
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_github
+echo 'Host *
+  IdentitiesOnly yes
+
+Host github.com
+  User git
+  IdentityFile ~/.ssh/id_github' >> ~/.ssh/config
+mkdir -p ~/.config && cd ~/.config
+git clone git@github.com:andrewarchi/config dotfiles
+cd dotfiles
+./install.fish
+sudo apt install neofetch
+mkdir -p ~/dev/github.com/andrewarchi && cd ~/dev/github.com/andrewarchi
+ln -s ~/.config/dotfiles config
+startx
