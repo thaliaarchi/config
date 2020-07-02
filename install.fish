@@ -30,6 +30,8 @@ if ! test -f $config_dir/dotfiles/bash/git-completion.bash
   wget 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' -O $config_dir/dotfiles/bash/git-completion.bash
 end
 
+# Suppress MOTD
+! test -f ~/.hushlogin; and touch ~/.hushlogin
 
 set nfconf ~/.config/neofetch/config.conf
 if test -f $nfconf
