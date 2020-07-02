@@ -27,3 +27,14 @@ sudo apt install neofetch
 mkdir -p ~/dev/github.com/andrewarchi && cd ~/dev/github.com/andrewarchi
 ln -s ~/.config/dotfiles config
 startx
+
+
+git version
+"git version 2.27.0"
+git config --global pull.rebase false
+
+localectl
+   System Locale: n/a
+       VC Keymap: n/a
+      X11 Layout: us
+       X11 Model: pc105
