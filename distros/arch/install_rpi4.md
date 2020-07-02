@@ -1,4 +1,4 @@
-# Install Arch Linux on a Raspberry Pi 4
+# Arch Linux Installation on a Raspberry Pi 4
 
 Instructions adapted from
 https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4
