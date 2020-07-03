@@ -51,8 +51,8 @@ alias du='du -h'
 alias whence='type -a'
 
 # Directory aliases
-alias '\~'='cd ~'
-alias ..='cd ..'
+#alias '\~'='cd ~' # default
+#alias ..='cd ..'  # default
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
