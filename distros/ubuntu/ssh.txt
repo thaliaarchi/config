@@ -26,11 +26,11 @@ ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_raspi
 ssh-copy-id -i ~/.ssh/id_raspi andrew@192.168.1.38
 ```
 
-$ echo "Host raspi
+$ echo 'Host raspi
 	HostName 192.168.1.38
 	User andrew
 	IdentityFile ~/.ssh/id_raspi
-	IdentitiesOnly yes" >> ~/.ssh/config
+	IdentitiesOnly yes' >> ~/.ssh/config
 $ ssh raspi
 # on raspi:
 # disable password authentication

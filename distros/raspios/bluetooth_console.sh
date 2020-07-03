@@ -10,7 +10,7 @@ echo
 if ! command -v bluetoothctl > /dev/null 2>&1; then
   echo 'bluetoothctl must be installed. Run:'
   echo
-  echo '    sudo apt-get install bluez'
+  echo '    sudo apt install bluez'
   exit 2
 fi
 

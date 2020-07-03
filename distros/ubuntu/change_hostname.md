@@ -1,9 +1,11 @@
 # Change hostname
 
+Set the static and pretty hostname:
+
 ```sh
 hostnamectl
 sudo hostnamectl set-hostname newname
-sudo hostnamectl set-hostname --pretty "New Name"
+sudo hostnamectl set-hostname --pretty 'New Name'
 ```
 
 Add the hostname to hosts:
