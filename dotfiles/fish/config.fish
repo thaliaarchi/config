@@ -46,9 +46,9 @@ alias l='ls -CF'
 alias grep='grep --color'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias df='df -h'        # human readable figures
-alias du='du -h'        # human readable figures
-alias whence='type -a'  # where, of a sort
+alias df='df -h'
+alias du='du -h'
+alias whence='type -a'
 
 # Directory aliases
 alias '\~'='cd ~'
@@ -59,20 +59,24 @@ alias .....='cd ../../../..'
 alias dev='cd ~/dev'
 alias godev='cd ~/go/src'
 
-# Code Search
-alias csearch='csearch -n'  # show line numbers
-alias cgrep='cgrep -n'      # show line numbers
+# Update credentials on every sudo
+alias sudo='sudo -v; sudo'
 
-alias ddg='lynx https://duckduckgo.com/lite'
-alias weather='curl wttr.in'
+# Code Search, show line numbers
+command -q csearch; and alias csearch='csearch -n'
+command -q cgrep;   and alias cgrep='cgrep -n'
+
+command -q lynx; and alias ddg='lynx https://duckduckgo.com/lite'
+command -q curl; and alias weather='curl wttr.in'
 
 # rsync command for copying from an NTFS drive.
 # Permissions are not preserved; symlinks and times are preserved.
 # Attributes set to rwxr-xr-x for dirs, rw-r--r-- for files.
 # Excludes Thumbs.db and desktop.ini.
-alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
+command -q rsync; and alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
 
-alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
+# 4-column ASCII table
+command -q wspace; and alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
 
 # SSH remotes
 alias bb='ssh -t schizo "ssh blackbird"'
@@ -94,6 +98,15 @@ end
 # https://github.com/ungoogled-software/ungoogled-chromium-macos#setting-up-the-build-environment
 # https://github.com/pyenv/pyenv#basic-github-checkout
 command -q pyenv; and pyenv init - | source
+
+if uname | grep -q Darwin
+  # Homebrew Command Not Found
+  # https://github.com/Homebrew/homebrew-command-not-found
+  set COMMAND_NOT_FOUND (brew --prefix)"/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish"
+  if test -f $COMMAND_NOT_FOUND
+    source $COMMAND_NOT_FOUND
+  end
+end
 
 # /etc/profile sets 022, removing write perms to group and others.
 # Neither group nor others have any perms:

@@ -61,9 +61,9 @@ alias l='ls -CF'
 alias grep='grep --color'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias df='df -h'        # human readable figures
-alias du='du -h'        # human readable figures
-alias whence='type -a'  # where, of a sort
+alias df='df -h'
+alias du='du -h'
+alias whence='type -a'
 
 # Directory aliases
 alias ~='cd $HOME'
@@ -74,20 +74,26 @@ alias .....='cd ../../../..'
 alias dev='cd $HOME/dev'
 alias godev='cd $HOME/go/src'
 
-# Code Search
-alias csearch='csearch -n'  # show line numbers
-alias cgrep='cgrep -n'      # show line numbers
+# Update credentials on every sudo
+alias sudo='sudo -v; sudo'
 
-alias ddg='lynx https://duckduckgo.com/lite'
-alias weather='curl wttr.in'
+# Code Search, show line numbers
+command -v csearch > /dev/null 2>&1 && alias csearch='csearch -n'
+command -v cgrep > /dev/null 2>&1   && alias cgrep='cgrep -n'
+
+command -v lynx > /dev/null 2>&1 && alias ddg='lynx https://duckduckgo.com/lite'
+command -v curl > /dev/null 2>&1 && alias weather='curl wttr.in'
 
 # rsync command for copying from an NTFS drive.
 # Permissions are not preserved; symlinks and times are preserved.
 # Attributes set to rwxr-xr-x for dirs, rw-r--r-- for files.
 # Excludes Thumbs.db and desktop.ini.
-alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
+command -v rsync > /dev/null 2>&1 &&
+  alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
 
-alias ascii4='wspace $HOME/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
+# 4-column ASCII table
+command -v wspace > /dev/null 2>&1 &&
+  alias ascii4='wspace $HOME/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
 
 # SSH remotes
 alias bb='ssh -t schizo "ssh blackbird"'
