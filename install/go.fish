@@ -1,7 +1,10 @@
 #!/usr/bin/env fish
 
-if ! command -q jq
-  echo 'jq must be installed'
+for dep in jq curl wget
+  ! command -q $dep; and set missing $missing $dep
+end
+if count $missing > /dev/null
+  echo 'Required dependencies:' $missing
   exit 1
 end
 
@@ -21,17 +24,26 @@ end
 set releases (curl -sS 'https://golang.org/dl/?mode=json&include=all')
 set versions (echo $releases | jq -r '.[].version')
 
+set_color -o green
 echo 'Stable versions:'
+set_color normal
 echo $releases | jq -r '.[] | select(.stable == true) | .version' | column
+echo
+
+set_color -o red
 echo 'Unstable versions:'
+set_color normal
 echo $releases | jq -r '.[] | select(.stable == false) | .version' | column
+echo
 
 # Go GitHub release tags:
 # curl -sS -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/golang/go/git/refs/tags |
 #     jq -r 'reverse | .[] | .ref | select(test("refs/tags/go.+")) | ltrimstr("refs/tags/")'
 
 if command -q go
+  set_color -o blue
   echo 'Installed:'
+  set_color normal
   go version
 
   #set installed (go version)
