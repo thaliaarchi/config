@@ -46,6 +46,19 @@ set_color normal
 echo $releases | jq -r '.[] | select(.stable == false) | .version' | column
 echo
 
+if command -q brew
+  set versions (brew list --versions golang) # i.e. "go 1.14.2 1.14.4"
+  if test $status -eq 0
+    echo 'Homebrew versions:'
+    set brew_prefix (brew --prefix)
+    set versions (string split ' ' $versions)
+    for v in $versions[2..-1]
+      echo "go$v installed at $brew_prefix/Cellar/go/$v/bin/go"
+      eval "$brew_prefix/Cellar/go/$v/bin/go" version
+    end
+  end
+end
+
 if command -q go
   set installed (string match -r '^go version (go[^ ]+) ([^/]+)/(.+)$' (go version))
   set installed_version $installed[2]
