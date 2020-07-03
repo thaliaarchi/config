@@ -61,7 +61,7 @@ function tcommit() {
   echo "Commit date: $cd"
 
   echo
-  read -p 'Commit? (y/n) ' -n 1 -r
+  read -p 'Commit? (y/n) ' -n1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     GIT_AUTHOR_DATE="$ad" GIT_COMMITTER_DATE="$cd" git -C "$repo" commit "$@"

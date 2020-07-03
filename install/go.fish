@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-for dep in jq curl wget
+for dep in git jq curl wget
   ! command -q $dep; and set missing $missing $dep
 end
 if count $missing > /dev/null
@@ -20,9 +20,19 @@ function select_option
   end
 end
 
+function prompt_yn
+  read -P "$argv[1] (y/n) " -n1 reply
+  string match -q -i 'y' $reply
+  return $status
+end
+
 # See https://github.com/golang/website/blob/master/internal/dl/server.go
 set releases (curl -sS 'https://golang.org/dl/?mode=json&include=all')
 set versions (echo $releases | jq -r '.[].version')
+
+# Go GitHub release tags:
+# curl -sS -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/golang/go/git/refs/tags |
+#     jq -r 'reverse | .[] | .ref | select(test("refs/tags/go.+")) | ltrimstr("refs/tags/")'
 
 set_color -o green
 echo 'Stable versions:'
@@ -36,34 +46,49 @@ set_color normal
 echo $releases | jq -r '.[] | select(.stable == false) | .version' | column
 echo
 
-# Go GitHub release tags:
-# curl -sS -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/golang/go/git/refs/tags |
-#     jq -r 'reverse | .[] | .ref | select(test("refs/tags/go.+")) | ltrimstr("refs/tags/")'
-
 if command -q go
-  set_color -o blue
-  echo 'Installed:'
-  set_color normal
-  go version
+  set installed (string match -r '^go version (go[^ ]+) ([^/]+)/(.+)$' (go version))
+  set installed_version $installed[2]
+  set installed_goos $installed[3]
+  set installed_goarch $installed[4]
 
-  #set installed (go version)
-  #echo $installed
-  #set parts (string match -r '^go version (go[^ ]+) ([^/]+)/(.+)$' $installed)
-  #set local_version $parts[2]
-  #set local_goos $parts[3]
-  #set local_goarch $parts[4]
+  set GOROOT (go env GOROOT)
+  if prompt_yn "$installed_version is installed at $GOROOT. Uninstall?"
+    sudo rm $GOROOT
+    # TODO notify user to remove from PATH
+    echo
+  end
 end
 
-echo
-set dl_version (select_option 'Select version' $versions)
-echo
+if prompt_yn 'Install main version?'
+  set dl_version (select_option 'Select version' $versions)
+  echo
 
-echo 'Binaries:'
-set binaries (echo -n $releases |
-    VERSION=$dl_version jq -r '.[] | select(.version == env.VERSION) | .files | .[].filename')
-string join \n $binaries | column
+  echo 'Binaries:'
+  set binaries (echo -n $releases |
+      VERSION=$dl_version jq -r '.[] | select(.version == env.VERSION) | .files | .[].filename')
+  string join \n $binaries | column
 
-set binary (select_option 'Select binary' $releases)
+  set binary (select_option 'Select binary' $releases)
 
-echo 'Fetching binary...'
-wget -nc -q --show-progress "https://golang.org/dl/$binary"
+  echo 'Fetching binary...'
+  wget -nc -q --show-progress "https://golang.org/dl/$binary"
+  echo
+end
+
+if prompt_yn 'Install extra versions?'
+  go get -d golang.org/dl/gotip
+  set GOPATH (go env GOPATH)
+  set versions (git -C "$GOPATH[1]/src/golang.org/dl" ls-tree -d --name-only HEAD | grep '^go')
+
+  echo 'Versions:'
+  string join \n $versions | sort -Vr | column
+  echo
+
+  while true
+    set extra_version (select_option 'Select version' $versions)
+    go install golang.org/dl/$extra_version
+    eval $extra_version download
+    eval $extra_version version
+  end
+end
