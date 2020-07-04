@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 for dep in git jq curl wget
-  if ! command -q $dep
+  if ! command -sq $dep
     set -a missing $dep
   end
 end
@@ -65,7 +65,7 @@ function append_install
   end
 end
 
-if command -q go
+if command -sq go
   append_install (command -v go)
 end
 
@@ -77,7 +77,7 @@ for p in $PATH
 end
 
 # Homebrew
-if command -q brew
+if command -sq brew
   # `brew list --versions golang` is too slow.
   # Instead list versions in cellar directory.
   set brew_prefix (brew --prefix)

@@ -63,20 +63,20 @@ alias godev='cd ~/go/src'
 alias sudo='command sudo -v; command sudo'
 
 # Code Search, show line numbers
-command -q csearch; and alias csearch='csearch -n'
-command -q cgrep;   and alias cgrep='cgrep -n'
+command -sq csearch; and alias csearch='csearch -n'
+command -sq cgrep;   and alias cgrep='cgrep -n'
 
-command -q lynx; and alias ddg='lynx https://duckduckgo.com/lite'
-command -q curl; and alias weather='curl wttr.in'
+command -sq lynx; and alias ddg='lynx https://duckduckgo.com/lite'
+command -sq curl; and alias weather='curl wttr.in'
 
 # rsync command for copying from an NTFS drive.
 # Permissions are not preserved; symlinks and times are preserved.
 # Attributes set to rwxr-xr-x for dirs, rw-r--r-- for files.
 # Excludes Thumbs.db and desktop.ini.
-command -q rsync; and alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
+command -sq rsync; and alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
 
 # 4-column ASCII table
-command -q wspace; and alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
+command -sq wspace; and alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
 
 # SSH remotes
 alias bb='ssh -t schizo "ssh blackbird"'
@@ -97,7 +97,7 @@ end
 
 # https://github.com/ungoogled-software/ungoogled-chromium-macos#setting-up-the-build-environment
 # https://github.com/pyenv/pyenv#basic-github-checkout
-command -q pyenv; and pyenv init - | source
+command -sq pyenv; and pyenv init - | source
 
 if uname | grep -q Darwin
   # Homebrew Command Not Found
@@ -131,5 +131,5 @@ if test -e ~/.config/fish/config_local.fish
 end
 
 if status is-login
-  command -q neofetch; and neofetch
+  command -sq neofetch; and neofetch
 end
