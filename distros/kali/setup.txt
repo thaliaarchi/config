@@ -38,3 +38,9 @@ localectl
        VC Keymap: n/a
       X11 Layout: us
        X11 Model: pc105
+
+
+hostnamectl set-hostname blackberryi
+hostnamectl set-hostname --pretty 'Blackberry i'
+echo '127.0.0.1 blackberryi' | sudo tee -a /etc/hosts
+sudo sed -i'' -r 's/^(127.0.0.1\s+)kali(\s+localhost)/\1blackberryi\2/' /etc/hosts
