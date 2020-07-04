@@ -43,7 +43,7 @@ end
 function file_default
   set dest $argv[1]
   set default $argv[2]
-  test -f "$dest"; and cmp -s -- $default $dest
+  test -f "$dest" && cmp -s -- $default $dest
   set cmp $status
   if test $cmp -ne 0
     echo "File $dest is modified from default at $default" >&2
@@ -62,15 +62,15 @@ function neofetch_default
   return $cmp
 end
 
-test -z "$XDG_CONFIG_HOME"; and set XDG_CONFIG_HOME ~/.config
+test -z "$XDG_CONFIG_HOME" && set XDG_CONFIG_HOME ~/.config
 
 # Suppress MOTD
-! test -f ~/.hushlogin; and touch ~/.hushlogin
+! test -f ~/.hushlogin && touch ~/.hushlogin
 
 link dotfiles/neofetch.conf $XDG_CONFIG_HOME/neofetch/config.conf neofetch_default
 link dotfiles/shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
 link dotfiles/screenrc ~/.screenrc
-link dotfiles/tmux.conf ~/.config/tmux/tmux.conf # tmux >3.1 (does not check $XDG_CONFIG_HOME)
+link dotfiles/tmux.conf ~/.config/tmux/tmux.conf # tmux >=3.1 (does not check $XDG_CONFIG_HOME)
 #link dotfiles/tmux.conf ~/.tmux.conf # tmux <3.1
 link dotfiles/fish/functions $XDG_CONFIG_HOME/fish/functions
 link dotfiles/fish/config.fish $XDG_CONFIG_HOME/fish/config.fish

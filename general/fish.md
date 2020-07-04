@@ -21,7 +21,7 @@ sudo apt install fish
 sudo apt install build-essential cmake ncurses-dev libncurses5-dev libpcre2-dev gettext -y
 mkdir -p ~/dev/github.com/fish-shell/fish-shell
 cd ~/dev/github.com/fish-shell/fish-shell
-git clone https://github.com/fish-shell/fish-shell
+git clone https://github.com/fish-shell/fish-shell .
 mkdir build; cd build
 cmake ..
 make

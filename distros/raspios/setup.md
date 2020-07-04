@@ -3,5 +3,5 @@
 ```sh
 passwd
 sudo raspi-config
-sudo apt install jq
+sudo apt install jq vim
 ```
