@@ -68,6 +68,7 @@ test -z "$XDG_CONFIG_HOME"; and set XDG_CONFIG_HOME ~/.config
 ! test -f ~/.hushlogin; and touch ~/.hushlogin
 
 link dotfiles/neofetch.conf $XDG_CONFIG_HOME/neofetch/config.conf neofetch_default
+link dotfiles/shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
 link dotfiles/screenrc ~/.screenrc
 link dotfiles/tmux.conf ~/.config/tmux/tmux.conf # tmux >3.1 (does not check $XDG_CONFIG_HOME)
 #link dotfiles/tmux.conf ~/.tmux.conf # tmux <3.1

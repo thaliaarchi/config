@@ -1,0 +1,2 @@
+# Can't follow non-constant source
+disable=SC1090
