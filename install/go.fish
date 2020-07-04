@@ -8,9 +8,6 @@ if count $missing > /dev/null
   exit 1
 end
 
-set installs
-set --path gopaths
-
 function select_option
   set prompt $argv[1]
   set options $argv[2..-1]
@@ -27,24 +24,6 @@ function prompt_yn
   read -P "$argv[1] (y/n) " -n1 reply
   string match -q -i 'y' $reply
   return $status
-end
-
-function register_install
-  set GOROOT $argv[1]
-  set go $GOROOT/bin/go
-  if ! test -x $go
-    echo "Not executable: $go" >&2
-    return
-  end
-  set GOPATH ($go env GOPATH)
-  set goversion ($go version)
-  echo (string replace -r '^go version ' '' $goversion) $GOROOT
-  set -a installs
-  for p in $GOPATH
-    if ! contains -- $p $gopaths
-      set -a gopaths $p
-    end
-  end
 end
 
 # See https://github.com/golang/website/blob/master/internal/dl/server.go
@@ -70,24 +49,59 @@ echo
 set_color -o blue
 echo 'Installed versions:'
 set_color normal
+set installs
 
-if command -q go
-  register_install (go env GOROOT)
+function append_install
+  set go $argv[1]
+  if ! test -x $go
+    echo "Not executable: $go" >&2
+    return
+  end
+  set GOROOT ($go env GOROOT)
+  if ! contains -- $GOROOT $installs
+    set -a installs $GOROOT
+  end
 end
 
+if command -q go
+  append_install (command -v go)
+end
+
+# Installs in PATH
+for p in $PATH
+  if test -f $p/go -a -x $p/go
+    append_install $p/go
+  end
+end
+
+# Homebrew
 if command -q brew
   # `brew list --versions golang` is too slow.
   # Instead list versions in cellar directory.
   set brew_prefix (brew --prefix)
   for v in (command ls $brew_prefix/Cellar/go 2>/dev/null)
-    register_install "$brew_prefix/Cellar/go/$v"
+    append_install "$brew_prefix/Cellar/go/$v/bin/go"
   end
 end
 
-for goversion in (cd ~/sdk 2>/dev/null && command ls | grep '^go')
-  register_install ~/sdk/$goversion
+# Extra versions: https://golang.org/doc/install#extra_versions
+for goversion in (command ls ~/sdk 2>/dev/null | grep '^go')
+  append_install ~/sdk/$goversion/bin/go
 end
 
+set --path gopaths
+for GOROOT in $installs
+  set go $GOROOT/bin/go
+  set GOPATH ($go env GOPATH)
+  set goversion ($go version)
+  echo (string replace -r '^go version ' '' $goversion) $GOROOT
+  set -a installs
+  for p in $GOPATH
+    if ! contains -- $p $gopaths
+      set -a gopaths $p
+    end
+  end
+end
 echo
 
 if prompt_yn 'Install main version?'
