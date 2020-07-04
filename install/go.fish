@@ -4,9 +4,12 @@ for dep in git jq curl wget
   ! command -q $dep; and set missing $missing $dep
 end
 if count $missing > /dev/null
-  echo 'Required dependencies:' $missing
+  echo "Required dependencies: $missing" >&2
   exit 1
 end
+
+set installs
+set --path gopaths
 
 function select_option
   set prompt $argv[1]
@@ -24,6 +27,24 @@ function prompt_yn
   read -P "$argv[1] (y/n) " -n1 reply
   string match -q -i 'y' $reply
   return $status
+end
+
+function register_install
+  set GOROOT $argv[1]
+  set go $GOROOT/bin/go
+  if ! test -x $go
+    echo "Not executable: $go" >&2
+    return
+  end
+  set GOPATH ($go env GOPATH)
+  set goversion ($go version)
+  echo (string replace -r '^go version ' '' $goversion) $GOROOT
+  set -a installs
+  for p in $GOPATH
+    if ! contains -- $p $gopaths
+      set -a gopaths $p
+    end
+  end
 end
 
 # See https://github.com/golang/website/blob/master/internal/dl/server.go
@@ -46,32 +67,28 @@ set_color normal
 echo $releases | jq -r '.[] | select(.stable == false) | .version' | column
 echo
 
-if command -q brew
-  set versions (brew list --versions golang) # i.e. "go 1.14.2 1.14.4"
-  if test $status -eq 0
-    echo 'Homebrew versions:'
-    set brew_prefix (brew --prefix)
-    set versions (string split ' ' $versions)
-    for v in $versions[2..-1]
-      echo "go$v installed at $brew_prefix/Cellar/go/$v/bin/go"
-      eval "$brew_prefix/Cellar/go/$v/bin/go" version
-    end
-  end
-end
+set_color -o blue
+echo 'Installed versions:'
+set_color normal
 
 if command -q go
-  set installed (string match -r '^go version (go[^ ]+) ([^/]+)/(.+)$' (go version))
-  set installed_version $installed[2]
-  set installed_goos $installed[3]
-  set installed_goarch $installed[4]
+  register_install (go env GOROOT)
+end
 
-  set GOROOT (go env GOROOT)
-  if prompt_yn "$installed_version is installed at $GOROOT. Uninstall?"
-    sudo rm $GOROOT
-    # TODO notify user to remove from PATH
-    echo
+if command -q brew
+  # `brew list --versions golang` is too slow.
+  # Instead list versions in cellar directory.
+  set brew_prefix (brew --prefix)
+  for v in (command ls $brew_prefix/Cellar/go 2>/dev/null)
+    register_install "$brew_prefix/Cellar/go/$v"
   end
 end
+
+for goversion in (cd ~/sdk 2>/dev/null && command ls | grep '^go')
+  register_install ~/sdk/$goversion
+end
+
+echo
 
 if prompt_yn 'Install main version?'
   set dl_version (select_option 'Select version' $versions)
