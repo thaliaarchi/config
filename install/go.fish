@@ -1,7 +1,9 @@
 #!/usr/bin/env fish
 
 for dep in git jq curl wget
-  ! command -q $dep; and set missing $missing $dep
+  if ! command -q $dep
+    set -a missing $dep
+  end
 end
 if count $missing > /dev/null
   echo "Required dependencies: $missing" >&2
@@ -92,10 +94,10 @@ end
 set --path gopaths
 for GOROOT in $installs
   set go $GOROOT/bin/go
-  set GOPATH ($go env GOPATH)
   set goversion ($go version)
-  echo (string replace -r '^go version ' '' $goversion) $GOROOT
+  echo (string replace -r '^go version ' '' $goversion)'  '$GOROOT
   set -a installs
+  set GOPATH ($go env GOPATH)
   for p in $GOPATH
     if ! contains -- $p $gopaths
       set -a gopaths $p
@@ -130,9 +132,9 @@ if prompt_yn 'Install extra versions?'
   echo
 
   while true
-    set extra_version (select_option 'Select version' $versions)
-    go install golang.org/dl/$extra_version
-    eval $extra_version download
-    eval $extra_version version
+    set go (select_option 'Select version' $versions)
+    go install golang.org/dl/$go
+    eval $go download
+    eval $go version
   end
 end
