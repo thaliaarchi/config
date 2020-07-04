@@ -80,8 +80,8 @@
 9. Generate and copy an SSH key:
 
     ```sh
-    ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_raspi
-    ssh-copy-id -i ~/.ssh/id_raspi andrew@192.168.1.46
+    ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/raspi_id_rsa
+    ssh-copy-id -i ~/.ssh/raspi_id_rsa andrew@192.168.1.46
     ```
 
 10. Add an entry to your SSH config:
@@ -90,7 +90,7 @@
     echo 'Host marionberryphi
       HostName 192.168.1.38
       User andrew
-      IdentityFile ~/.ssh/id_raspi
+      IdentityFile ~/.ssh/raspi_id_rsa
       IdentitiesOnly yes' >> ~/.ssh/config
     ```
 
@@ -118,13 +118,13 @@
     2. Generate an SSH key and add it to your SSH config:
 
         ```sh
-        ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_github
+        ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/github_id_rsa
         echo 'Host *
           IdentitiesOnly yes
 
         Host github.com
           User git
-          IdentityFile ~/.ssh/id_github' >> ~/.ssh/config
+          IdentityFile ~/.ssh/github_id_rsa' >> ~/.ssh/config
         ```
 
     3. Add the SSH key to your GitHub account at

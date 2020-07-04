@@ -22,14 +22,14 @@ $ logout
 Generate a key and copy it to the remote machine:
 
 ```sh
-ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/id_raspi
-ssh-copy-id -i ~/.ssh/id_raspi andrew@192.168.1.38
+ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/raspi_id_rsa
+ssh-copy-id -i ~/.ssh/raspi_id_rsa andrew@192.168.1.38
 ```
 
 $ echo 'Host raspi
 	HostName 192.168.1.38
 	User andrew
-	IdentityFile ~/.ssh/id_raspi
+	IdentityFile ~/.ssh/raspi_id_rsa
 	IdentitiesOnly yes' >> ~/.ssh/config
 $ ssh raspi
 # on raspi:
