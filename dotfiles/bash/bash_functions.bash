@@ -1,5 +1,3 @@
-#!/bin/bash
-
 clonedev() {
   url="$1"
   path="${url#https://}"

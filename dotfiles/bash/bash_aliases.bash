@@ -1,5 +1,3 @@
-#!/bin/bash
-
 READLINK=readlink
 if uname | grep -q Darwin; then
   READLINK=greadlink

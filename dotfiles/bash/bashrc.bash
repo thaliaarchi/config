@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # If not running interactively, don't do anything
 [[ "$-" != *i* ]] && return
 
@@ -9,8 +7,8 @@ if uname | grep -q Darwin; then
 fi
 config_dir="$(dirname "$($READLINK -e "${BASH_SOURCE[0]}")")"
 
-source "$config_dir/bash_aliases"
-source "$config_dir/bash_functions"
+source "$config_dir/bash_aliases.bash"
+source "$config_dir/bash_functions.bash"
 
 export EMAIL=andrew@aarchibald.com
 export EDITOR=vim
