@@ -23,21 +23,28 @@ mkdir -p ~/.config && cd ~/.config
 git clone git@github.com:andrewarchi/config dotfiles
 cd dotfiles
 ./install.fish
-sudo apt install neofetch
+sudo apt install neofetch screenfetch
 mkdir -p ~/dev/github.com/andrewarchi && cd ~/dev/github.com/andrewarchi
 ln -s ~/.config/dotfiles config
 startx
 
 
 git version
-"git version 2.27.0"
+  git version 2.27.0
 git config --global pull.rebase false
 
-localectl
-   System Locale: n/a
-       VC Keymap: n/a
-      X11 Layout: us
-       X11 Model: pc105
+localectl status
+locale
+locale -a
+sudo sed -i.bak -r 's/^#\s*(en_US\.UTF-8 UTF-8)/\1/' /etc/locale.gen
+sudo sed -i -r 's/^#\s*(de_DE\.UTF-8 UTF-8)/\1/' /etc/locale.gen
+sudo locale-gen
+sudo localectl set-locale LANG=en_US.UTF-8
+
+
+sudo apt-get install golang aptitude
+go version
+  go version go1.14.4 linux/arm64
 
 
 hostnamectl set-hostname blackberryi
