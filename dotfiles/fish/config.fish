@@ -60,7 +60,7 @@ alias dev='cd ~/dev'
 alias godev='cd ~/go/src'
 
 # Update credentials on every sudo
-alias sudo='sudo -v; sudo'
+alias sudo='command sudo -v; command sudo'
 
 # Code Search, show line numbers
 command -q csearch; and alias csearch='csearch -n'
