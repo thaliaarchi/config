@@ -107,12 +107,13 @@ end
 echo
 
 if prompt_yn 'Install main version?'
-  set dl_version (select_option 'Select version' $versions)
+  set goversion (select_option 'Select version' $versions)
   echo
 
   echo 'Binaries:'
   set binaries (echo -n $releases |
-      VERSION=$dl_version jq -r '.[] | select(.version == env.VERSION) | .files | .[].filename')
+      jq --arg goversion $goversion \
+         -r '.[] | select(.version == $goversion) | .files | .[].filename')
   string join \n $binaries | column
 
   set binary (select_option 'Select binary' $releases)
