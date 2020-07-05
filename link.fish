@@ -2,34 +2,50 @@
 
 # Install links to config
 
-set config_dir (dirname (realpath (status -f)))
+set config_dir (dirname (realpath (status -f)))/dotfiles
 
 # Symlink config to destination and replace existing
 # when unchanged from default.
-function link
-  set src $argv[1]
+function link_config
+  set src $config_dir/$argv[1]
   set dest $argv[2]
-  if test -L $dest
-    if test (readlink $dest) != $config_dir/$src
-      ln -sf -- $config_dir/$src $dest
+
+  if test -L "$dest"
+    # Preserve unchanged symlinks
+    if test (readlink $dest) != "$src"
+      ln -sf -- $src $dest
     end
     return
   end
-  if test -e $dest
-    echo "File already exists at $dest" >&2
-    return
+
+  if test -d $src -a -d $dest
+    if test (count (command ls -A $dest)) != 0
+      echo "Files in directory $dest" >&2
+      return 1
+    end
+    rm -r $dest
   end
-  set dest_dir (dirname $dest)
-  if ! test -d "$dest_dir"
-    mkdir -p -- $dest_dir
+
+  if test -e "$dest"
+    echo "File or directory already exists at $dest" >&2
+    return 1
   end
-  ln -s -- $config_dir/$src $dest
+
+  mkdir -p -- (dirname $dest)
+  ln -s -- $src $dest
+end
+
+function fetch_file
+  set url $argv[1]
+  set dest $config_dir/$argv[2]
+  mkdir -p -- (dirname $dest)
+  test -f "$dest" || wget $url -O $dest
 end
 
 function remove_default
   set dest $argv[1]
   set default $argv[2]
-  if test -f $dest -a ! -L $dest
+  if test -f "$dest" -a ! -L "$dest"
     if cmp -s -- $default $dest
       rm $dest
     else
@@ -40,7 +56,7 @@ end
 
 function remove_default_neofetch
   set dest $argv[1]
-  if test -f $dest -a ! -L $dest
+  if test -f "$dest" -a ! -L (dirname $dest)
     if neofetch --print_config 2>/dev/null | cmp -s -- $dest -
       rm $dest
     else if after_version (neofetch --version | head -n1) '4.0.2'
@@ -57,11 +73,9 @@ function after_version
   return $status
 end
 
-if ! test -f $config_dir/dotfiles/bash/git-completion.bash
-  wget 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' -O $config_dir/dotfiles/bash/git-completion.bash
-end
-
 test -z "$XDG_CONFIG_HOME" && set XDG_CONFIG_HOME ~/.config
+
+fetch_file 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash' bash/completions/git-completion.bash
 
 remove_default ~/.bashrc /etc/skel/.bashrc
 remove_default ~/.bash_profile /etc/skel/.bash_profile
@@ -70,23 +84,20 @@ remove_default ~/.screenrc /etc/skel/.screenrc
 remove_default_neofetch $XDG_CONFIG_HOME/neofetch/config.conf
 
 # Files in $HOME
-link dotfiles/bash/bashrc.bash ~/.bashrc
-link dotfiles/bash/bash_profile.bash ~/.bash_profile
-link dotfiles/bash/bash_logout.bash ~/.bash_logout
-link dotfiles/screenrc ~/.screenrc
+link_config bash/bashrc.bash ~/.bashrc
+link_config bash/bash_profile.bash ~/.bash_profile
+link_config bash/bash_logout.bash ~/.bash_logout
+link_config screenrc ~/.screenrc
 test -f ~/.hushlogin || touch ~/.hushlogin # Suppress MOTD
 # Directories in $XDG_CONFIG_HOME
-link dotfiles/fish $XDG_CONFIG_HOME/fish
-link dotfiles/neofetch $XDG_CONFIG_HOME/neofetch
+link_config fish $XDG_CONFIG_HOME/fish
+link_config neofetch $XDG_CONFIG_HOME/neofetch
 # Files in $XDG_CONFIG_HOME
-link dotfiles/shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
-link dotfiles/karabiner $XDG_CONFIG_HOME/karabiner
+link_config shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
+link_config karabiner $XDG_CONFIG_HOME/karabiner
 
 if after_version (tmux -V) 'tmux 3.1'
-  link dotfiles/tmux ~/.config/tmux # tmux does not check $XDG_CONFIG_HOME
+  link_config tmux ~/.config/tmux # tmux does not check $XDG_CONFIG_HOME
 else
-  link dotfiles/tmux/tmux.conf ~/.tmux.conf
+  link_config tmux/tmux.conf ~/.tmux.conf
 end
-
-link dotfiles/fish/config.fish $XDG_CONFIG_HOME/fish/config.fish
-link dotfiles/fish/functions $XDG_CONFIG_HOME/fish/functions
