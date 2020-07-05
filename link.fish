@@ -90,7 +90,6 @@ link_config bash/bash_logout.bash ~/.bash_logout
 link_config screenrc ~/.screenrc
 test -f ~/.hushlogin || touch ~/.hushlogin # Suppress MOTD
 # Directories in $XDG_CONFIG_HOME
-link_config fish $XDG_CONFIG_HOME/fish
 link_config neofetch $XDG_CONFIG_HOME/neofetch
 # Files in $XDG_CONFIG_HOME
 link_config shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
@@ -101,3 +100,10 @@ if after_version (tmux -V) 'tmux 3.1'
 else
   link_config tmux/tmux.conf ~/.tmux.conf
 end
+
+if ! test -L $XDG_CONFIG_HOME/fish
+  for vars in $XDG_CONFIG_HOME/fish/fish_variables*
+    mv -- $vars $config_dir/fish/
+  end
+end
+link_config fish $XDG_CONFIG_HOME/fish
