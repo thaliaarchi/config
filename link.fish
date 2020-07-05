@@ -107,7 +107,11 @@ end
 
 if ! test -L $XDG_CONFIG_HOME/fish
   for vars in $XDG_CONFIG_HOME/fish/fish_variables*
-    mv -- $vars $config_dir/fish/
+    if test -e $config_dir/fish/(basename $vars)
+      echo (basename $vars) "exists in both $XDG_CONFIG_HOME/fish and dotfiles" >&2
+    else
+      mv -- $vars $config_dir/fish/
+    end
   end
 end
 link_config fish $XDG_CONFIG_HOME/fish
