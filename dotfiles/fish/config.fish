@@ -102,7 +102,7 @@ command -q pyenv && pyenv init - | source
 if uname | grep -q Darwin
   # Homebrew Command Not Found
   # https://github.com/Homebrew/homebrew-command-not-found
-  set COMMAND_NOT_FOUND (brew --prefix)"/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish"
+  set COMMAND_NOT_FOUND (brew --prefix)'/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish'
   if test -f $COMMAND_NOT_FOUND
     source $COMMAND_NOT_FOUND
   end
@@ -112,7 +112,7 @@ end
 # Neither group nor others have any perms:
 umask 077
 
-set -a CDPATH . ~/dev/github.com/andrewarchi ~/go/src/github.com/andrewarchi
+# set -a CDPATH . ~/dev/github.com/andrewarchi ~/go/src/github.com/andrewarchi
 
 for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin /usr/local/opt/llvm/bin ~/dev/github.com/andrewarchi/whitespace-haskell/bin ~/dev/github.com/LLNL/yorick/relocate/bin
   if test -d $dir

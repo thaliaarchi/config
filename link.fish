@@ -96,8 +96,12 @@ link_config shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
 link_config karabiner $XDG_CONFIG_HOME/karabiner
 
 if after_version (tmux -V) 'tmux 3.1'
+  test -f ~/.tmux.conf
+  and echo 'Config at ~/.tmux.conf shadows ~/.config/tmux/tmux.conf' >&2
   link_config tmux ~/.config/tmux # tmux does not check $XDG_CONFIG_HOME
 else
+  test -f ~/.config/tmux/tmux.conf
+  and echo 'Config at ~/.config/tmux/tmux.conf is ignored by' (tmux -V) >&2
   link_config tmux/tmux.conf ~/.tmux.conf
 end
 
