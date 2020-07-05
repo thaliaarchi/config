@@ -79,6 +79,7 @@ link dotfiles/bash/bash_logout.bash ~/.bash_logout
 link dotfiles/screenrc ~/.screenrc
 link dotfiles/neofetch/config.conf $XDG_CONFIG_HOME/neofetch/config.conf
 link dotfiles/shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
+link dotfiles/karabiner $XDG_CONFIG_HOME/karabiner
 ! test -f ~/.hushlogin && touch ~/.hushlogin # Suppress MOTD
 
 if after_version (tmux -V) 'tmux 3.1'
