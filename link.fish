@@ -2,22 +2,18 @@
 
 # Install links to config
 
-set READLINK readlink
-if uname | grep -q Darwin
-  set READLINK greadlink
-end
-set config_dir (dirname ($READLINK -e (status -f)))
+set config_dir (dirname (realpath (status -f)))
 
 # Symlink config to destination and replace existing
 # when unchanged from default.
 function link
   set src $argv[1]
   set dest $argv[2]
-  set compare_func $argv[3]
-  set compare_args $argv[4..-1]
-
   if test -L $dest
-    rm $dest
+    if test (readlink $dest) != $config_dir/$src
+      ln -sf -- $config_dir/$src $dest
+    end
+    return
   end
   if test -e $dest
     echo "File already exists at $dest" >&2
@@ -73,17 +69,21 @@ remove_default ~/.bash_logout /etc/skel/.bash_logout
 remove_default ~/.screenrc /etc/skel/.screenrc
 remove_default_neofetch $XDG_CONFIG_HOME/neofetch/config.conf
 
+# Files in $HOME
 link dotfiles/bash/bashrc.bash ~/.bashrc
 link dotfiles/bash/bash_profile.bash ~/.bash_profile
 link dotfiles/bash/bash_logout.bash ~/.bash_logout
 link dotfiles/screenrc ~/.screenrc
-link dotfiles/neofetch/config.conf $XDG_CONFIG_HOME/neofetch/config.conf
+test -f ~/.hushlogin || touch ~/.hushlogin # Suppress MOTD
+# Directories in $XDG_CONFIG_HOME
+link dotfiles/fish $XDG_CONFIG_HOME/fish
+link dotfiles/neofetch $XDG_CONFIG_HOME/neofetch
+# Files in $XDG_CONFIG_HOME
 link dotfiles/shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
 link dotfiles/karabiner $XDG_CONFIG_HOME/karabiner
-! test -f ~/.hushlogin && touch ~/.hushlogin # Suppress MOTD
 
 if after_version (tmux -V) 'tmux 3.1'
-  link dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf # not $XDG_CONFIG_HOME
+  link dotfiles/tmux ~/.config/tmux # tmux does not check $XDG_CONFIG_HOME
 else
   link dotfiles/tmux/tmux.conf ~/.tmux.conf
 end

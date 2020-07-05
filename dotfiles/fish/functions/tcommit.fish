@@ -1,3 +1,13 @@
+function coreutils_date
+  set date date
+  if command -q strings
+    strings (command -s date) | grep -q 'GNU coreutils' || set date gdate
+  else if uname | grep -q Darwin
+    set date gdate # brew install coreutils
+  end
+  echo $date
+end
+
 function tcommit --description='Git commit at file modification time' --wraps='git commit'
   set repo (git rev-parse --show-toplevel)
   set staged_files (git -C $repo diff --name-only --staged --diff-filter=d)
@@ -7,20 +17,15 @@ function tcommit --description='Git commit at file modification time' --wraps='g
     return 1
   end
 
-  set DATE date
-  if uname | grep -q Darwin
-    # brew install coreutils
-    set DATE gdate
-  end
-
+  set date (coreutils_date)
   set max_nanoseconds 0
   set max_date ''
 
   for file in $staged_files
-    set nanoseconds ($DATE -r $repo/$file +'%s%N')
+    set nanoseconds ($date -r $repo/$file +'%s%N')
     if test $nanoseconds -gt $max_nanoseconds
       set max_nanoseconds $nanoseconds
-      set max_date ($DATE -r $repo/$file +'%Y-%m-%d %T.%N %z')
+      set max_date ($date -r $repo/$file +'%Y-%m-%d %T.%N %z')
     end
   end
 

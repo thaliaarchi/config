@@ -112,6 +112,8 @@ end
 # Neither group nor others have any perms:
 umask 077
 
+set -a CDPATH ~/dev/github.com/andrewarchi ~/go/src/github.com/andrewarchi
+
 for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin /usr/local/opt/llvm/bin ~/dev/github.com/andrewarchi/whitespace-haskell/bin ~/dev/github.com/LLNL/yorick/relocate/bin
   if test -d $dir
     set PATH $dir $PATH
