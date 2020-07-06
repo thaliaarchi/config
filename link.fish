@@ -4,7 +4,7 @@
 
 set dotfiles_dir (dirname (realpath (status -f)))/dotfiles
 
-source $dotfiles_dir/fish/functions/prettypath.fish
+functions -q prettypath || source $dotfiles_dir/fish/functions/prettypath.fish
 
 # Symlink config to destination and replace existing
 # when unchanged from default.
@@ -20,7 +20,7 @@ function link_config -a src dest
   end
 
   if test -d $src -a -d $dest
-    if test (count (command ls -A $dest)) != 0
+    if count (command ls -A $dest) > /dev/null
       echo "Files in directory" (prettypath $dest) >&2
       return 1
     end

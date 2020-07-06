@@ -9,7 +9,7 @@ function goversion -d 'Manage Go versions'
     exit 1
   end
 
-  function select_option -a prompt
+  function __select_option -a prompt
     set options $argv[2..-1]
     while true
       read -P "$prompt: " val
@@ -20,7 +20,7 @@ function goversion -d 'Manage Go versions'
     end
   end
 
-  function prompt_yn -a prompt
+  function __prompt_yn -a prompt
     read -P "$prompt (y/n) " -n1 reply
     string match -q -i 'y' $reply
     return $status
@@ -92,7 +92,7 @@ function goversion -d 'Manage Go versions'
   end
   echo
 
-  set goversion (select_option 'Select version' $versions)
+  set goversion (__select_option 'Select version' $versions)
   echo
 
   echo 'Binaries:'
@@ -101,13 +101,13 @@ function goversion -d 'Manage Go versions'
         -r '.[] | select(.version == $goversion) | .files | .[].filename')
   string collect $binaries | column
 
-  set binary (select_option 'Select binary' $binaries)
+  set binary (__select_option 'Select binary' $binaries)
 
   echo 'Fetching binary...'
   wget -nc -q --show-progress "https://golang.org/dl/$binary"
   echo
 
-  if prompt_yn 'Install extra versions?'
+  if __prompt_yn 'Install extra versions?'
     go get -d golang.org/dl/gotip
     set GOPATH (go env GOPATH)
     set versions (git -C "$GOPATH[1]/src/golang.org/dl" ls-tree -d --name-only HEAD | grep '^go')
@@ -117,13 +117,13 @@ function goversion -d 'Manage Go versions'
     echo
 
     while true
-      set go (select_option 'Select version' $versions)
+      set go (__select_option 'Select version' $versions)
       go install golang.org/dl/$go
       eval $go download
       eval $go version
     end
   end
 
-  functions --erase select_option
-  functions --erase prompt_yn
+  functions --erase __select_option
+  functions --erase __prompt_yn
 end
