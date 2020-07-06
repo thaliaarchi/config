@@ -34,4 +34,5 @@ function config_vars
     set -U fish_color_host normal
     set -U fish_color_host_remote yellow
   end
+  return 0
 end

@@ -1,6 +1,6 @@
-function github-new-repo --description="Create a new GitHub repository"
+function github_new_repo --description="Create a new GitHub repository"
   argparse --min-args=1 --max-args=1 'h/help' 'd/desc=' 'o/org=' 'p/private' -- $argv
-  or return $status
+  or return
 
   if test -n "$_flag_help"
     echo 'Create a new GitHub repository'

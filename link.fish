@@ -70,7 +70,6 @@ function after_version
   set min $argv[2]
   set versions (string collect $current $min | sort -V)
   test "$versions[1]" = "$min"
-  return $status
 end
 
 test -z "$XDG_CONFIG_HOME" && set XDG_CONFIG_HOME ~/.config
