@@ -1,14 +1,14 @@
 function __goversion_query_release_json -d 'Query Go releases as JSON'
   curl -sS 'https://golang.org/dl/?mode=json&include=all' | string collect
 end
-function __goversion_filter_versions -d 'Extract versions from releases'
+function __goversion_versions -d 'Extract versions from releases'
   jq -r '.[].version'
 end
-function __goversion_filter_versions_stable -a stable -d 'Extract versions with given stability from releases'
+function __goversion_versions_stable -a stable -d 'Extract versions with given stability from releases'
   jq -r ".[] | select(.stable == $stable) | .version"
 end
-function __goversion_filter_version_binaries -a goversion -d 'Extract list of binaries for version from releases'
-  jq --arg goversion $goversion \
+function __goversion_version_binaries -a goversion -d 'Extract list of binaries for version from releases'
+  jq --arg goversion "$goversion" \
      -r '.[] | select(.version == $goversion) | .files | .[].filename'
 end
 
@@ -53,7 +53,7 @@ end
 
 function __goversion_tags -d 'Query GitHub release tags'
   curl -sS -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/golang/go/git/refs/tags |
-      jq -r 'reverse | .[] | .ref | ltrimstr("refs/tags/")'
+      jq -r 'reverse | .[] | .ref | select(test("refs/tags/go.+")) | ltrimstr("refs/tags/")'
 end
 
 function __goversion_installed_goroots -d 'List paths to installed Go versions'
@@ -84,7 +84,7 @@ function __goversion_select_option -a prompt
   set options $argv[2..-1]
   while true
     read -P "$prompt: " val
-    if contains -- $val $options
+    if contains -- "$val" $options
       echo $val
       return
     end
@@ -97,11 +97,20 @@ function __goversion_prompt_yn -a prompt
   return $status
 end
 
+function __goversion_help
+  echo 'Usage: goversion' >&2
+  return 1
+end
+
 function goversion -d 'Manage Go versions'
+  if argparse -is 'h/help' -- $argv && test -n "$_flag_help"
+    __goversion_help
+    return
+  end
+
+  set -l missing
   for dep in git jq wget curl
-    if ! command -q $dep
-      set -a missing $dep
-    end
+    command -q $dep || set -a missing $dep
   end
   if count $missing > /dev/null
     echo "Required dependencies: $missing" >&2
@@ -110,18 +119,18 @@ function goversion -d 'Manage Go versions'
 
   # See https://github.com/golang/website/blob/master/internal/dl/server.go
   set releases (__goversion_query_release_json)
-  set versions (echo $releases | __goversion_filter_versions)
+  set versions (echo $releases | __goversion_versions)
 
   set_color -o green
   echo 'Stable versions:'
   set_color normal
-  echo $releases | __goversion_filter_versions_stable true | column
+  echo $releases | __goversion_versions_stable true | column
   echo
 
   set_color -o red
   echo 'Unstable versions:'
   set_color normal
-  echo $releases | __goversion_filter_versions_stable false | column
+  echo $releases | __goversion_versions_stable false | column
   echo
 
   set_color -o blue
@@ -143,7 +152,7 @@ function goversion -d 'Manage Go versions'
   echo
 
   echo 'Binaries:'
-  set binaries (echo $releases | __goversion_filter_version_binaries)
+  set binaries (echo $releases | __goversion_version_binaries $goversion)
   string collect $binaries | column
 
   __goversion_install_primary (__goversion_select_option 'Select binary' $binaries)
