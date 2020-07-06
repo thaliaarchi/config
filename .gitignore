@@ -1,3 +1,4 @@
+/dotfiles/fish/config_local.fish
 /dotfiles/fish/fish_variables*
 /dotfiles/bash/completions/git-completion.bash
 /dotfiles/karabiner/automatic_backups

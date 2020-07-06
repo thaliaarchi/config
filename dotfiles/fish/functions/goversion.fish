@@ -113,7 +113,7 @@ function goversion
     set binaries (echo -n $releases |
         jq --arg goversion $goversion \
           -r '.[] | select(.version == $goversion) | .files | .[].filename')
-    string join \n $binaries | column
+    string collect $binaries | column
 
     set binary (select_option 'Select binary' $releases)
 
@@ -128,7 +128,7 @@ function goversion
     set versions (git -C "$GOPATH[1]/src/golang.org/dl" ls-tree -d --name-only HEAD | grep '^go')
 
     echo 'Versions:'
-    string join \n $versions | sort -Vr | column
+    string collect $versions | sort -Vr | column
     echo
 
     while true

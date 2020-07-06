@@ -1,10 +1,6 @@
 # Disable greeting
 set fish_greeting
 
-set EMAIL andrew@aarchibald.com
-set EDITOR vim
-set GIT_EDITOR vim
-
 # Git
 alias g='git'
 alias gadd='git add'
@@ -50,9 +46,8 @@ alias df='df -h'
 alias du='du -h'
 alias whence='type -a'
 
-# Directory aliases
-#alias '\~'='cd ~' # default
-#alias ..='cd ..'  # default
+# Directory shortcuts
+# ~ and .. are supported by default
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
@@ -78,33 +73,16 @@ command -q rsync && alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,F
 # 4-column ASCII table
 command -q wspace && alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
 
-# SSH remotes
-alias bb='ssh -t schizo "ssh blackbird"'
-alias de='ssh -t schizo "ssh germany"'
-
-# Set host color based on hostname
-switch (hostname)
-case raspi
-  set -g fish_color_host c31c4a red
-  set -g fish_color_host_remote $fish_color_host
-case blueberrye
-  set -g fish_color_host blue
-  set -g fish_color_host_remote $fish_color_host
-case marionberryphi
-  set -g fish_color_host magenta
-  set -g fish_color_host_remote $fish_color_host
-end
-
 # https://github.com/ungoogled-software/ungoogled-chromium-macos#setting-up-the-build-environment
 # https://github.com/pyenv/pyenv#basic-github-checkout
 command -q pyenv && pyenv init - | source
 
-if uname | grep -q Darwin
-  # Homebrew Command Not Found
-  # https://github.com/Homebrew/homebrew-command-not-found
-  set COMMAND_NOT_FOUND (brew --prefix)'/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish'
-  if test -f $COMMAND_NOT_FOUND
-    source $COMMAND_NOT_FOUND
+# Homebrew Command Not Found
+# https://github.com/Homebrew/homebrew-command-not-found
+if status is-interactive && command -q brew
+  set handler (brew --prefix)'/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish'
+  if test -f $handler
+    source $handler
   end
 end
 
@@ -113,12 +91,6 @@ end
 umask 077
 
 # set -a CDPATH . ~/dev/github.com/andrewarchi ~/go/src/github.com/andrewarchi
-
-for dir in ~/bin /usr/local/go/bin ~/go/bin ~/.cargo/bin /usr/local/opt/llvm/bin ~/dev/github.com/andrewarchi/whitespace-haskell/bin ~/dev/github.com/LLNL/yorick/relocate/bin
-  if test -d $dir
-    set PATH $dir $PATH
-  end
-end
 
 if test -d ~/man
   set MANPATH ~/man $MANPATH

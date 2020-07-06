@@ -2,12 +2,12 @@
 
 # Install links to config
 
-set config_dir (dirname (realpath (status -f)))/dotfiles
+set dotfiles_dir (dirname (realpath (status -f)))/dotfiles
 
 # Symlink config to destination and replace existing
 # when unchanged from default.
 function link_config
-  set src $config_dir/$argv[1]
+  set src $dotfiles_dir/$argv[1]
   set dest $argv[2]
 
   if test -L "$dest"
@@ -37,7 +37,7 @@ end
 
 function fetch_file
   set url $argv[1]
-  set dest $config_dir/$argv[2]
+  set dest $dotfiles_dir/$argv[2]
   mkdir -p -- (dirname $dest)
   test -f "$dest" || wget $url -O $dest
 end
@@ -68,7 +68,7 @@ end
 function after_version
   set current $argv[1]
   set min $argv[2]
-  set versions (string join \n $current $min | sort -V)
+  set versions (string collect $current $min | sort -V)
   test "$versions[1]" = "$min"
   return $status
 end
@@ -96,21 +96,23 @@ link_config shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
 link_config karabiner $XDG_CONFIG_HOME/karabiner
 
 if after_version (tmux -V) 'tmux 3.1'
-  test -f ~/.tmux.conf
-  and echo 'Config at ~/.tmux.conf shadows ~/.config/tmux/tmux.conf' >&2
-  link_config tmux ~/.config/tmux # tmux does not check $XDG_CONFIG_HOME
+  # tmux checks ~/.config, not $XDG_CONFIG_HOME
+  test -L ~/.tmux.conf && rm ~/.tmux.conf
+  test -f ~/.tmux.conf && echo 'Config at ~/.tmux.conf shadows ~/.config/tmux/tmux.conf' >&2
+  link_config tmux ~/.config/tmux
 else
-  test -f ~/.config/tmux/tmux.conf
-  and echo 'Config at ~/.config/tmux/tmux.conf is ignored by' (tmux -V) >&2
+  tmux -L ~/.config/tmux && rm ~/.config/tmux
+  test -f ~/.config/tmux/tmux.conf && echo 'Config at ~/.config/tmux/tmux.conf is ignored by' (tmux -V) >&2
   link_config tmux/tmux.conf ~/.tmux.conf
 end
 
 if ! test -L $XDG_CONFIG_HOME/fish
-  for vars in $XDG_CONFIG_HOME/fish/fish_variables*
-    if test -e $config_dir/fish/(basename $vars)
-      echo (basename $vars) "exists in both $XDG_CONFIG_HOME/fish and dotfiles" >&2
+  for file in $XDG_CONFIG_HOME/fish/{fish_variables*,config_local.fish}
+    set dotfiles_file $dotfiles_dir/fish/(basename $file)
+    if test -e "$dotfiles_file" && ! cmp -s -- $file $dotfiles_file
+      echo (basename $file) "exists at both $XDG_CONFIG_HOME/fish and $dotfiles_dir/fish" >&2
     else
-      mv -- $vars $config_dir/fish/
+      mv -- $file $dotfiles_dir/fish/
     end
   end
 end
