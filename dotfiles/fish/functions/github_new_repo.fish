@@ -1,4 +1,4 @@
-function github_new_repo --description="Create a new GitHub repository"
+function github_new_repo --description='Create a new GitHub repository'
   argparse --min-args=1 --max-args=1 'h/help' 'd/desc=' 'o/org=' 'p/private' -- $argv
   or return
 

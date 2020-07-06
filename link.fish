@@ -4,6 +4,8 @@
 
 set dotfiles_dir (dirname (realpath (status -f)))/dotfiles
 
+source $dotfiles_dir/fish/functions/prettypath.fish
+
 # Symlink config to destination and replace existing
 # when unchanged from default.
 function link_config
@@ -20,14 +22,14 @@ function link_config
 
   if test -d $src -a -d $dest
     if test (count (command ls -A $dest)) != 0
-      echo "Files in directory $dest" >&2
+      echo "Files in directory" (prettypath $dest) >&2
       return 1
     end
     rm -r $dest
   end
 
   if test -e "$dest"
-    echo "File or directory already exists at $dest" >&2
+    echo "File or directory already exists at" (prettypath $dest) >&2
     return 1
   end
 
@@ -49,7 +51,7 @@ function remove_default
     if cmp -s -- $default $dest
       rm $dest
     else
-      echo "File $dest is modified from default at $default" >&2
+      echo "File" (prettypath $dest) "is modified from default at" (prettypath $default) >&2
     end
   end
 end
@@ -60,7 +62,7 @@ function remove_default_neofetch
     if neofetch --print_config 2>/dev/null | cmp -s -- $dest -
       rm $dest
     else if after_version (neofetch --version | head -n1) '4.0.2'
-      echo "File $dest is modified from `neofetch --print_config`" >&2
+      echo "File" (prettypath $dest) "is modified from `neofetch --print_config`" >&2
     end
   end
 end
@@ -109,7 +111,7 @@ if ! test -L $XDG_CONFIG_HOME/fish
   for file in $XDG_CONFIG_HOME/fish/{fish_variables*,config_local.fish}
     set dotfiles_file $dotfiles_dir/fish/(basename $file)
     if test -e "$dotfiles_file" && ! cmp -s -- $file $dotfiles_file
-      echo (basename $file) "exists at both $XDG_CONFIG_HOME/fish and $dotfiles_dir/fish" >&2
+      echo (basename $file) "exists at both" (prettypath $XDG_CONFIG_HOME/fish) "and" (prettypath $dotfiles_dir/fish) >&2
     else
       mv -- $file $dotfiles_dir/fish/
     end

@@ -2,4 +2,5 @@
 /dotfiles/fish/fish_variables*
 /dotfiles/bash/completions/git-completion.bash
 /dotfiles/karabiner/automatic_backups
+*.tar.gz
 *.zip

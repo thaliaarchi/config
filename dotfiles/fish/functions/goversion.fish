@@ -1,34 +1,4 @@
-function select_option
-  set prompt $argv[1]
-  set options $argv[2..-1]
-  while true
-    read -P "$prompt: " val
-    if contains $val $options
-      echo $val
-      return
-    end
-  end
-end
-
-function prompt_yn
-  read -P "$argv[1] (y/n) " -n1 reply
-  string match -q -i 'y' $reply
-  return $status
-end
-
-function append_install
-  set go $argv[1]
-  if ! test -x $go
-    echo "Not executable: $go" >&2
-    return
-  end
-  set GOROOT ($go env GOROOT)
-  if ! contains -- $GOROOT $installs
-    set -a installs $GOROOT
-  end
-end
-
-function goversion
+function goversion --description='Manage Go versions'
   for dep in git jq curl wget
     if ! command -q $dep
       set -a missing $dep
@@ -39,8 +9,26 @@ function goversion
     exit 1
   end
 
+  function select_option
+    set prompt $argv[1]
+    set options $argv[2..-1]
+    while true
+      read -P "$prompt: " val
+      if contains -- $val $options
+        echo $val
+        return
+      end
+    end
+  end
+
+  function prompt_yn
+    read -P "$argv[1] (y/n) " -n1 reply
+    string match -q -i 'y' $reply
+    return $status
+  end
+
   # See https://github.com/golang/website/blob/master/internal/dl/server.go
-  set releases (curl -sS 'https://golang.org/dl/?mode=json&include=all')
+  set releases (curl -sS 'https://golang.org/dl/?mode=json&include=all' | string collect)
   set versions (echo $releases | jq -r '.[].version')
 
   # Go GitHub release tags:
@@ -62,65 +50,63 @@ function goversion
   set_color -o blue
   echo 'Installed versions:'
   set_color normal
-  set installs
+  set install_paths
 
   if command -q go
-    append_install (command -v go)
+    set -a install_paths (command -v go)
   end
 
   # Installs in PATH
-  for p in $PATH
-    if test -f $p/go -a -x $p/go
-      append_install $p/go
-    end
+  for go in $PATH/go
+    set -a install_paths $go
   end
 
   # Homebrew
   if command -q brew
     # `brew list --versions golang` is too slow.
-    # Instead list versions in cellar directory.
-    set brew_prefix (brew --prefix)
-    for v in (command ls $brew_prefix/Cellar/go 2>/dev/null)
-      append_install "$brew_prefix/Cellar/go/$v/bin/go"
+    # Instead traverse versions in cellar directory directly.
+    for go in (brew --prefix)/Cellar/go/*/libexec/bin/go
+      set -a install_paths $go
     end
   end
 
   # Extra versions: https://golang.org/doc/install#extra_versions
-  for goversion in (command ls ~/sdk 2>/dev/null | grep '^go')
-    append_install ~/sdk/$goversion/bin/go
+  for go in ~/sdk/*/bin/go
+    set -a install_paths $go
   end
 
-  set --path gopaths
-  for GOROOT in $installs
-    set go $GOROOT/bin/go
-    set goversion ($go version)
-    echo (string replace -r '^go version ' '' $goversion)'  '$GOROOT
-    set -a installs
-    set GOPATH ($go env GOPATH)
-    for p in $GOPATH
-      if ! contains -- $p $gopaths
-        set -a gopaths $p
-      end
+  set install_goroots
+  set install_gopaths
+  for go in $install_paths
+    test -x "$go" || continue
+    set goroot ($go env GOROOT)
+    contains -- $goroot $install_goroots && continue
+    set -a install_goroots $goroot
+
+    set goversion (string replace -r '^go version ' '' ($go version))
+    echo $goversion '  ' (prettypath $goroot)
+
+    set gopath ($go env GOPATH)
+    for path in $gopath
+      contains -- $path $install_paths || set -a install_gopaths $path
     end
   end
   echo
 
-  if prompt_yn 'Install main version?'
-    set goversion (select_option 'Select version' $versions)
-    echo
+  set goversion (select_option 'Select version' $versions)
+  echo
 
-    echo 'Binaries:'
-    set binaries (echo -n $releases |
-        jq --arg goversion $goversion \
-          -r '.[] | select(.version == $goversion) | .files | .[].filename')
-    string collect $binaries | column
+  echo 'Binaries:'
+  set binaries (echo -n $releases |
+      jq --arg goversion $goversion \
+        -r '.[] | select(.version == $goversion) | .files | .[].filename')
+  string collect $binaries | column
 
-    set binary (select_option 'Select binary' $releases)
+  set binary (select_option 'Select binary' $binaries)
 
-    echo 'Fetching binary...'
-    wget -nc -q --show-progress "https://golang.org/dl/$binary"
-    echo
-  end
+  echo 'Fetching binary...'
+  wget -nc -q --show-progress "https://golang.org/dl/$binary"
+  echo
 
   if prompt_yn 'Install extra versions?'
     go get -d golang.org/dl/gotip
@@ -138,4 +124,7 @@ function goversion
       eval $go version
     end
   end
+
+  functions --erase select_option
+  functions --erase prompt_yn
 end
