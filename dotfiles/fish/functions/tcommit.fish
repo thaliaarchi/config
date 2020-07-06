@@ -8,7 +8,7 @@ function coreutils_date
   echo $date
 end
 
-function tcommit --description='Git commit at file modification time' --wraps='git commit'
+function tcommit -d 'Git commit at file modification time' --wraps='git commit'
   set repo (git rev-parse --show-toplevel)
   set staged_files (git -C $repo diff --name-only --staged --diff-filter=d)
 

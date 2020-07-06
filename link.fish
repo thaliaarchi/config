@@ -8,9 +8,8 @@ source $dotfiles_dir/fish/functions/prettypath.fish
 
 # Symlink config to destination and replace existing
 # when unchanged from default.
-function link_config
-  set src $dotfiles_dir/$argv[1]
-  set dest $argv[2]
+function link_config -a src dest
+  set src $dotfiles_dir/$src
 
   if test -L "$dest"
     # Preserve unchanged symlinks
@@ -37,16 +36,13 @@ function link_config
   ln -s -- $src $dest
 end
 
-function fetch_file
-  set url $argv[1]
-  set dest $dotfiles_dir/$argv[2]
+function fetch_file -a url dest
+  set dest $dotfiles_dir/$dest
   mkdir -p -- (dirname $dest)
   test -f "$dest" || wget $url -O $dest
 end
 
-function remove_default
-  set dest $argv[1]
-  set default $argv[2]
+function remove_default -a dest default
   if test -f "$dest" -a ! -L "$dest"
     if cmp -s -- $default $dest
       rm $dest
@@ -56,8 +52,7 @@ function remove_default
   end
 end
 
-function remove_default_neofetch
-  set dest $argv[1]
+function remove_default_neofetch -a dest
   if test -f "$dest" -a ! -L (dirname $dest)
     if neofetch --print_config 2>/dev/null | cmp -s -- $dest -
       rm $dest
@@ -67,9 +62,7 @@ function remove_default_neofetch
   end
 end
 
-function after_version
-  set current $argv[1]
-  set min $argv[2]
+function after_version -a current min
   set versions (string collect $current $min | sort -V)
   test "$versions[1]" = "$min"
 end

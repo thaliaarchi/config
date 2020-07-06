@@ -1,7 +1,7 @@
 # Default values set by __fish_config_interactive
 # https://github.com/fish-shell/fish-shell/blob/master/share/functions/__fish_config_interactive.fish
 
-function config_vars --description='Set universal variables from configuration'
+function config_vars -d 'Set universal variables from configuration'
   set -U EMAIL andrew@aarchibald.com
   set -U EDITOR vim
   set -U GIT_EDITOR vim

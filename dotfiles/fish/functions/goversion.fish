@@ -1,4 +1,4 @@
-function goversion --description='Manage Go versions'
+function goversion -d 'Manage Go versions'
   for dep in git jq curl wget
     if ! command -q $dep
       set -a missing $dep
@@ -9,8 +9,7 @@ function goversion --description='Manage Go versions'
     exit 1
   end
 
-  function select_option
-    set prompt $argv[1]
+  function select_option -a prompt
     set options $argv[2..-1]
     while true
       read -P "$prompt: " val
@@ -21,8 +20,8 @@ function goversion --description='Manage Go versions'
     end
   end
 
-  function prompt_yn
-    read -P "$argv[1] (y/n) " -n1 reply
+  function prompt_yn -a prompt
+    read -P "$prompt (y/n) " -n1 reply
     string match -q -i 'y' $reply
     return $status
   end
