@@ -1,52 +1,66 @@
-function __goversion_releases -d 'Query Go releases as JSON'
+function __goversion_query_release_json -d 'Query Go releases as JSON'
   curl -sS 'https://golang.org/dl/?mode=json&include=all' | string collect
 end
-function __goversion_versions -d 'Extract versions from releases'
+function __goversion_filter_versions -d 'Extract versions from releases'
   jq -r '.[].version'
 end
-function __goversion_versions_stable -a stable -d 'Extract versions with given stability from releases'
+function __goversion_filter_versions_stable -a stable -d 'Extract versions with given stability from releases'
   jq -r ".[] | select(.stable == $stable) | .version"
 end
+function __goversion_filter_version_binaries -a goversion -d 'Extract list of binaries for version from releases'
+  jq --arg goversion $goversion \
+     -r '.[] | select(.version == $goversion) | .files | .[].filename'
+end
 
-function __goversion_extra -d 'Query extra Go versions'
+# Extra versions: https://golang.org/doc/install#extra_versions
+function __goversion_query_extra -d 'Query extra Go versions'
   if ! command -q go
     echo 'go must be in PATH to install extra Go versions' >&2
     return 1
   end
   go get -d golang.org/dl/gotip
   set GOPATH (go env GOPATH)
-  git -C "$GOPATH[1]/src/golang.org/dl" ls-tree -d --name-only HEAD | command grep '^go'
+  git -C "$GOPATH[1]/src/golang.org/dl" ls-tree -d --name-only HEAD |
+      command grep '^go' | sort -Vr
+end
+
+function __goversion_installed_path -d 'List Go versions installed in PATH'
+  # To match older version tags:
+  #   release\.r\d{1,2}(?:\.\d{1,2})?
+  #   weekly(?:\.20\d\d-\d\d-\d\d(?:\.\d{1,2})?)?
+  string match -r -e '\bgo(?:\d{1,2}(?:\.\d{1,2}(?:\.\d{1,2})?)?(?:(?:beta|rc)\d{1,2})?)?$' $PATH/go*
+end
+function __goversion_installed_extra -d 'List installed extra Go versions'
+  echo ~/sdk/*/bin/go
+end
+function __goversion_installed_brew -d 'List installed Homebrew Go versions'
+  if command -q brew
+    # `brew list --versions golang` is too slow.
+    # Instead directly list versions in cellar directory.
+    echo (brew --prefix)/Cellar/go/*/libexec/bin/go
+  end
+end
+
+function __goversion_install_primary -a binary -d 'Install primary Go version'
+  echo 'Fetching binary...'
+  wget -nc -q --show-progress "https://golang.org/dl/$binary"
+end
+function __goversion_install_extra -a goversion -d 'Install extra Go version'
+  go install golang.org/dl/$goversion
+  eval $goversion download
+  eval $goversion version
 end
 
 function __goversion_tags -d 'Query GitHub release tags'
   curl -sS -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/golang/go/git/refs/tags |
-      jq -r 'reverse | .[] | .ref | select(test("refs/tags/go.+")) | ltrimstr("refs/tags/")'
+      jq -r 'reverse | .[] | .ref | ltrimstr("refs/tags/")'
 end
 
 function __goversion_installed_goroots -d 'List paths to installed Go versions'
   set -l install_paths
-  if command -q go
-    set -a install_paths (command -v go)
-  end
-
-  # Installs in PATH
-  for go in $PATH/go
-    set -a install_paths $go
-  end
-
-  # Homebrew
-  if command -q brew
-    # `brew list --versions golang` is too slow.
-    # Instead traverse versions in cellar directory directly.
-    for go in (brew --prefix)/Cellar/go/*/libexec/bin/go
-      set -a install_paths $go
-    end
-  end
-
-  # Extra versions: https://golang.org/doc/install#extra_versions
-  for go in ~/sdk/*/bin/go
-    set -a install_paths $go
-  end
+  set -a install_paths (__goversion_installed_path)
+  set -a install_paths (__goversion_installed_brew)
+  set -a install_paths (__goversion_installed_extra)
 
   # Canonicalize to GOROOT and dedupe
   set -l install_goroots
@@ -60,9 +74,9 @@ function __goversion_installed_goroots -d 'List paths to installed Go versions'
 end
 
 function __goversion_installed_versions -d 'Print version info for Go installations'
-  for goroot in $argv
-    set goversion (string replace -r '^go version ' '' ($goroot/bin/go version))
-    echo $goversion '  ' (prettypath $goroot)
+  for GOROOT in $argv
+    set goversion (string replace -r '^go version ' '' ($GOROOT/bin/go version))
+    echo $goversion '  ' (prettypath $GOROOT)
   end
 end
 
@@ -95,19 +109,19 @@ function goversion -d 'Manage Go versions'
   end
 
   # See https://github.com/golang/website/blob/master/internal/dl/server.go
-  set releases (__goversion_releases)
-  set versions (echo $releases | __goversion_versions)
+  set releases (__goversion_query_release_json)
+  set versions (echo $releases | __goversion_filter_versions)
 
   set_color -o green
   echo 'Stable versions:'
   set_color normal
-  echo $releases | __goversion_versions_stable true | column
+  echo $releases | __goversion_filter_versions_stable true | column
   echo
 
   set_color -o red
   echo 'Unstable versions:'
   set_color normal
-  echo $releases | __goversion_versions_stable false | column
+  echo $releases | __goversion_filter_versions_stable false | column
   echo
 
   set_color -o blue
@@ -117,8 +131,8 @@ function goversion -d 'Manage Go versions'
   __goversion_installed_versions $install_goroots
 
   set install_gopaths
-  for goroot in $install_goroots
-    set GOPATH ($goroot/bin/go env GOPATH)
+  for GOROOT in $install_goroots
+    set GOPATH ($GOROOT/bin/go env GOPATH)
     for path in $GOPATH
       contains -- $path $install_gopaths || set -a install_gopaths $path
     end
@@ -129,28 +143,19 @@ function goversion -d 'Manage Go versions'
   echo
 
   echo 'Binaries:'
-  set binaries (echo -n $releases |
-      jq --arg goversion $goversion \
-        -r '.[] | select(.version == $goversion) | .files | .[].filename')
+  set binaries (echo $releases | __goversion_filter_version_binaries)
   string collect $binaries | column
 
-  set binary (__goversion_select_option 'Select binary' $binaries)
-
-  echo 'Fetching binary...'
-  wget -nc -q --show-progress "https://golang.org/dl/$binary"
+  __goversion_install_primary (__goversion_select_option 'Select binary' $binaries)
   echo
 
   if __goversion_prompt_yn 'Install extra versions?'
     echo 'Versions:'
-    set versions (__goversion_extra)
-    string collect $versions | sort -Vr | column
+    set extra_versions (__goversion_query_extra)
+    string collect $extra_versions | column
     echo
-
     while true
-      set go (__goversion_select_option 'Select version' $versions)
-      go install golang.org/dl/$go
-      eval $go download
-      eval $go version
+      __goversion_install_extra (__goversion_select_option 'Select version' $extra_versions)
     end
   end
 end
