@@ -25,7 +25,7 @@ alias push='git push'
 alias gstatus='git status'
 
 # https://stackoverflow.com/questions/342969/how-do-i-get-bash-completion-to-work-with-aliases
-source "$config_dir/git-completion.bash"
+source "$config_dir/completions/git-completion.bash"
 __git_complete g __git_main
 __git_complete branch _git_branch
 __git_complete checkout _git_checkout
