@@ -1,41 +1,43 @@
+set USAGE \
+'Create a new GitHub repository
+
+    github_new_repo [OPTIONS] REPO_NAME
+
+        -d, --desc        Repo description
+        -o, --org name    Organization under which to create the repo
+        -p, --private     Private visibility
+        -t, --token       GitHub API token with repo scope'
+
+set TOKEN_USAGE \
+'A GitHub API token must be specified, either with the environment
+variable GITHUB_API_TOKEN or with --token. A personal access token can
+generated at https://github.com/settings/tokens. To create a public
+repository, the token must have public_repo scope or repo scope. To
+a private repository, it must have repo scope.'
+
 function github_new_repo -d 'Create a new GitHub repository'
-  argparse --min-args=1 --max-args=1 'h/help' 'd/desc=' 'o/org=' 'p/private' -- $argv
+  argparse --max-args=1 'h/help' 'd/desc=' 'o/org=' 'p/private' -- $argv
   or return
 
   if test -n "$_flag_help"
-    echo 'Create a new GitHub repository'
+    echo $USAGE
     echo
-    echo "    $_argparse_cmd [options] repo_name"
-    echo
-    echo '        -d, --desc        Repo description'
-    echo '        -o, --org name    Organization under which to create the repo'
-    echo '        -p, --private     Private visibility'
-    echo '        -t, --token       GitHub API token with repo scope'
-    echo
-    echo 'A GitHub API token must be specified, either with the environment'
-    echo 'variable GITHUB_API_TOKEN or with --token. A personal access token can'
-    echo 'generated at https://github.com/settings/tokens. To create a public'
-    echo 'repository, the token must have public_repo scope or repo scope. To'
-    echo 'a private repository, it must have repo scope.'
+    echo $TOKEN_USAGE
     return
+  end
+
+  set repo $argv[1]
+  if ! count $argv > /dev/null || test -z "$repo"
+    echo 'Repo name cannot be empty' >&2
+    return 1
   end
 
   if test -z "$GITHUB_API_TOKEN"
     if test -z "$_flag_token"
-      echo 'A GitHub API token must be specified, either with the environment' >&2
-      echo 'variable GITHUB_API_TOKEN or with --token. A personal access token can' >&2
-      echo 'generated at https://github.com/settings/tokens. To create a public' >&2
-      echo 'repository, the token must have public_repo scope or repo scope. To' >&2
-      echo 'a private repository, it must have repo scope.' >&2
+      echo $TOKEN_USAGE >&2
       return 1
     end
     set GITHUB_API_TOKEN $_flag_token
-  end
-
-  set repo $argv[1]
-  if test -z "$repo"
-    echo 'Repo name cannot be empty' >&2
-    return 1
   end
 
   if ! command -q jq
