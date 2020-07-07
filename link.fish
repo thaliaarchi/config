@@ -89,15 +89,17 @@ link_config neofetch $XDG_CONFIG_HOME/neofetch
 link_config shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
 link_config karabiner $XDG_CONFIG_HOME/karabiner
 
-if after_version (tmux -V) 'tmux 3.1'
-  # tmux checks ~/.config, not $XDG_CONFIG_HOME
-  test -L ~/.tmux.conf && rm ~/.tmux.conf
-  test -f ~/.tmux.conf && echo 'Config at ~/.tmux.conf shadows ~/.config/tmux/tmux.conf' >&2
-  link_config tmux ~/.config/tmux
-else
-  tmux -L ~/.config/tmux && rm ~/.config/tmux
-  test -f ~/.config/tmux/tmux.conf && echo 'Config at ~/.config/tmux/tmux.conf is ignored by' (tmux -V) >&2
-  link_config tmux/tmux.conf ~/.tmux.conf
+if command -q tmux
+  if after_version (tmux -V) 'tmux 3.1'
+    # tmux checks ~/.config, not $XDG_CONFIG_HOME
+    test -L ~/.tmux.conf && rm ~/.tmux.conf
+    test -f ~/.tmux.conf && echo 'Config at ~/.tmux.conf shadows ~/.config/tmux/tmux.conf' >&2
+    link_config tmux ~/.config/tmux
+  else
+    test -L ~/.config/tmux && rm ~/.config/tmux
+    test -f ~/.config/tmux/tmux.conf && echo 'Config at ~/.config/tmux/tmux.conf is ignored by' (tmux -V) >&2
+    link_config tmux/tmux.conf ~/.tmux.conf
+  end
 end
 
 if ! test -L $XDG_CONFIG_HOME/fish
