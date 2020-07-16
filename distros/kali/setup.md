@@ -130,3 +130,30 @@
         sudo tar xvf powershell-7.0.2-linux-arm64.tar.gz -C /usr/local/powershell
         sudo ln -s /usr/local/powershell/pwsh /usr/local/bin/pwsh
         ```
+
+15. Connect using VNC from macOS.
+
+    1. Start VNC server on Kali. You will be prompted to set a login
+       password and an optional view-only password for observing the
+       desktop (both must be under 8 characters):
+
+       ```sh
+       vncserver
+       ```
+
+    2. Create an SSH tunnel on macOS to Kali where 5901 is 5900 plus the
+       VNC display number (i.e. blackberryi:1).
+
+       ```sh
+       ssh blackberryi -L 5901:localhost:5901
+       ```
+
+    3. Start Screen Sharing in Finder by selecting Go > Connect to
+       Server in the menu bar, then entering the server address
+       `vnc://localhost:5901`.
+
+    4. Kill the display when done:
+
+        ```ssh
+        vncserver -kill blackberryi:1
+        ```
