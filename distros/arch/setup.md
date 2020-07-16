@@ -77,7 +77,7 @@
     logout
     ```
 
-9. Generate and copy an SSH key:
+9. Generate and copy your SSH key to `authorized_keys`:
 
     ```sh
     ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/raspi_id_rsa
@@ -130,7 +130,7 @@
     3. Add the SSH key to your GitHub account at
        https://github.com/settings/keys.
 
-13. Install configuration:
+13. Install dotfiles:
 
     ```sh
     sudo pacman -S wget inetutils
