@@ -108,3 +108,25 @@
     ```sh
     sudo apt install -y kali-linux-large
     ```
+
+14. Install PowerShell Core.
+
+    1. Install `powershell` package:
+
+        ```sh
+        apt -y install powershell
+        pwsh
+        ```
+
+    2. If that fails, install manually (see instructions at
+       https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7#raspbian):
+
+        ```sh
+        # Install libunwind8 and libssl1.0 (not libssl1.0-dev)
+        sudo apt-get install '^libssl1.0.[0-9]$' libunwind8 -y
+
+        wget https://github.com/PowerShell/PowerShell/releases/download/v7.0.2/powershell-7.0.2-linux-arm64.tar.gz
+        sudo mkdir /usr/local/powershell
+        sudo tar xvf powershell-7.0.2-linux-arm64.tar.gz -C /usr/local/powershell
+        sudo ln -s /usr/local/powershell/pwsh /usr/local/bin/pwsh
+        ```
