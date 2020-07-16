@@ -3,7 +3,7 @@
 Compute pi in Whitespace with the reference Haskell interpreter:
 
 ```sh
-mkdir -p ~/dev/github.com/andrewarchi/{nebula,whitespace-haskell}
+mkdir -p ~/dev/github.com/andrewarchi
 cd ~/dev/github.com/andrewarchi
 git clone git@github.com:andrewarchi/nebula
 git clone git@github.com:andrewarchi/whitespace-haskell

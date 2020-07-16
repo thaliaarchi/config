@@ -1,4 +1,4 @@
-# Fish
+# fish
 
 ## Set shell to fish
 

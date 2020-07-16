@@ -1,4 +1,6 @@
-# git setup
+# Git setup
+
+## Identity
 
 ```sh
 git config --global user.email 'you@example.com'
