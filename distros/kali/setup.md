@@ -93,7 +93,7 @@
 11. Install Go and other tools:
 
     ```sh
-    sudo apt-get install golang aptitude
+    sudo apt-get install golang aptitude lynx
     ```
 
 12. Start X session:

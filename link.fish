@@ -114,3 +114,6 @@ if ! test -L $XDG_CONFIG_HOME/fish
   end
 end
 link_config fish $XDG_CONFIG_HOME/fish
+
+# Initialize universal vars
+config_vars
