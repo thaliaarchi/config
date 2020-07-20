@@ -45,7 +45,7 @@ if uname | grep -q Darwin; then
   # Enable ls color output
   # https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
   export CLICOLOR=1
-  export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
+  # export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
   alias ls='ls -hF'
 else
   alias ls='ls -hF --color=tty'
@@ -69,6 +69,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
 alias dev='cd $HOME/dev'
 alias godev='cd $HOME/go/src'
 

@@ -28,7 +28,7 @@ if uname | grep -q Darwin
   # Enable ls color output
   # https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
   set -x CLICOLOR 1
-  set -x LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
+  # set -x LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
   alias ls='ls -hF'
 else
   alias ls='ls -hF --color=tty'
@@ -51,6 +51,8 @@ alias whence='type -a'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
 alias dev='cd ~/dev'
 alias godev='cd ~/go/src'
 
@@ -64,11 +66,12 @@ command -q cgrep   && alias cgrep='cgrep -n'
 command -q lynx && alias ddg='lynx https://duckduckgo.com/lite'
 command -q curl && alias weather='curl wttr.in'
 
-# rsync command for copying from an NTFS drive.
-# Permissions are not preserved; symlinks and times are preserved.
-# Attributes set to rwxr-xr-x for dirs, rw-r--r-- for files.
+# rsync command for copying from an NTFS or exFAT drive.
+#
+# Preserves times and symlinks; strips permissions, owner, and group
+# (same as --archive without -pogD).
 # Excludes Thumbs.db and desktop.ini.
-command -q rsync && alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
+command -q rsync && alias rsyncwin='rsync -rltvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude \$RECYCLE.BIN --exclude System\ Volume\ Information --exclude .DS_Store --exclude .Spotlight-V100 --exclude .TemporaryItems --exclude .Trashes --exclude .fseventsd'
 
 # 4-column ASCII table
 command -q wspace && alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
