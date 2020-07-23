@@ -10,8 +10,9 @@ chsh -s $(command -v fish)
 ## Update fish with apt
 
 ```sh
-sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt update
+sudo apt install software-properties-common # for add-apt-repository
+sudo add-apt-repository ppa:fish-shell/release-3
 sudo apt install fish
 ```
 
