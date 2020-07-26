@@ -93,8 +93,8 @@ fi
 
 # History Options
 
-# Format as "2006-01-02 15:04:05: "
-export HISTTIMEFORMAT='%F %T: '
+# Format history time as "2006-01-02 15:04:05  "
+export HISTTIMEFORMAT='%F %T  '
 
 # Don't put duplicate lines in the history.
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups

@@ -73,6 +73,9 @@ command -q rsync && alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,F
 # 4-column ASCII table
 command -q wspace && alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
 
+# Format history time as "2006-01-02 15:04:05  "
+alias history='history --show-time="%Y-%m-%d %H:%M:%S  "'
+
 # https://github.com/ungoogled-software/ungoogled-chromium-macos#setting-up-the-build-environment
 # https://github.com/pyenv/pyenv#basic-github-checkout
 command -q pyenv && pyenv init - | source
