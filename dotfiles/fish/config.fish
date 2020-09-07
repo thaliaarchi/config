@@ -66,12 +66,19 @@ command -q cgrep   && alias cgrep='cgrep -n'
 command -q lynx && alias ddg='lynx https://duckduckgo.com/lite'
 command -q curl && alias weather='curl wttr.in'
 
+function rsyncclean
+  set rsync_exclude Thumbs.db '$RECYCLE.BIN' 'System Volume Information' \
+    .DS_Store .Spotlight-V100 .TemporaryItems .Trashes .fseventsd __MACOSX
+  rsync -vzh {--exclude,$rsync_exclude} $argv
+end
+
 # rsync command for copying from an NTFS or exFAT drive.
 #
 # Preserves times and symlinks; strips permissions, owner, and group
 # (same as --archive without -pogD).
-# Excludes Thumbs.db and desktop.ini.
-command -q rsync && alias rsyncwin='rsync -rltvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude \$RECYCLE.BIN --exclude System\ Volume\ Information --exclude .DS_Store --exclude .Spotlight-V100 --exclude .TemporaryItems --exclude .Trashes --exclude .fseventsd'
+function rsyncwin
+  rsyncclean -rlt --chmod='Du=rwx,Dgo=rx,Fu=rw,Fgo=r' $argv
+end
 
 # 4-column ASCII table
 command -q wspace && alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'

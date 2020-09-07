@@ -89,7 +89,7 @@ command -v curl > /dev/null 2>&1 && alias weather='curl wttr.in'
 # Attributes set to rwxr-xr-x for dirs, rw-r--r-- for files.
 # Excludes Thumbs.db and desktop.ini.
 command -v rsync > /dev/null 2>&1 &&
-  alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude desktop.ini'
+  alias rsyncwin='rsync -rltDvzh --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --exclude Thumbs.db --exclude \$RECYCLE.BIN --exclude System\ Volume\ Information --exclude .DS_Store --exclude .Spotlight-V100 --exclude .TemporaryItems --exclude .Trashes --exclude .fseventsd --exclude __MACOSX'
 
 # 4-column ASCII table
 command -v wspace > /dev/null 2>&1 &&
