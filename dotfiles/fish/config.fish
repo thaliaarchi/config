@@ -80,6 +80,12 @@ function rsyncwin
   rsyncclean -rlt --chmod='Du=rwx,Dgo=rx,Fu=rw,Fgo=r' $argv
 end
 
+# Check availability of a ProtonMail address
+function protonchk -a username
+  curl 'https://mail.protonmail.com/api/users/available?Name='$username -H 'x-pm-appversion: Web_3.16.33'
+  echo
+end
+
 # 4-column ASCII table
 command -q wspace && alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
 
