@@ -24,7 +24,8 @@
                                         "bundle_identifiers": [
                                             "^com\\.google\\.Chrome$",
                                             "^org\\.chromium\\.Chromium$",
-                                            "^com\\.brave\\.Browser$"
+                                            "^com\\.brave\\.Browser$",
+                                            "^org\\.mozilla\\.firefox$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
