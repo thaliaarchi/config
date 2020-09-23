@@ -1,10 +1,11 @@
 {
-  "title": "Undo in CoqIDE with Cmd+Z",
+  "title": "CoqIDE",
   "rules": [
     {
       "description": "Undo in CoqIDE with Cmd+Z",
       "manipulators": [
         {
+          "type": "basic",
           "conditions": [
             {
               "bundle_identifiers": [
@@ -16,20 +17,15 @@
           "from": {
             "key_code": "z",
             "modifiers": {
-              "mandatory": [
-                "left_command"
-              ]
+              "mandatory": ["left_command"]
             }
           },
           "to": [
             {
               "key_code": "u",
-              "modifiers": [
-                "left_command"
-              ]
+              "modifiers": ["left_command"]
             }
-          ],
-          "type": "basic"
+          ]
         }
       ]
     }

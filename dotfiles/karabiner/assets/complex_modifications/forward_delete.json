@@ -1,0 +1,31 @@
+{
+  "title": "Forward delete",
+  "rules": [
+    {
+      "description": "Change equal+delete to forward delete if these keys are pressed simultaneously",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "equal_sign"
+              },
+              {
+                "key_code": "delete_or_backspace"
+              }
+            ],
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
