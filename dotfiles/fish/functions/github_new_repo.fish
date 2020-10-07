@@ -49,7 +49,7 @@ function github_new_repo -d 'Create a new GitHub repository'
   # https://developer.github.com/v3/repos/#create-a-repository-for-the-authenticated-user
   # https://developer.github.com/v3/repos/#create-an-organization-repository
 
-  set data (jq -n -c \
+  set data (jq --null-input --compact-output \
     --arg name "$repo" \
     --arg description "$_flag_desc" \
     --arg private "$_flag_private" \
