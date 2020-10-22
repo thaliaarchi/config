@@ -1,0 +1,4 @@
+# Firefox about:config settings
+
+# Smooth zooming with pinch gesture
+apz.allow_zooming = true
