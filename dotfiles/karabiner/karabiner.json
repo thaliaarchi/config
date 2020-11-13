@@ -22,10 +22,11 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.google\\.Chrome$",
-                                            "^org\\.chromium\\.Chromium$",
+                                            "^org\\.mozilla\\.firefox$",
+                                            "^org\\.torproject\\.torbrowser$",
                                             "^com\\.brave\\.Browser$",
-                                            "^org\\.mozilla\\.firefox$"
+                                            "^org\\.chromium\\.Chromium$",
+                                            "^com\\.google\\.Chrome$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -52,10 +53,11 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.google\\.Chrome$",
-                                            "^org\\.chromium\\.Chromium$",
+                                            "^org\\.mozilla\\.firefox$",
+                                            "^org\\.torproject\\.torbrowser$",
                                             "^com\\.brave\\.Browser$",
-                                            "^org\\.mozilla\\.firefox$"
+                                            "^org\\.chromium\\.Chromium$",
+                                            "^com\\.google\\.Chrome$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -87,10 +89,11 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.google\\.Chrome$",
-                                            "^org\\.chromium\\.Chromium$",
+                                            "^org\\.mozilla\\.firefox$",
+                                            "^org\\.torproject\\.torbrowser$",
                                             "^com\\.brave\\.Browser$",
-                                            "^org\\.mozilla\\.firefox$"
+                                            "^org\\.chromium\\.Chromium$",
+                                            "^com\\.google\\.Chrome$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
