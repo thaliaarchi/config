@@ -7,3 +7,5 @@
 	excludesfile = /Users/andrew/.gitignore_global
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main
