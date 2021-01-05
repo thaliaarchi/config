@@ -21,7 +21,7 @@
           "from": {
             "key_code": "d",
             "modifiers": {
-              "mandatory": ["left_command"]
+              "mandatory": ["command"]
             }
           },
           "to": [
@@ -62,6 +62,42 @@
               "modifiers": [
                 "left_command",
                 "option"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Open private window with Cmd+Shift+P (Chromium)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "bundle_identifiers": [
+                "^com\\.brave\\.Browser$",
+                "^org\\.chromium\\.Chromium$",
+                "^com\\.google\\.Chrome$"
+              ],
+              "type": "frontmost_application_if"
+            }
+          ],
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "command",
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "n",
+              "modifiers": [
+                "left_command",
+                "left_shift"
               ]
             }
           ]
