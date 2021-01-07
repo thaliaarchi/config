@@ -128,6 +128,6 @@ if test -e ~/.config/fish/config_local.fish
   source ~/.config/fish/config_local.fish
 end
 
-if status is-login && status is-interactive
-  command -q neofetch && neofetch
-end
+# if status is-login && status is-interactive
+#   command -q neofetch && neofetch
+# end
