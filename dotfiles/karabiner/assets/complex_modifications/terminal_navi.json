@@ -111,7 +111,8 @@
             { "key_code": "escape" },
             {
               "key_code": "hyphen",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -147,7 +148,8 @@
             { "key_code": "escape" },
             {
               "key_code": "slash",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -178,7 +180,10 @@
           },
           "to": [
             { "key_code": "escape" },
-            { "key_code": "b" }
+            {
+              "key_code": "b",
+              "repeat": false
+            }
           ],
           "conditions": [
             {
@@ -204,7 +209,10 @@
           },
           "to": [
             { "key_code": "escape" },
-            { "key_code": "f" }
+            {
+              "key_code": "f",
+              "repeat": false
+            }
           ],
           "conditions": [
             {
@@ -236,7 +244,8 @@
             },
             {
               "key_code": "h",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -269,7 +278,8 @@
             },
             {
               "key_code": "f",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -300,7 +310,8 @@
             { "key_code": "5" },
             {
               "key_code": "grave_accent_and_tilde",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -326,7 +337,8 @@
             { "key_code": "5" },
             {
               "key_code": "grave_accent_and_tilde",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -357,7 +369,8 @@
             { "key_code": "6" },
             {
               "key_code": "grave_accent_and_tilde",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -383,7 +396,8 @@
             { "key_code": "6" },
             {
               "key_code": "grave_accent_and_tilde",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -412,7 +426,8 @@
             { "key_code": "escape" },
             {
               "key_code": "comma",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -436,7 +451,8 @@
             { "key_code": "escape" },
             {
               "key_code": "comma",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -465,7 +481,8 @@
             { "key_code": "escape" },
             {
               "key_code": "period",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -489,7 +506,8 @@
             { "key_code": "escape" },
             {
               "key_code": "period",
-              "modifiers": ["left_shift"]
+              "modifiers": ["left_shift"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -541,7 +559,8 @@
             { "key_code": "escape" },
             {
               "key_code": "h",
-              "modifiers": ["left_control"]
+              "modifiers": ["left_control"],
+              "repeat": false
             }
           ],
           "conditions": [
@@ -571,7 +590,10 @@
           },
           "to": [
             { "key_code": "escape" },
-            { "key_code": "d" }
+            {
+              "key_code": "d",
+              "repeat": false
+            }
           ],
           "conditions": [
             {
@@ -597,7 +619,10 @@
           },
           "to": [
             { "key_code": "escape" },
-            { "key_code": "d" }
+            {
+              "key_code": "d",
+              "repeat": false
+            }
           ],
           "conditions": [
             {

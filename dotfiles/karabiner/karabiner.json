@@ -341,7 +341,8 @@
                                         "key_code": "hyphen",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -385,7 +386,8 @@
                                         "key_code": "slash",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -417,7 +419,8 @@
                                         "key_code": "escape"
                                     },
                                     {
-                                        "key_code": "b"
+                                        "key_code": "b",
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -449,7 +452,8 @@
                                         "key_code": "escape"
                                     },
                                     {
-                                        "key_code": "f"
+                                        "key_code": "f",
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -490,7 +494,8 @@
                                         "key_code": "h",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -531,7 +536,8 @@
                                         "key_code": "f",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -572,7 +578,8 @@
                                         "key_code": "grave_accent_and_tilde",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -608,7 +615,8 @@
                                         "key_code": "grave_accent_and_tilde",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -649,7 +657,8 @@
                                         "key_code": "grave_accent_and_tilde",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -685,7 +694,8 @@
                                         "key_code": "grave_accent_and_tilde",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -720,7 +730,8 @@
                                         "key_code": "comma",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -750,7 +761,8 @@
                                         "key_code": "comma",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -785,7 +797,8 @@
                                         "key_code": "period",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -815,7 +828,8 @@
                                         "key_code": "period",
                                         "modifiers": [
                                             "left_shift"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -877,7 +891,8 @@
                                         "key_code": "h",
                                         "modifiers": [
                                             "left_control"
-                                        ]
+                                        ],
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -910,7 +925,8 @@
                                         "key_code": "escape"
                                     },
                                     {
-                                        "key_code": "d"
+                                        "key_code": "d",
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
@@ -942,7 +958,8 @@
                                         "key_code": "escape"
                                     },
                                     {
-                                        "key_code": "d"
+                                        "key_code": "d",
+                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
