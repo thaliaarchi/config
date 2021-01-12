@@ -33,10 +33,10 @@ if uname | grep -q Darwin
 else
   alias ls='ls -hF --color=tty'
 end
-alias ll='ls -l'
-alias la='ls -A'  # all but . and ..
-alias lla='ls -lA'
 alias l='ls -CF'
+alias la='ls -A'  # all but . and ..
+alias ll='ls -lA'
+alias l1='command ls -1'
 
 # Misc
 alias grep='grep --color'
