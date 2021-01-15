@@ -80,10 +80,16 @@ function rsyncwin
   rsyncclean -rlt --chmod='Du=rwx,Dgo=rx,Fu=rw,Fgo=r' $argv
 end
 
-# Check availability of a ProtonMail address
+# protonchk checks availability of a ProtonMail address.
 function protonchk -a username
   curl 'https://mail.protonmail.com/api/users/available?Name='$username -H 'x-pm-appversion: Web_3.16.33'
   echo
+end
+
+# getcrx fetches a Chrome extension crx from the Chrome Web Store.
+function getcrx -a id
+  set CHROME_VERSION '86.0.4240.183'
+  wget --content-disposition --no-clobber "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=$CHROME_VERSION&acceptformat=crx2,crx3&x=id%3D$id%26uc"
 end
 
 # 4-column ASCII table
