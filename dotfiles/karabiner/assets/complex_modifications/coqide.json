@@ -17,7 +17,7 @@
           "from": {
             "key_code": "z",
             "modifiers": {
-              "mandatory": ["left_command"]
+              "mandatory": ["command"]
             }
           },
           "to": [

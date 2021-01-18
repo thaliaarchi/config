@@ -14,6 +14,7 @@
                 "^com\\.brave\\.Browser$",
                 "^org\\.chromium\\.Chromium$",
                 "^com\\.google\\.Chrome$",
+                "^com\\.apple\\.Safari$",
                 "^org\\.torproject\\.torbrowser$"
               ],
               "type": "frontmost_application_if"
@@ -47,6 +48,7 @@
                 "^com\\.brave\\.Browser$",
                 "^org\\.chromium\\.Chromium$",
                 "^com\\.google\\.Chrome$",
+                "^com\\.apple\\.Safari$",
                 "^org\\.torproject\\.torbrowser$"
               ],
               "type": "frontmost_application_if"
@@ -71,7 +73,7 @@
       ]
     },
     {
-      "description": "Open private window with Cmd+Shift+P (Chromium)",
+      "description": "Open private window with Cmd+Shift+P (Chromium and Safari)",
       "manipulators": [
         {
           "type": "basic",
@@ -80,7 +82,8 @@
               "bundle_identifiers": [
                 "^com\\.brave\\.Browser$",
                 "^org\\.chromium\\.Chromium$",
-                "^com\\.google\\.Chrome$"
+                "^com\\.google\\.Chrome$",
+                "^com\\.apple\\.Safari$"
               ],
               "type": "frontmost_application_if"
             }
