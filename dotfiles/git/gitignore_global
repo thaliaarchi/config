@@ -2,20 +2,49 @@
 .DS_Store
 .DS_Store?
 ._*
-.Spotlight-V100
-.Trashes
+.DocumentRevisions-V100/
+.Spotlight-V100/
+.TemporaryItems/
+.Trashes/
+.fseventsd/
 
 # Windows
 ehthumbs.db
 Thumbs.db
+$RECYCLE.BIN/
 
+# Temporary files
+*~
+.*.sw[po]
+*.bak
+.nfs*
+
+# Executables and build artifacts
+a.out
+*.o
+*.a
+*.so
+# Windows
+*.exe
+*.dll
+*.pdb
 # LLVM
 *.dSYM/
+
+# Javascript
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Haskell
+*.hi
 
 # Python
 __pycache__/
 
+# Code Search
+.csearchindex*
+
 # VSCode
 .vscode/
-
-a.out
