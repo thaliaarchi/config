@@ -137,3 +137,5 @@ end
 # if status is-login && status is-interactive
 #   command -q neofetch && neofetch
 # end
+
+zoxide init fish | source
