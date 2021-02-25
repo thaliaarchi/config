@@ -150,7 +150,7 @@ function postexec_notify --arg cmd --on-event fish_postexec
 
   set -l s $pipestatus
   if test "$CMD_DURATION" -ge 25000 && ! string match -rq '(^man|\s--help)(\s|$)' $cmd
-    if string match "$status" -qv 0 $s
+    if string match -qv 0 $s
       terminal-notifier -title $cmd -message 'Exited with '(string join '|' $s)' after '(math $CMD_DURATION / 1000)s
     else
       terminal-notifier -title $cmd -message 'Finished in '(math $CMD_DURATION / 1000)s
