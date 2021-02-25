@@ -67,9 +67,9 @@ command -q lynx && alias ddg='lynx https://duckduckgo.com/lite'
 command -q curl && alias weather='curl wttr.in'
 
 function rsyncclean
-  set rsync_exclude Thumbs.db '$RECYCLE.BIN' 'System Volume Information' \
+  set -l exclude Thumbs.db '$RECYCLE.BIN' 'System Volume Information' \
     .DS_Store .Spotlight-V100 .TemporaryItems .Trashes .fseventsd __MACOSX
-  rsync -vzh {--exclude,$rsync_exclude} $argv
+  echo rsync -vzh {--exclude,$exclude} $argv
 end
 
 # rsync command for copying from an NTFS or exFAT drive.
@@ -88,7 +88,7 @@ end
 
 # getcrx fetches a Chrome extension crx from the Chrome Web Store.
 function getcrx -a id
-  set CHROME_VERSION '86.0.4240.183'
+  set -l CHROME_VERSION '86.0.4240.183'
   wget --content-disposition --no-clobber "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=$CHROME_VERSION&acceptformat=crx2,crx3&x=id%3D$id%26uc"
 end
 
@@ -110,7 +110,7 @@ end
 # Homebrew Command Not Found
 # https://github.com/Homebrew/homebrew-command-not-found
 if status is-interactive && command -q brew
-  set handler (brew --prefix)'/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish'
+  set -l handler (brew --prefix)'/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.fish'
   if test -f $handler
     source $handler
   end
@@ -139,3 +139,21 @@ end
 # end
 
 zoxide init fish | source
+
+function postexec_notify --arg cmd --on-event fish_postexec
+  # brew install terminal-notifier
+  # https://github.com/julienXX/terminal-notifier
+
+  # TODO detect whether terminal is topmost application.
+  # It doesn't seem possible to get the terminal's pid from fish.
+  # osascript -e 'tell application "System Events" to return unix id of (first process whose its frontmost is true)'
+
+  set -l s $pipestatus
+  if test "$CMD_DURATION" -ge 25000 && ! string match -rq '(^man|\s--help)(\s|$)' $cmd
+    if string match "$status" -qv 0 $s
+      terminal-notifier -title $cmd -message 'Exited with '(string join '|' $s)' after '(math $CMD_DURATION / 1000)s
+    else
+      terminal-notifier -title $cmd -message 'Finished in '(math $CMD_DURATION / 1000)s
+    end
+  end
+end
