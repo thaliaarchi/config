@@ -40,6 +40,12 @@ docker kill --signal=SIGINT CONTAINER...
 docker rm CONTAINER...
 ```
 
+## Accessing logs
+
+```sh
+docker container logs CONTAINER
+```
+
 ## Projects
 
 These are the projects I have installed, with the concurrency levels I
