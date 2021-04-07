@@ -130,6 +130,43 @@
                         ]
                     },
                     {
+                        "description": "Disable quit on Cmd+Q unless held",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.mozilla\\.firefox$",
+                                            "^org\\.mozilla\\.firefoxdeveloperedition$",
+                                            "^com\\.brave\\.Browser$",
+                                            "^com\\.apple\\.Safari$",
+                                            "^org\\.torproject\\.torbrowser$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "q",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "command"
+                                        ]
+                                    }
+                                },
+                                "to_if_alone": [],
+                                "to_if_held_down": [
+                                    {
+                                        "key_code": "q",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Undo in CoqIDE with Cmd+Z",
                         "manipulators": [
                             {
