@@ -2,26 +2,27 @@
 set fish_greeting
 
 # Git
-alias g='git'
-alias gadd='git add'
-alias branch='git branch'
-alias checkout='git checkout'
-alias check='git checkout'
-alias clone='git clone'
-alias commit='git commit'
-alias gdiff='git diff'
-alias fetch='git fetch'
-alias ginit='git init'
-alias glog='git log'
-alias merge='git merge'
-alias pull='git pull'
-alias push='git push'
-alias gstatus='git status'
+abbr -a g 'git'
+abbr -a gadd 'git add'
+abbr -a branch 'git branch'
+abbr -a checkout 'git checkout'
+abbr -a check 'git checkout'
+abbr -a clone 'git clone'
+abbr -a commit 'git commit'
+abbr -a gdiff 'git diff'
+abbr -a fetch 'git fetch'
+abbr -a ginit 'git init'
+abbr -a glog 'git log'
+abbr -a merge 'git merge'
+abbr -a pull 'git pull'
+abbr -a push 'git push'
+abbr -a gstatus 'git status'
 
-alias master='git checkout master'
-alias tcommit-pacific='TZ=":America/Los_Angeles" tcommit'
-alias tcommit-mountain='TZ=":America/Denver" tcommit'
-alias tcommit-berlin='TZ=":Europe/Berlin" tcommit'
+abbr -a main 'git checkout main'
+abbr -a master 'git checkout master'
+abbr -a tcommit-pacific 'TZ=":America/Los_Angeles" tcommit'
+abbr -a tcommit-mountain 'TZ=":America/Denver" tcommit'
+abbr -a tcommit-berlin 'TZ=":Europe/Berlin" tcommit'
 
 # Directory listings
 if uname | grep -q Darwin
@@ -58,6 +59,9 @@ alias godev='cd ~/go/src'
 
 # Update credentials on every sudo
 alias sudo='command sudo -v; command sudo'
+
+# Alias cloc to faster scc
+abbr -a cloc scc
 
 # Code Search, show line numbers
 command -q csearch && alias csearch='csearch -n'
