@@ -60,7 +60,8 @@ alias godev='cd ~/go/src'
 # Update credentials on every sudo
 alias sudo='command sudo -v; command sudo'
 
-# Alias cloc to faster scc
+# Command substitutions
+abbr -a gdb lldb
 abbr -a cloc scc
 
 # Code Search, show line numbers
