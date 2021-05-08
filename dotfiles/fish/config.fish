@@ -25,19 +25,27 @@ abbr -a tcommit-mountain 'TZ=":America/Denver" tcommit'
 abbr -a tcommit-berlin 'TZ=":Europe/Berlin" tcommit'
 
 # Directory listings
-if uname | grep -q Darwin
-  # Enable ls color output
-  # https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
-  set -x CLICOLOR 1
-  # set -x LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
-  alias ls='ls -hF'
+if command -q exa
+  alias l='exa -b --git'
+  alias ls='exa -b --git'
+  alias la='exa -ab --git'
+  alias ll='exa -lab --git'
+  alias l1='exa -1b --git'
 else
-  alias ls='ls -hF --color=tty'
+  if uname | grep -q Darwin
+    # Enable ls color output
+    # https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
+    set -x CLICOLOR 1
+    # set -x LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
+    alias ls='ls -hF'
+  else
+    alias ls='ls -hF --color=tty'
+  end
+  alias l='ls -CF'
+  alias la='ls -A'  # all but . and ..
+  alias ll='ls -lA'
+  alias l1='command ls -1'
 end
-alias l='ls -CF'
-alias la='ls -A'  # all but . and ..
-alias ll='ls -lA'
-alias l1='command ls -1'
 
 # Misc
 alias grep='grep --color'
