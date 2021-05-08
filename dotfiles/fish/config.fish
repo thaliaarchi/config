@@ -26,11 +26,11 @@ abbr -a tcommit-berlin 'TZ=":Europe/Berlin" tcommit'
 
 # Directory listings
 if command -q exa
-  alias l='exa -b --git'
-  alias ls='exa -b --git'
-  alias la='exa -ab --git'
-  alias ll='exa -lab --git'
-  alias l1='exa -1b --git'
+  alias l='exa -b'
+  alias ls='exa -b'
+  alias la='exa -ab'
+  alias ll='exa -lab'
+  alias l1='exa -1b'
 else
   if uname | grep -q Darwin
     # Enable ls color output
