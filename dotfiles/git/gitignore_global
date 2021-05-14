@@ -16,35 +16,114 @@ $RECYCLE.BIN/
 # Temporary files
 *~
 .*.sw[po]
+\#*#
+*.tmp
 *.bak
+*.log
 .nfs*
+core
 
 # Executables and build artifacts
 a.out
-*.o
-*.a
-*.so
-# Windows
+*.[ao]
 *.exe
+*.msi
+*.pkg
+*.obj
+*.so
 *.dll
+*.dylib
 *.pdb
-# LLVM
 *.dSYM/
 
-# Javascript
+# IDEs
+.vscode/
+.idea/
+.eclipse/
+.vs/
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.lz4
+*.tgz
+*.tbz2
+*.txz
+*.rar
+*.7z
+
+# Go
+*.[56789ao]
+*.a[56789o]
+[56789a].out
+
+# Rust
+target/debug/
+target/release/
+target/.rustc_info.json
+target/CACHEDIR.TAG
+*.rs.bk
+
+# C / C++
+*.gch
+*.pch
+CMakeCache.txt
+
+# Yacc / Lex
+*.tab.c
+*.tab.h
+*.yy.c
+*.yy.h
+
+# Python
+__pycache__/
+*.py[cod]
+
+# JavaScript
 node_modules/
+bower_components/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 # Haskell
 *.hi
+*.hie
 
-# Python
-__pycache__/
+# OCaml
+_build/
+*.byte
+*.native
+
+# Coq
+.coq-native
+.csdp.cache
+.lia.cache
+.nia.cache
+.nlia.cache
+.nra.cache
+csdp.cache
+lia.cache
+nia.cache
+nlia.cache
+nra.cache
+Makefile.coq
+Makefile.coq.conf
+.Makefile.coq.d
+
+# Java
+*.class
+*.jar
+.gradle/
+
+# C#
+*.suo
+
+# Lua
+callisto.report
 
 # Code Search
-.csearchindex*
-
-# VSCode
-.vscode/
+.csearchindex
