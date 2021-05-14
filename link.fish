@@ -81,6 +81,8 @@ remove_default_neofetch $XDG_CONFIG_HOME/neofetch/config.conf
 link_config bash/bashrc.bash ~/.bashrc
 link_config bash/bash_profile.bash ~/.bash_profile
 link_config bash/bash_logout.bash ~/.bash_logout
+link_config git/gitconfig ~/.gitconfig
+link_config git/gitignore_global ~/.gitignore_global
 link_config screenrc ~/.screenrc
 test -f ~/.hushlogin || touch ~/.hushlogin # Suppress MOTD
 # Directories in $XDG_CONFIG_HOME

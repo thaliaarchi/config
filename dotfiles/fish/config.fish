@@ -4,6 +4,7 @@ set fish_greeting
 # Git
 abbr -a g 'git'
 abbr -a gadd 'git add'
+abbr -a bisect 'git bisect'
 abbr -a branch 'git branch'
 abbr -a checkout 'git checkout'
 abbr -a check 'git checkout'
