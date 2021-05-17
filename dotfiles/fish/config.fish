@@ -25,27 +25,74 @@ abbr -a tcommit-pacific 'TZ=":America/Los_Angeles" tcommit'
 abbr -a tcommit-mountain 'TZ=":America/Denver" tcommit'
 abbr -a tcommit-berlin 'TZ=":Europe/Berlin" tcommit'
 
+# -A  List all entries except for . and ..                   GNU BSD
+# -a  List all entries except for . and ..                           exa
+#
+# -l  List in long format                                    GNU BSD exa
+#
+# -1  Display one entry per line                             GNU BSD exa
+#
+# -b  Print C-style escapes for non-graphic characters       GNU BSD
+#
+# -F  Append indicator to entries                            GNU BSD exa
+#       / directory                                          GNU BSD exa
+#       * executable                                         GNU BSD exa
+#       @ symbolic link                                      GNU BSD exa
+#       | FIFO                                               GNU BSD exa
+#       = socket                                             GNU BSD exa
+#       > door                                               GNU
+#       % whiteout                                               BSD
+#
+# -h  Print sizes in powers of 1024 (K M G etc.)             GNU
+# -h  Print sizes in powers of 1024 (B K M G etc.)               BSD
+# -b  Print sizes in powers of 1024 (Ki Mi Gi etc.)                  exa
+# --si       Print sizes in powers of 1000 (k M G etc.)          GNU
+# (default)  Print sizes in powers of 1000 (k M G etc.)              exa
+#
+# -G  In a long listing, omit group names                    GNU
+# -o  List in long format, but omit the group id             GNU BSD
+# -g  In a long listing, include group names                         exa
+#
+# -H  In a long listing, include the number of hard links            exa
+#
+# -G  Enable colored output; equivalent to defining CLICOLOR     BSD
+#
+# --group-directories-first                                  GNU     exa
+#     List directories before other files
+#
+# --git  List the Git status for each tracked file                   exa
+
 # Directory listings
 if command -q exa
-  alias l='exa -b'
-  alias ls='exa -b'
-  alias la='exa -ab'
-  alias ll='exa -lab'
+  alias la='exa -abF'
+  alias ll='exa -abFl --group-directories-first'
   alias l1='exa -1b'
+  alias ls='exa -bF'
+  alias l='exa -bF'
 else
-  if uname | grep -q Darwin
-    # Enable ls color output
+  set -l ls ls
+  if command -q gls # brew install coreutils
+    set ls gls
+  end
+  if $ls --version 2> /dev/null | grep -q 'GNU coreutils'
+    # GNU
+    alias la="$ls -AbFGh --color"
+    alias ll="$ls -AbFGhl --color --group-directories-first"
+    alias l1="$ls -1bGh --color"
+    alias ls="$ls -bFGh --color"
+    alias l="$ls -bFGh --color"
+  else
+    # BSD
+    alias la="$ls -AbFGh"
+    alias ll="$ls -AbFGho"
+    alias l1="$ls -1bGh"
+    alias ls="$ls -bFGh"
+    alias l="$ls -bFGh"
+    # Colors mimicking GNU
     # https://apple.stackexchange.com/questions/33677/how-can-i-configure-mac-terminal-to-have-color-ls-output
     set -x CLICOLOR 1
-    # set -x LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
-    alias ls='ls -hF'
-  else
-    alias ls='ls -hF --color=tty'
+    set -x LSCOLORS ExGxBxDxCxEgEdxbxgxcxd
   end
-  alias l='ls -CF'
-  alias la='ls -A'  # all but . and ..
-  alias ll='ls -lA'
-  alias l1='command ls -1'
 end
 
 # Misc
