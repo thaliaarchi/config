@@ -39,6 +39,7 @@ a.out
 # IDEs
 .vscode/
 .idea/
+*.iml
 .eclipse/
 .vs/
 
@@ -118,6 +119,10 @@ Makefile.coq.conf
 *.class
 *.jar
 .gradle/
+.settings/
+.classpath
+.project
+local.properties
 
 # C#
 *.suo
