@@ -163,6 +163,10 @@ alias history='history --show-time="%Y-%m-%d %H:%M:%S  "'
 # https://github.com/pyenv/pyenv#basic-github-checkout
 command -q pyenv && pyenv init - | source
 
+if status --is-interactive && command -q jenv
+  jenv init - | source
+end
+
 # opam configuration
 if test -e ~/.opam/opam-init/init.fish
   source ~/.opam/opam-init/init.fish > /dev/null 2>&1
