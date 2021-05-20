@@ -123,6 +123,7 @@ Makefile.coq.conf
 .classpath
 .project
 local.properties
+.java-version
 
 # C#
 *.suo
