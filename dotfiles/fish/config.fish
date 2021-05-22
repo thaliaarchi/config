@@ -172,11 +172,10 @@ if status --is-interactive && command -q jenv
   jenv init - | source
 end
 
-# # opam configuration
-# # Disabled because it prepended a . to PATH on every evaluation of PATH
-# if test -e ~/.opam/opam-init/init.fish
-#   source ~/.opam/opam-init/init.fish > /dev/null 2>&1
-# end
+# opam configuration
+if test -e ~/.opam/opam-init/init.fish
+  source ~/.opam/opam-init/init.fish > /dev/null 2>&1
+end
 
 # Homebrew Command Not Found
 # https://github.com/Homebrew/homebrew-command-not-found
