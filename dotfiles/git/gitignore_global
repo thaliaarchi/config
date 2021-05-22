@@ -125,6 +125,9 @@ Makefile.coq.conf
 local.properties
 .java-version
 
+# Idris
+*.ibc
+
 # C#
 *.suo
 
