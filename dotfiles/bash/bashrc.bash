@@ -32,11 +32,7 @@ export PATH
 
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source "/usr/local/etc/profile.d/bash_completion.sh"
 
-# pyenv
-# https://github.com/pyenv/pyenv#installation
-if command -v pyenv > /dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 if uname | grep -q Darwin; then
   # Homebrew-installed Bash
