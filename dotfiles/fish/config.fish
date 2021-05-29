@@ -164,11 +164,11 @@ command -q wspace && alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula
 # Format history time as "2006-01-02 15:04:05  "
 alias history='history --show-time="%Y-%m-%d %H:%M:%S  "'
 
-# https://github.com/ungoogled-software/ungoogled-chromium-macos#setting-up-the-build-environment
-# https://github.com/pyenv/pyenv#basic-github-checkout
-command -q pyenv && pyenv init - | source
+# Add pyenv to PATH manually:
+# set -Ux PYENV_ROOT ~/.pyenv
+# set -Ua fish_user_paths $PYENV_ROOT/bin
 
-if status --is-interactive && command -q jenv
+if status is-interactive && command -q jenv
   jenv init - | source
 end
 
