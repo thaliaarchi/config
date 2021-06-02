@@ -142,7 +142,7 @@
        ```
 
     2. Create an SSH tunnel on macOS to Kali where 5901 is 5900 plus the
-       VNC display number (i.e. blackberryi:1).
+       VNC display number (e.g. blackberryi:1).
 
        ```sh
        ssh blackberryi -L 5901:localhost:5901

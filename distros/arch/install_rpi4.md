@@ -4,7 +4,7 @@ Instructions adapted from
 https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4
 
 1. Identify the device name of the SD card. It will be in the form of
-   `sdX` (i.e. `sda` or `sdb`).
+   `sdX` (e.g. `sda` or `sdb`).
 
     ```sh
     lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL
