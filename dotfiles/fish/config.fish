@@ -166,7 +166,7 @@ alias history='history --show-time="%Y-%m-%d %H:%M:%S  "'
 
 # Add pyenv to PATH manually:
 # set -Ux PYENV_ROOT ~/.pyenv
-# set -Ua fish_user_paths $PYENV_ROOT/bin
+# set -Ua fish_user_paths $PYENV_ROOT/shims
 
 if status is-interactive && command -q jenv
   jenv init - | source
