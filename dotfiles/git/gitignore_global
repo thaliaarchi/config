@@ -130,6 +130,13 @@ local.properties
 
 # C#
 *.suo
+*.exe.mdb
+*.exe.config
+bin/Debug/
+bin/Release/
+obj/Debug/
+obj/Release/
+mono_crash.*.json
 
 # Lua
 callisto.report
