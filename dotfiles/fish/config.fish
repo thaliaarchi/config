@@ -132,6 +132,12 @@ command -q cgrep   && alias cgrep='cgrep -n'
 command -q lynx && alias ddg='lynx https://duckduckgo.com/lite'
 command -q curl && alias weather='curl wttr.in'
 
+# pbcopy/pbpaste aliases using X11
+if ! command -q pbcopy && command -q xclip
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+end
+
 function rsyncclean
   set -l exclude Thumbs.db '$RECYCLE.BIN' 'System Volume Information' \
     .DS_Store .Spotlight-V100 .TemporaryItems .Trashes .fseventsd __MACOSX
