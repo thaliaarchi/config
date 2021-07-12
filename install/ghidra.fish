@@ -3,8 +3,8 @@
 # https://ghidra-sre.org/
 # https://ghidra-sre.org/InstallationGuide.html
 
-set VERSION 9.2
-set DATE 20201113
+set -l VERSION 9.2
+set -l DATE 20201113
 
 if ! test -f ghidra_{$VERSION}_PUBLIC_$DATE.zip
   wget https://ghidra-sre.org/ghidra_{$VERSION}_PUBLIC_$DATE.zip

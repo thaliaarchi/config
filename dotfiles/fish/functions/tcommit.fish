@@ -1,5 +1,5 @@
 function coreutils_date
-  set date date
+  set -l date date
   if command -q strings
     strings (command -s date) | grep -q 'GNU coreutils' || set date gdate
   else if uname | grep -q Darwin
@@ -9,20 +9,20 @@ function coreutils_date
 end
 
 function tcommit -d 'Git commit at file modification time' --wraps='git commit'
-  set repo (git rev-parse --show-toplevel)
-  set staged_files (git -C $repo diff --name-only --staged --diff-filter=d)
+  set -l repo (git rev-parse --show-toplevel)
+  set -l staged_files (git -C $repo diff --name-only --staged --diff-filter=d)
 
   if test -z "$staged_files"
     echo 'No staged files'
     return 1
   end
 
-  set date (coreutils_date)
-  set max_nanoseconds 0
-  set max_date ''
+  set -l date (coreutils_date)
+  set -l max_nanoseconds 0
+  set -l max_date ''
 
   for file in $staged_files
-    set nanoseconds ($date -r $repo/$file +'%s%N')
+    set -l nanoseconds ($date -r $repo/$file +'%s%N')
     if test $nanoseconds -gt $max_nanoseconds
       set max_nanoseconds $nanoseconds
       set max_date ($date -r $repo/$file +'%Y-%m-%d %T.%N %z')
@@ -31,8 +31,8 @@ function tcommit -d 'Git commit at file modification time' --wraps='git commit'
 
   git -C $repo status
 
-  set ad $max_date
-  set cd $max_date
+  set -l ad $max_date
+  set -l cd $max_date
   if set -q GIT_AUTHOR_DATE
     set ad $GIT_AUTHOR_DATE
   end
