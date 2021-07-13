@@ -6,4 +6,5 @@ function clonedev -a url -d 'Clone git repo to ~/dev'
   set path (string replace --regex '^https?://(.+?)(\.git)?/?$' '$1' $url)
   mkdir -p ~/dev/$path
   git clone $url ~/dev/$path
+  cd ~/dev/$path
 end
