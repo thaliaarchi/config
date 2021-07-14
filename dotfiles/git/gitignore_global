@@ -42,6 +42,9 @@ a.out
 .eclipse/
 .vs/
 
+# Debugging
+.gdb_history
+
 # Archives
 *.zip
 *.tar
@@ -70,7 +73,17 @@ target/CACHEDIR.TAG
 # C / C++
 *.gch
 *.pch
+
+# CMake
+CMakeLists.txt.user
 CMakeCache.txt
+CMakeFiles
+CMakeScripts
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
 
 # Yacc / Lex
 *.tab.c
