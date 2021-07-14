@@ -170,6 +170,14 @@ command -q wspace && alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula
 # Format history time as "2006-01-02 15:04:05  "
 alias history='history --show-time="%Y-%m-%d %H:%M:%S  "'
 
+set -Ux DO_NOT_TRACK 1                 # https://consoledonottrack.com/
+set -Ux HOMEBREW_NO_ANALYTICS 1        # Homebrew `brew analytics off` https://docs.brew.sh/Analytics
+set -Ux DOTNET_CLI_TELEMETRY_OPTOUT 1  # .NET SDK https://docs.microsoft.com/en-us/dotnet/core/tools/telemetry#how-to-opt-out
+set -Ux AZURE_CORE_COLLECT_TELEMETRY 0 # Azure CLI https://docs.microsoft.com/en-us/cli/azure/azure-cli-configuration#cli-configuration-values-and-environment-variables
+set -Ux SAM_CLI_TELEMETRY 0            # AWS SAM CLI https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-telemetry.html
+set -Ux GATSBY_TELEMETRY_DISABLED 1    # Gatsby `gatsby telemetry --disable` https://www.gatsbyjs.com/docs/telemetry/
+# TODO: opt out of telemetry using https://github.com/beatcracker/toptout
+
 # Add pyenv to PATH manually:
 # set -Ux PYENV_ROOT ~/.pyenv
 # set -Ua fish_user_paths $PYENV_ROOT/shims
