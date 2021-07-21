@@ -178,6 +178,10 @@ set -Ux SAM_CLI_TELEMETRY 0            # AWS SAM CLI https://docs.aws.amazon.com
 set -Ux GATSBY_TELEMETRY_DISABLED 1    # Gatsby `gatsby telemetry --disable` https://www.gatsbyjs.com/docs/telemetry/
 # TODO: opt out of telemetry using https://github.com/beatcracker/toptout
 
+if status is-interactive && command -q zoxide
+  zoxide init fish | source
+end
+
 # Add pyenv to PATH manually:
 # set -Ux PYENV_ROOT ~/.pyenv
 # set -Ua fish_user_paths $PYENV_ROOT/shims
@@ -222,22 +226,23 @@ end
 #   command -q neofetch && neofetch
 # end
 
-zoxide init fish | source
 
-function postexec_notify --arg cmd --on-event fish_postexec
-  # brew install terminal-notifier
-  # https://github.com/julienXX/terminal-notifier
+if command -q terminal-notifier
+  function postexec_notify --arg cmd --on-event fish_postexec
+    # brew install terminal-notifier
+    # https://github.com/julienXX/terminal-notifier
 
-  # TODO detect whether terminal is topmost application.
-  # It doesn't seem possible to get the terminal's pid from fish.
-  # osascript -e 'tell application "System Events" to return unix id of (first process whose its frontmost is true)'
+    # TODO detect whether terminal is topmost application.
+    # It doesn't seem possible to get the terminal's pid from fish.
+    # osascript -e 'tell application "System Events" to return unix id of (first process whose its frontmost is true)'
 
-  set -l s $pipestatus
-  if test "$CMD_DURATION" -ge 25000 && ! string match -rq '(^man|\s--help)(\s|$)' $cmd
-    if string match -qv 0 $s
-      terminal-notifier -title $cmd -message 'Exited with '(string join '|' $s)' after '(math $CMD_DURATION / 1000)s
-    else
-      terminal-notifier -title $cmd -message 'Finished in '(math $CMD_DURATION / 1000)s
+    set -l s $pipestatus
+    if test "$CMD_DURATION" -ge 25000 && ! string match -rq '(^man|\s--help)(\s|$)' $cmd
+      if string match -qv 0 $s
+        terminal-notifier -title $cmd -message 'Exited with '(string join '|' $s)' after '(math $CMD_DURATION / 1000)s
+      else
+        terminal-notifier -title $cmd -message 'Finished in '(math $CMD_DURATION / 1000)s
+      end
     end
   end
 end
