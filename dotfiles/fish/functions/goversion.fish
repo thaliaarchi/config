@@ -19,7 +19,7 @@ function __goversion_query_extra -d 'Query extra Go versions'
     return 1
   end
   go get -d golang.org/dl/gotip
-  set GOPATH (go env GOPATH)
+  set -l GOPATH (go env GOPATH)
   git -C "$GOPATH[1]/src/golang.org/dl" ls-tree -d --name-only HEAD |
       command grep '^go' | sort -Vr
 end
@@ -66,7 +66,7 @@ function __goversion_installed_goroots -d 'List paths to installed Go versions'
   set -l install_goroots
   for go in $install_paths
     test -x "$go" || continue
-    set GOROOT ($go env GOROOT)
+    set -l GOROOT ($go env GOROOT)
     contains -- $GOROOT $install_goroots && continue
     set -a install_goroots $GOROOT
   end
@@ -75,13 +75,13 @@ end
 
 function __goversion_installed_versions -d 'Print version info for Go installations'
   for GOROOT in $argv
-    set goversion (string replace -r '^go version ' '' ($GOROOT/bin/go version))
+    set -l goversion (string replace -r '^go version ' '' ($GOROOT/bin/go version))
     echo $goversion '  ' (prettypath $GOROOT)
   end
 end
 
 function __goversion_select_option -a prompt
-  set options $argv[2..-1]
+  set -l options $argv[2..-1]
   while true
     read -P "$prompt: " val
     if contains -- "$val" $options
@@ -118,8 +118,8 @@ function goversion -d 'Manage Go versions'
   end
 
   # See https://github.com/golang/website/blob/master/internal/dl/server.go
-  set releases (__goversion_query_release_json)
-  set versions (echo $releases | __goversion_versions)
+  set -l releases (__goversion_query_release_json)
+  set -l versions (echo $releases | __goversion_versions)
 
   set_color -o green
   echo 'Stable versions:'
@@ -136,10 +136,10 @@ function goversion -d 'Manage Go versions'
   set_color -o blue
   echo 'Installed versions:'
   set_color normal
-  set install_goroots (__goversion_installed_goroots)
+  set -l install_goroots (__goversion_installed_goroots)
   __goversion_installed_versions $install_goroots
 
-  set install_gopaths
+  set -l install_gopaths
   for GOROOT in $install_goroots
     set GOPATH ($GOROOT/bin/go env GOPATH)
     for path in $GOPATH
@@ -148,11 +148,11 @@ function goversion -d 'Manage Go versions'
   end
   echo
 
-  set goversion (__goversion_select_option 'Select version' $versions)
+  set -l goversion (__goversion_select_option 'Select version' $versions)
   echo
 
   echo 'Binaries:'
-  set binaries (echo $releases | __goversion_version_binaries $goversion)
+  set -l binaries (echo $releases | __goversion_version_binaries $goversion)
   string collect $binaries | column
 
   __goversion_install_primary (__goversion_select_option 'Select binary' $binaries)
@@ -160,7 +160,7 @@ function goversion -d 'Manage Go versions'
 
   if __goversion_prompt_yn 'Install extra versions?'
     echo 'Versions:'
-    set extra_versions (__goversion_query_extra)
+    set -l extra_versions (__goversion_query_extra)
     string collect $extra_versions | column
     echo
     while true

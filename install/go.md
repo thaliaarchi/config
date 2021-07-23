@@ -14,7 +14,7 @@
    - For fish:
 
      ```sh
-     echo 'set PATH $PATH /usr/local/go/bin' >> ~/.config/fish/config.fish
+     echo 'set -a PATH /usr/local/go/bin' >> ~/.config/fish/config.fish
      ```
 
    - For bash:

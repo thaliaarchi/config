@@ -1,4 +1,4 @@
-set USAGE \
+set -l USAGE \
 'Create a new GitHub repository
 
     github_new_repo [OPTIONS] REPO_NAME
@@ -8,7 +8,7 @@ set USAGE \
         -p, --private     Private visibility
         -t, --token       GitHub API token with repo scope'
 
-set TOKEN_USAGE \
+set -l TOKEN_USAGE \
 'A GitHub API token must be specified, either with the environment
 variable GITHUB_API_TOKEN or with --token. A personal access token can
 generated at https://github.com/settings/tokens. To create a public
@@ -26,7 +26,7 @@ function github_new_repo -d 'Create a new GitHub repository'
     return
   end
 
-  set repo $argv[1]
+  set -l repo $argv[1]
   if ! count $argv > /dev/null || test -z "$repo"
     echo 'Repo name cannot be empty' >&2
     return 1
@@ -49,13 +49,13 @@ function github_new_repo -d 'Create a new GitHub repository'
   # https://developer.github.com/v3/repos/#create-a-repository-for-the-authenticated-user
   # https://developer.github.com/v3/repos/#create-an-organization-repository
 
-  set data (jq --null-input --compact-output \
+  set -l data (jq --null-input --compact-output \
     --arg name "$repo" \
     --arg description "$_flag_desc" \
     --arg private "$_flag_private" \
     '{"name": $name, "description": $description, "private": ($private != "")}')
 
-  set url https://api.github.com/user/repos
+  set -l url https://api.github.com/user/repos
   if test -n "$_flag_org"
     set url https://api.github.com/orgs/$_flag_org/repos
   end

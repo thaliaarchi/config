@@ -63,7 +63,7 @@ function remove_default_neofetch -a dest
 end
 
 function after_version -a current min
-  set versions (string collect $current $min | sort -V)
+  set -l versions (string collect $current $min | sort -V)
   test "$versions[1]" = "$min"
 end
 
@@ -107,7 +107,7 @@ end
 if ! test -L $XDG_CONFIG_HOME/fish
   for file in $XDG_CONFIG_HOME/fish/{fish_variables*,config_local.fish}
     test -f "$file" || continue
-    set dotfiles_file $dotfiles_dir/fish/(basename $file)
+    set -l dotfiles_file $dotfiles_dir/fish/(basename $file)
     if test -e "$dotfiles_file" && ! cmp -s -- $file $dotfiles_file
       echo (basename $file) "exists at both" (prettypath $XDG_CONFIG_HOME/fish) "and" (prettypath $dotfiles_dir/fish) >&2
     else
