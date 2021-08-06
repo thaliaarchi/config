@@ -95,6 +95,11 @@ _deps/
 __pycache__/
 *.py[cod]
 
+# PyPi
+*.egg-info/
+*.egg
+.eggs/
+
 # JavaScript
 node_modules/
 bower_components/
