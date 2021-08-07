@@ -7,3 +7,5 @@
 	rebase = false
 [init]
 	defaultBranch = main
+[log]
+	date = iso8601
