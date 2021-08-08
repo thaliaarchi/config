@@ -3,6 +3,7 @@
 	email = andrew@aarchibald.com
 [core]
 	excludesfile = /Users/andrew/.gitignore_global
+	autocrlf = false
 [pull]
 	rebase = false
 [init]
