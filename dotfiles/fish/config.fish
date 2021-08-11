@@ -118,6 +118,10 @@ alias ............='cd ../../../../../../../../../../..'
 alias dev='cd ~/dev'
 alias godev='cd ~/go/src'
 
+function mkcd -a dir
+  mkdir $dir && cd $dir
+end
+
 # Update credentials on every sudo
 alias sudo='command sudo -v; command sudo'
 
