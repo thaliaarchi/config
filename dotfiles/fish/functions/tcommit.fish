@@ -22,10 +22,12 @@ function tcommit -d 'Git commit at file modification time' --wraps='git commit'
   set -l max_date ''
 
   for file in $staged_files
-    set -l nanoseconds ($date -r $repo/$file +'%s%N')
-    if test $nanoseconds -gt $max_nanoseconds
-      set max_nanoseconds $nanoseconds
-      set max_date ($date -r $repo/$file +'%Y-%m-%d %T.%N %z')
+    if test -e "$repo/$file"
+      set -l nanoseconds ($date -r $repo/$file +'%s%N')
+      if test "$nanoseconds" -gt "$max_nanoseconds"
+        set max_nanoseconds $nanoseconds
+        set max_date ($date -r $repo/$file +'%Y-%m-%d %T.%N %z')
+      end
     end
   end
 
