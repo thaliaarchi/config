@@ -231,7 +231,7 @@ end
 # end
 
 
-if command -q terminal-notifier
+if command -q terminal-notifier # macOS
   function postexec_notify --arg cmd --on-event fish_postexec
     # brew install terminal-notifier
     # https://github.com/julienXX/terminal-notifier
@@ -246,6 +246,17 @@ if command -q terminal-notifier
         terminal-notifier -title $cmd -message 'Exited with '(string join '|' $s)' after '(math $CMD_DURATION / 1000)s
       else
         terminal-notifier -title $cmd -message 'Finished in '(math $CMD_DURATION / 1000)s
+      end
+    end
+  end
+else if command -q notify-send # Ubuntu
+  function postexec_notify --arg cmd --on-event fish_postexec
+    set -l s $pipestatus
+    if test "$CMD_DURATION" -ge 25000 && ! string match -rq '(^man|\s--help)(\s|$)' $cmd
+      if string match -qv 0 $s
+        notify-send $cmd 'Exited with '(string join '|' $s)' after '(math $CMD_DURATION / 1000)s
+      else
+        notify-send $cmd 'Finished in '(math $CMD_DURATION / 1000)s
       end
     end
   end
