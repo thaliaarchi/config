@@ -112,6 +112,12 @@ yarn-error.log*
 *.hie
 
 # OCaml
+*.cmo
+*.cma
+*.cmi
+*.cmx
+*.cmxs
+*.cmxa
 _build/
 *.byte
 *.native
