@@ -127,7 +127,7 @@ alias sudo='command sudo -v; command sudo'
 
 # Command substitutions
 abbr -a gdb lldb
-abbr -a cloc scc
+abbr -a cloc tokei # cloc, scc, tokei
 
 # Code Search, show line numbers
 command -q csearch && alias csearch='csearch -n'
