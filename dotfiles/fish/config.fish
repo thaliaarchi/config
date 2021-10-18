@@ -126,6 +126,7 @@ end
 alias sudo='command sudo -v; command sudo'
 
 # Command substitutions
+abbr -a youtube-dl yt-dlp
 abbr -a gdb lldb
 abbr -a cloc tokei # cloc, scc, tokei
 
