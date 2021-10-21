@@ -159,8 +159,14 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+# Scala
+.bsp/
+
 # Idris
 *.ibc
+
+# ANTLR
+.antlr/
 
 # C#
 *.suo
