@@ -1,26 +1,63 @@
-# macOS
+# Operating systems
+
+## macOS
 .DS_Store
-.DS_Store?
+.AppleDouble
+.LSOverride
+### Extended attributes
 ._*
+### Volume root
 .DocumentRevisions-V100/
 .Spotlight-V100/
 .TemporaryItems/
 .Trashes/
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
 .fseventsd/
+### Remote AFP share
+.AppleDB/
+.AppleDesktop/
+Network Trash Folder/
+Temporary Items/
+.apdisk/
 
-# Windows
-ehthumbs.db
+## Linux
+*~
+### Deleted files that are still being accessed
+.nfs*
+.fuse_hidden*
+### Trash on partition or disk
+.Trash-*/
+### KDE directory preferences
+.directory
+
+## Windows
+### Thumbnail cache
 Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+### Folder config
+[Dd]esktop.ini
+### Recycle Bin on file shares
 $RECYCLE.BIN/
+### Installers
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+### Shortcuts
+*.lnk
+### Crash dump file
+*.stackdump
 
 # Temporary files
-*~
 .*.sw[po]
 \#*#
 *.tmp
 *.bak
 *.log
-.nfs*
 
 # Executables and build artifacts
 a.out
@@ -35,94 +72,80 @@ a.out
 *.pdb
 *.dSYM/
 
-# IDEs
-.vscode/
-.idea/
-*.iml
-.eclipse/
-.vs/
-
-# Debugging
-.gdb_history
-
-# Archives
-*.zip
-*.tar
-*.tar.gz
-*.tar.bz2
-*.tar.xz
-*.tar.lz4
-*.tgz
-*.tbz2
-*.txz
-*.rar
+# Archive and compression formats
 *.7z
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+## bzip2
+*.bz2
+*.bzip2
+*.bzip
+*.tbz2
+*.tb2
+*.tbz
+*.tz2
+## gzip
+*.gz
+*.gzip
+*.tgz
+*.taz
+## lzip
+*.lz
+## LZ4
+*.lz4
+## lzma
+*.lzma
+*.tlz
+## lzop
+*.lzo
+## xz
+*.xz
+*.txz
+## compress
+*.Z
+*.tZ
+*.taZ
+## Zstandard
+*.zst
+*.tzst
 
-# Go
-*.[56789ao]
-*.a[56789o]
-[56789a].out
+# Programming languages
 
-# Rust
-target/debug/
-target/release/
-target/.rustc_info.json
-target/CACHEDIR.TAG
-*.rs.bk
+## ANTLR
+.antlr/
 
-# C / C++
+## C / C++
+### Precompiled headers
 *.gch
 *.pch
 
-# CMake
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps/
+## C#
+*.suo
+*.exe.mdb
+*.exe.config
+bin/Debug/
+bin/Release/
+obj/Debug/
+obj/Release/
+mono_crash.*.json
 
-# Yacc / Lex
-*.tab.c
-*.tab.h
-*.yy.c
-*.yy.h
-
-# Python
-__pycache__/
-*.py[cod]
-
-# PyPi
-*.egg-info/
-*.egg
-.eggs/
-
-# JavaScript
-node_modules/
-bower_components/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Haskell
-*.hi
-*.hie
-
-# OCaml
-*.cmo
-*.cma
-*.cmi
-*.cmx
-*.cmxs
-*.cmxa
-_build/
-*.byte
-*.native
-
-# Coq
+## Coq
+*.v.d
+*.vio
+*.vo
+*.vok
+*.vos
+*.ml.d
+*.ml4.d
+*.mlg.d
+*.mli.d
+*.mllib.d
+*.mlpack.d
+.*.aux
+.*.d
 .coq-native
 .csdp.cache
 .lia.cache
@@ -138,18 +161,133 @@ Makefile.coq
 Makefile.coq.conf
 .Makefile.coq.d
 
-# Java
+## Go
+*.[56789ao]
+*.a[56789o]
+[56789a].out
+
+## Haskell
+*.hi
+*.hie
+*.chi
+*.chs.h
+*.dyn_o
+*.dyn_hi
+cabal-dev
+.cabal-sandbox/
+cabal.sandbox.config
+cabal.project.local
+.ghc.environment.*
+.hpc
+.hsenv
+.HTF/
+
+## Idris
+*.ibc
+
+## Java
 *.class
-*.jar
-.gradle/
-.settings/
 .classpath
 .factorypath
 .project
-local.properties
 .java-version
+### JVM crash logs
+hs_err_pid*
+### BlueJ
+*.ctxt
 
-# Maven
+## JavaScript
+node_modules/
+bower_components/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## Lex / Yacc
+*.tab.c
+*.tab.h
+*.yy.c
+*.yy.h
+
+## Lua
+callisto.report
+
+## Objective-C
+*.hmap
+
+## OCaml
+*.a
+*.o
+*.cmo
+*.cma
+*.cmi
+*.cmx
+*.cmxs
+*.cmxa
+*.annot
+### ocamlbuild
+_build/
+*.byte
+*.native
+### oasis
+setup.data
+setup.log
+### Merlin
+.merlin
+### Dune
+*.install
+### OPAM
+_opam/
+
+## Python
+__pycache__/
+*.py[cod]
+*$py.class
+### PyPi
+*.egg-info/
+*.egg
+.eggs/
+
+## Rust
+target/debug/
+target/release/
+target/.rustc_info.json
+target/CACHEDIR.TAG
+*.rs.bk
+
+## Scala
+.bsp/
+
+# Build systems
+
+## CMake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+## Gradle
+.gradle
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+## Leiningen
+pom.xml.asc
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+.nrepl-port
+.cpcache/
+
+## Maven
+target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -159,27 +297,65 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
-# Scala
-.bsp/
+## Ninja
+.ninja_deps
+.ninja_log
 
-# Idris
-*.ibc
+# IDEs
 
-# ANTLR
-.antlr/
+## Eclipse
+.eclipse/
+.metadata
+local.properties
+.settings/
 
-# C#
-*.suo
-*.exe.mdb
-*.exe.config
-bin/Debug/
-bin/Release/
-obj/Debug/
-obj/Release/
-mono_crash.*.json
+## JetBrains
+.idea/
+*.iml
+*.iws
 
-# Lua
-callisto.report
+## NetBeans
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-# Code Search
+## Visual Studio
+.vs/
+
+## Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## Xcode
+xcuserdata/
+
+# Version control systems
+
+## CVS
+CVS/
+.cvsignore
+
+## Mercurial
+.hg/
+.hgignore
+.hgsigs
+.hgsub
+.hgsubstate
+.hgtags
+
+## SVN
+.svn/
+
+# Tools
+
+## Code Search
 .csearchindex
