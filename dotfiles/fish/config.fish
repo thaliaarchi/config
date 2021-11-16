@@ -23,6 +23,7 @@ abbr -a rebase 'git rebase'
 abbr -a rcontinue 'git rebase --continue'
 abbr -a remote 'git remote'
 abbr -a gstatus 'git status'
+abbr -a gswitch 'git switch'
 
 abbr -a main 'git checkout main'
 abbr -a master 'git checkout master'
