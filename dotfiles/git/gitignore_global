@@ -301,7 +301,7 @@ buildNumber.properties
 .ninja_deps
 .ninja_log
 
-# IDEs
+# IDEs and editors
 
 ## Eclipse
 .eclipse/
@@ -313,6 +313,11 @@ local.properties
 .idea/
 *.iml
 *.iws
+
+## Microsoft Office
+~$*.doc*
+~$*.xls*
+~$*.ppt*
 
 ## NetBeans
 **/nbproject/private/
