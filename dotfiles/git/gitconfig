@@ -4,9 +4,14 @@
 [core]
 	excludesfile = /Users/andrew/.gitignore_global
 	autocrlf = false
-[pull]
-	rebase = false
+	editor = code --wait
+[diff]
+  tool = default-difftool
+[difftool "default-difftool"]
+  cmd = code --wait --diff $LOCAL $REMOTE
 [init]
 	defaultBranch = main
 [log]
 	date = iso8601
+[pull]
+	rebase = false
