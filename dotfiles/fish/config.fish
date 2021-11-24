@@ -31,6 +31,8 @@ abbr -a tcommit-pacific 'TZ=":America/Los_Angeles" tcommit'
 abbr -a tcommit-mountain 'TZ=":America/Denver" tcommit'
 abbr -a tcommit-berlin 'TZ=":Europe/Berlin" tcommit'
 
+alias git-check-dates='git log --format=\'test "%ad" = "%cd" || echo "%ad %cd %h %s"\' | source'
+
 # -A  List all entries except for . and ..                   GNU BSD
 # -a  List all entries except for . and ..                           exa
 #
