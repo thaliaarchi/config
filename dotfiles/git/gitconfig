@@ -9,6 +9,8 @@
   tool = default-difftool
 [difftool "default-difftool"]
   cmd = code --wait --diff $LOCAL $REMOTE
+[format]
+	pretty = format:%C(auto)%H%d%n%ai  %an <%ae>%n%ci  %cn <%ce>%n%n%w(0,4,4)%B
 [init]
 	defaultBranch = main
 [log]

@@ -31,7 +31,7 @@ abbr -a tcommit-pacific 'TZ=":America/Los_Angeles" tcommit'
 abbr -a tcommit-mountain 'TZ=":America/Denver" tcommit'
 abbr -a tcommit-berlin 'TZ=":Europe/Berlin" tcommit'
 
-alias git-check-dates='git log --format=\'test "%ad" = "%cd" || echo "%ad %cd %h %s"\' | source'
+alias git-check-dates='git log --format=\'test "%ai" = "%ci" || echo "%ai %ci %h %s"\' | source'
 
 # -A  List all entries except for . and ..                   GNU BSD
 # -a  List all entries except for . and ..                           exa
@@ -107,6 +107,7 @@ end
 alias grep='grep --color'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias less='less -R' # or LESS=R
 alias df='df -h'
 alias du='du -h'
 alias whence='type -a'
