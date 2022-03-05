@@ -239,6 +239,12 @@ setup.log
 ### OPAM
 _opam/
 
+## Promela / SPIN
+pan
+!pan/
+pan.[bchmpt]
+*.pml.trail
+
 ## Python
 __pycache__/
 *.py[cod]
