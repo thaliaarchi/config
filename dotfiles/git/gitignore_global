@@ -112,6 +112,35 @@ a.out
 *.zst
 *.tzst
 
+# Secrets
+
+## Keys
+*.pem
+*.ppk
+id_dsa
+id_ecdsa
+id_ecdsa_sk
+id_ed25519
+id_ed25519_sk
+id_rsa
+### Named keys (non-standard format)
+*_id_dsa
+*_id_ecdsa
+*_id_ecdsa_sk
+*_id_ed25519
+*_id_ed25519_sk
+*_id_rsa
+
+## Environment variables
+.env
+
+## Shell histories
+.history
+.sh_history
+.bash_history
+.zsh_history
+fish_history
+
 # Programming languages
 
 ## ANTLR
