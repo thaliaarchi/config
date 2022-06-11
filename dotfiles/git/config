@@ -1,18 +1,32 @@
 [user]
 	name = Andrew Archibald
 	email = andrew@aarchibald.com
+	useConfigOnly = true # Do not guess name and email when unset
 [core]
 	autocrlf = false
 	editor = code --wait
 [diff]
-  tool = default-difftool
-[difftool "default-difftool"]
-  cmd = code --wait --diff $LOCAL $REMOTE
+	algorithm = histogram # myers (default), minimal, patience, or histogram
+	guitool = code
+[difftool "code"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 [format]
-	pretty = format:%C(auto)%H%d%n%ai  %an <%ae>%n%ci  %cn <%ce>%n%n%w(0,4,4)%B
+	pretty = dense
+[grep]
+	lineNumber = true
+	patternType = extended # basic, extended, fixed, or perl
 [init]
 	defaultBranch = main
 [log]
 	date = iso8601
+[pretty]
+	# Define --pretty= aliases
+	dense = "format:%C(auto)%H%d%n%ai  %an <%ae>%n%ci  %cn <%ce>%n%n%w(0,4,4)%B"
 [pull]
 	rebase = false
+[rebase]
+	autoSquash = true
+	instructionFormat = "%as %s"
+[submodule]
+	fetchJobs = 5
+	ignoreSubmodules = dirty
