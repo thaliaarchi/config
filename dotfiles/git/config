@@ -2,7 +2,6 @@
 	name = Andrew Archibald
 	email = andrew@aarchibald.com
 [core]
-	excludesfile = /Users/andrew/.gitignore_global
 	autocrlf = false
 	editor = code --wait
 [diff]
