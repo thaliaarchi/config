@@ -9,10 +9,12 @@ abbr -a blame 'git blame'
 abbr -a branch 'git branch'
 abbr -a checkout 'git checkout'
 abbr -a check 'git checkout'
+abbr -a clean 'git clean'
 abbr -a clone 'git clone'
 abbr -a commit 'git commit'
 abbr -a amend 'GIT_COMMITTER_DATE=(git show -s --format=%ad --date=raw) git commit --amend --no-edit'
 abbr -a gconfig 'git config'
+abbr -a gdescribe 'git describe'
 abbr -a gdiff 'git diff'
 abbr -a fetch 'git fetch'
 abbr -a ginit 'git init'
@@ -27,19 +29,38 @@ abbr -a rskip 'git rebase --skip'
 abbr -a reflog 'git reflog'
 abbr -a remote 'git remote'
 abbr -a greset 'git reset'
+abbr -a rev-parse 'git rev-parse'
 abbr -a stash 'git stash'
 abbr -a gstatus 'git status'
 abbr -a submodule 'git submodule'
 abbr -a gswitch 'git switch'
 abbr -a tag 'git tag'
+abbr -a worktree 'git worktree'
 
-abbr -a main 'git checkout main'
-abbr -a master 'git checkout master'
 abbr -a tcommit-pacific 'TZ=":America/Los_Angeles" tcommit'
 abbr -a tcommit-mountain 'TZ=":America/Denver" tcommit'
 abbr -a tcommit-berlin 'TZ=":Europe/Berlin" tcommit'
 
-alias git-check-dates='git log --format=\'test "%ai" = "%ci" || echo "%ai %ci %h %s"\' | source'
+function main --wraps='git checkout main'
+  if ! git rev-parse -q --verify main > /dev/null &&
+       git rev-parse -q --verify master > /dev/null
+    git checkout master $argv
+  else
+    git checkout main $argv
+  end
+end
+function master --wraps='git checkout master'
+  if ! git rev-parse -q --verify master > /dev/null &&
+       git rev-parse -q --verify main > /dev/null
+    git checkout main $argv
+  else
+    git checkout master $argv
+  end
+end
+
+function git-check-dates
+  git log --format='test "%ai" = "%ci" || echo "%ai %ci %h %s"' $argv | source
+end
 
 # -A  List all entries except for . and ..                   GNU BSD
 # -a  List all entries except for . and ..                           exa
