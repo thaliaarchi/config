@@ -62,6 +62,12 @@ function git-check-dates
   git log --format='test "%ai" = "%ci" || echo "%ai %ci %h %s"' $argv | source
 end
 
+function git-link-worktree -d 'Set the .git dir for a linked worktree to point to the worktree'
+  git config --unset core.worktree
+  set -l worktree (realpath --relative-to=(git rev-parse --absolute-git-dir) (git rev-parse --show-toplevel))
+  test $worktree != .. && git config core.worktree $worktree
+end
+
 # -A  List all entries except for . and ..                   GNU BSD
 # -a  List all entries except for . and ..                           exa
 #
