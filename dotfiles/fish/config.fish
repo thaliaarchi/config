@@ -227,6 +227,10 @@ set -Ux SAM_CLI_TELEMETRY 0            # AWS SAM CLI https://docs.aws.amazon.com
 set -Ux GATSBY_TELEMETRY_DISABLED 1    # Gatsby `gatsby telemetry --disable` https://www.gatsbyjs.com/docs/telemetry/
 # TODO: opt out of telemetry using https://github.com/beatcracker/toptout
 
+# Disable suggestion to scan Docker images with Snyk
+# https://github.com/docker/scan-cli-plugin/issues/149
+set -Ux DOCKER_SCAN_SUGGEST false
+
 if status is-interactive && command -q zoxide
   zoxide init fish | source
 end
