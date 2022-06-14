@@ -190,6 +190,10 @@ Makefile.coq
 Makefile.coq.conf
 .Makefile.coq.d
 
+## Erlang
+*.beam
+erl_crash.dump
+
 ## Go
 *.[56789ao]
 *.a[56789o]
