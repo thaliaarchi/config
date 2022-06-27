@@ -1,6 +1,8 @@
 # Disable greeting
 set fish_greeting
 
+fish_add_path ~/bin
+
 # Git
 abbr -a g 'git'
 abbr -a gadd 'git add'
