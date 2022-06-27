@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+# Git commit at file modification time
+
 max_date=''
 if [[ ! -v GIT_AUTHOR_DATE || ! -v GIT_COMMITTER_DATE ]]; then
   toplevel="$(git rev-parse --show-toplevel)"

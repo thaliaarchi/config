@@ -90,6 +90,8 @@ link_config neofetch $XDG_CONFIG_HOME/neofetch
 # Files in $XDG_CONFIG_HOME
 link_config shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
 link_config karabiner $XDG_CONFIG_HOME/karabiner
+# Files in ~/bin
+link_config bin/git-tcommit ~/bin/git-tcommit
 
 if command -q tmux
   if after_version (tmux -V) 'tmux 3.1'
