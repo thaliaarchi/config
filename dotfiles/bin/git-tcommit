@@ -3,7 +3,7 @@
 # Git commit at file modification time
 
 max_date=''
-if [[ ! -v GIT_AUTHOR_DATE || ! -v GIT_COMMITTER_DATE ]]; then
+if [[ -z ${GIT_AUTHOR_DATE+x} || -z ${GIT_COMMITTER_DATE+x} ]]; then
   toplevel="$(git rev-parse --show-toplevel)"
   max_seconds=-1
   max_file=
