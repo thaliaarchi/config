@@ -58,6 +58,7 @@ $RECYCLE.BIN/
 *.tmp
 *.bak
 *.log
+tmp
 
 # Executables and build artifacts
 a.out
