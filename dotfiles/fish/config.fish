@@ -209,7 +209,11 @@ end
 
 # protonchk checks availability of a ProtonMail address.
 function protonchk -a username
-  curl 'https://mail.protonmail.com/api/users/available?Name='$username -H 'x-pm-appversion: Web_3.16.33'
+  echo proton.me:
+  curl "https://account.proton.me/api/users/available?Name=$username%40proton.me&ParseDomain=1" -H 'x-pm-appversion: web-account@5.0.15.2'
+  echo
+  echo protonmail.com:
+  curl "https://account.proton.me/api/users/available?Name=$username%40protonmail.com&ParseDomain=1" -H 'x-pm-appversion: web-account@5.0.15.2'
   echo
 end
 
