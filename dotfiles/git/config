@@ -1,6 +1,6 @@
 [user]
 	name = Thalia Archibald
-	email = thalia@aarchibald.com
+	email = thalia@archibald.dev
 	useConfigOnly = true # Do not guess name and email when unset
 [core]
 	autocrlf = false
