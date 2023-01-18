@@ -7,7 +7,7 @@
 	editor = code --wait
 [diff]
 	algorithm = histogram # myers (default), minimal, patience, or histogram
-	guitool = code
+	tool = code
 [difftool "code"]
 	cmd = code --wait --diff $LOCAL $REMOTE
 [format]
@@ -19,6 +19,10 @@
 	defaultBranch = main
 [log]
 	date = iso8601
+[merge]
+	tool = code
+[mergetool "code"]
+	cmd = code --wait $MERGED
 [pretty]
 	# Define --pretty= aliases
 	dense = "format:%C(auto)%H%d%n%ai  %an <%ae>%n%ci  %cn <%ce>%n%n%w(0,4,4)%B"
