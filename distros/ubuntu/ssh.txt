@@ -3,7 +3,7 @@
 # lookup IP address
 $ ip a | grep inet
 # on remote machine:
-$ ssh andrew@192.168.1.38
+$ ssh thalia@192.168.1.38
 
 # if failed:
 # on raspi:
@@ -16,19 +16,19 @@ $ sudo vim /etc/ssh/sshd_config
 # restart sshd
 $ sudo systemctl restart ssh
 # on remote machine:
-$ ssh andrew@192.168.1.38
+$ ssh thalia@192.168.1.38
 $ logout
 
 Generate a key and copy it to the remote machine:
 
 ```sh
 ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/raspi_id_rsa
-ssh-copy-id -i ~/.ssh/raspi_id_rsa andrew@192.168.1.38
+ssh-copy-id -i ~/.ssh/raspi_id_rsa thalia@192.168.1.38
 ```
 
 $ echo 'Host raspi
 	HostName 192.168.1.38
-	User andrew
+	User thalia
 	IdentityFile ~/.ssh/raspi_id_rsa
 	IdentitiesOnly yes' >> ~/.ssh/config
 $ ssh raspi

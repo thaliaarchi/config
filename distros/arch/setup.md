@@ -44,17 +44,17 @@
     ```sh
     killall -u alarm
     id alarm
-    usermod -l andrew alarm
-    groupmod -n andrew alarm
-    usermod -d /home/andrew -m andrew
-    usermod -c 'Andrew Archibald' andrew
-    id andrew
+    usermod -l thalia alarm
+    groupmod -n thalia alarm
+    usermod -d /home/thalia -m thalia
+    usermod -c 'Thalia Archibald' thalia
+    id thalia
     ```
 
 7. Allow the wheel group to execute any command:
 
     ```sh
-    groups andrew
+    groups thalia
     pacman -S sudo vim
     EDITOR=vim visudo
     ```
@@ -81,7 +81,7 @@
 
     ```sh
     ssh-keygen -t rsa -b 8192 -a 100 -f ~/.ssh/raspi_id_rsa
-    ssh-copy-id -i ~/.ssh/raspi_id_rsa andrew@192.168.1.46
+    ssh-copy-id -i ~/.ssh/raspi_id_rsa thalia@192.168.1.46
     ```
 
 10. Add an entry to your SSH config:
@@ -89,7 +89,7 @@
     ```sh
     echo 'Host marionberryphi
       HostName 192.168.1.38
-      User andrew
+      User thalia
       IdentityFile ~/.ssh/raspi_id_rsa
       IdentitiesOnly yes' >> ~/.ssh/config
     ```
@@ -134,9 +134,9 @@
 
     ```sh
     sudo pacman -S wget inetutils
-    mkdir -p ~/dev/github.com/andrewarchi
-    cd ~/dev/github.com/andrewarchi
-    git clone git@github.com:andrewarchi/config
+    mkdir -p ~/dev/github.com/thaliaarchi
+    cd ~/dev/github.com/thaliaarchi
+    git clone git@github.com:thaliaarchi/config
     cd config
     rm ~/.bashrc ~/.bash_profile
     ./install.fish

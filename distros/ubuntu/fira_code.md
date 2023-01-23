@@ -6,5 +6,5 @@ sudo apt install fontconfig -y
 fc-list
 sudo apt install fbterm -y
 sudo setcap 'cap_sys_tty_config+ep' $(command -v fbterm)
-sudo usermod -aG video andrew
+sudo usermod -aG video thalia
 ```

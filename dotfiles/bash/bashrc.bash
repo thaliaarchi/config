@@ -10,7 +10,7 @@ config_dir="$(dirname "$($READLINK -e "${BASH_SOURCE[0]}")")"
 source "$config_dir/bash_aliases.bash"
 source "$config_dir/bash_functions.bash"
 
-export EMAIL=andrew@aarchibald.com
+export EMAIL=thalia@archibald.dev
 export EDITOR=vim
 export GIT_EDITOR='code --wait'
 
@@ -22,7 +22,7 @@ PATH="$HOME/bin:$PATH"                # User bin
 PATH="/usr/local/go/bin:$PATH"        # Go standard tools
 PATH="$HOME/go/bin:$PATH"             # Go binaries
 PATH="$HOME/.cargo/bin:$PATH"         # Rust
-PATH="$HOME/dev/github.com/andrewarchi/whitespace-haskell/bin:$PATH"
+PATH="$HOME/dev/github.com/thaliaarchi/whitespace-haskell/bin:$PATH"
 PATH="$HOME/dev/github.com/LLNL/yorick/relocate/bin:$PATH"
 export PATH
 

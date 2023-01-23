@@ -98,7 +98,7 @@ command -v rsync > /dev/null 2>&1 &&
 
 # 4-column ASCII table
 command -v wspace > /dev/null 2>&1 &&
-  alias ascii4='wspace $HOME/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
+  alias ascii4='wspace $HOME/go/src/github.com/thaliaarchi/nebula/programs/ascii4.out.ws'
 
 # SSH into a random CS lab machine
 alias cs='CS_MACHINES=($(cat ~/cs_machines_random)); RANDOM_MACHINE="${CS_MACHINES[$RANDOM % ${#CS_MACHINES[@]}]}"; echo "ssh $RANDOM_MACHINE"; ssh "$RANDOM_MACHINE"'

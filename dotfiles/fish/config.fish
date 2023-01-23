@@ -224,7 +224,7 @@ function getcrx -a id
 end
 
 # 4-column ASCII table
-command -q wspace && alias ascii4='wspace ~/go/src/github.com/andrewarchi/nebula/programs/ascii4.out.ws'
+command -q wspace && alias ascii4='wspace ~/go/src/github.com/thaliaarchi/nebula/programs/ascii4.out.ws'
 
 # Format history time as "2006-01-02 15:04:05  "
 alias history='history --show-time="%Y-%m-%d %H:%M:%S  "'
@@ -271,7 +271,7 @@ end
 # Neither group nor others have any perms:
 umask 077
 
-# set -a CDPATH . ~/dev/github.com/andrewarchi ~/go/src/github.com/andrewarchi
+# set -a CDPATH . ~/dev/github.com/thaliaarchi ~/go/src/github.com/thaliaarchi
 
 if test -d ~/man
   set MANPATH ~/man $MANPATH

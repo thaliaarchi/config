@@ -81,9 +81,9 @@
 10. Install dotfiles:
 
     ```sh
-    mkdir -p ~/dev/github.com/andrewarchi
-    cd ~/dev/github.com/andrewarchi
-    git clone git@github.com:andrewarchi/config
+    mkdir -p ~/dev/github.com/thaliaarchi
+    cd ~/dev/github.com/thaliaarchi
+    git clone git@github.com:thaliaarchi/config
     cd config
     rm ~/.bashrc ~/.bash_profile
     ./install.fish

@@ -3,10 +3,10 @@
 Compute pi in Whitespace with the reference Haskell interpreter:
 
 ```sh
-mkdir -p ~/dev/github.com/andrewarchi
-cd ~/dev/github.com/andrewarchi
-git clone git@github.com:andrewarchi/nebula
-git clone git@github.com:andrewarchi/whitespace-haskell
+mkdir -p ~/dev/github.com/thaliaarchi
+cd ~/dev/github.com/thaliaarchi
+git clone git@github.com:thaliaarchi/nebula
+git clone git@github.com:thaliaarchi/whitespace-haskell
 cd whitespace-haskell
 sudo apt install ghc -y
 make

@@ -2,13 +2,13 @@
 # https://github.com/fish-shell/fish-shell/blob/master/share/functions/__fish_config_interactive.fish
 
 function config_vars -d 'Set universal variables from configuration'
-  set -Ux EMAIL andrew@aarchibald.com
+  set -Ux EMAIL thalia@archibald.dev
   set -Ux EDITOR vim
   set -Ux GIT_EDITOR 'code --wait'
 
   set -l path_dirs ~/bin /usr/local/go/bin ~/go/bin \
     ~/.cargo/bin /usr/local/opt/llvm/bin \
-    ~/dev/github.com/andrewarchi/whitespace-haskell/bin \
+    ~/dev/github.com/thaliaarchi/whitespace-haskell/bin \
     ~/dev/github.com/LLNL/yorick/relocate/bin
   set -Ue fish_user_paths
   for dir in $path_dirs
