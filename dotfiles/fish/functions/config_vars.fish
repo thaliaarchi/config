@@ -4,7 +4,7 @@
 function config_vars -d 'Set universal variables from configuration'
   set -Ux EMAIL andrew@aarchibald.com
   set -Ux EDITOR vim
-  set -Ux GIT_EDITOR vim
+  set -Ux GIT_EDITOR 'code --wait'
 
   set -l path_dirs ~/bin /usr/local/go/bin ~/go/bin \
     ~/.cargo/bin /usr/local/opt/llvm/bin \

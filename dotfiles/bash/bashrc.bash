@@ -12,7 +12,7 @@ source "$config_dir/bash_functions.bash"
 
 export EMAIL=andrew@aarchibald.com
 export EDITOR=vim
-export GIT_EDITOR=vim
+export GIT_EDITOR='code --wait'
 
 # /etc/profile sets 022, removing write perms to group and others.
 # Neither group nor others have any perms:
