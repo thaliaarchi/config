@@ -5,6 +5,7 @@
 [core]
 	autocrlf = false
 	editor = code --wait
+	ignoreCase = false
 [diff]
 	algorithm = histogram # myers (default), minimal, patience, or histogram
 	tool = code
