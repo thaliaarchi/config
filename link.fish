@@ -90,6 +90,7 @@ link_config neofetch $XDG_CONFIG_HOME/neofetch
 # Files in $XDG_CONFIG_HOME
 link_config shellcheckrc $XDG_CONFIG_HOME/shellcheckrc
 link_config karabiner $XDG_CONFIG_HOME/karabiner
+link_config topgrade.toml $XDG_CONFIG_HOME/topgrade.toml
 # Files in ~/bin
 link_config bin/git-tcommit ~/bin/git-tcommit
 
