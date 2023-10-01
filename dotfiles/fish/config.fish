@@ -252,6 +252,15 @@ end
 if status is-interactive && command -q jenv
   jenv init - | source
 end
+if status is-interactive && command -q rbenv
+  rbenv init - fish | source
+end
+
+# ghcup-env
+if ! set -q GHCUP_INSTALL_BASE_PREFIX[1]
+  set GHCUP_INSTALL_BASE_PREFIX $HOME
+end
+set -gx PATH ~/.cabal/bin ~/.ghcup/bin $PATH
 
 # opam configuration
 if test -e ~/.opam/opam-init/init.fish
