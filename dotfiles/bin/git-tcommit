@@ -24,14 +24,13 @@ if [[ -n $latest ]]; then
   latest_date="$(date -r "${latest_seconds%.*}" +'%Y-%m-%d %H:%M:%S %z')"
   echo "Modify date: $latest_date ($latest_file)"
 fi
-if [[ -n $GIT_AUTHOR_DATE ]]; then
-  echo "Author date: $GIT_AUTHOR_DATE"
+if [[ -v GIT_AUTHOR_DATE ]]; then
+  echo "Author date: ${GIT_AUTHOR_DATE:-now}"
 fi
-if [[ -n $GIT_COMMITTER_DATE ]]; then
-  echo "Commit date: $GIT_COMMITTER_DATE"
+if [[ -v GIT_COMMITTER_DATE ]]; then
+  echo "Commit date: ${GIT_COMMITTER_DATE:-now}"
 fi
 
-export GIT_AUTHOR_DATE="${GIT_AUTHOR_DATE-"$latest_seconds"}"
-export GIT_COMMITTER_DATE="${GIT_COMMITTER_DATE-"$latest_seconds"}"
-
+GIT_AUTHOR_DATE="${GIT_AUTHOR_DATE-"$latest_seconds"}" \
+GIT_COMMITTER_DATE="${GIT_COMMITTER_DATE-"$latest_seconds"}" \
 git commit "$@"
