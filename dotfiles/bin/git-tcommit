@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+set -e
 
 # Git commit at file modification time
 
@@ -10,7 +11,7 @@ if [[ -z ${GIT_AUTHOR_DATE+x} || -z ${GIT_COMMITTER_DATE+x} ]]; then
   while IFS= read -r -d $'\0' file; do
     if [[ -e $toplevel/$file ]]; then
       seconds="$(date -r "$toplevel/$file" +'%s')"
-      if [[ $seconds > $max_seconds ]]; then
+      if [[ $seconds -gt $max_seconds ]]; then
         max_seconds="$seconds"
         max_file="$toplevel/$file"
       fi
