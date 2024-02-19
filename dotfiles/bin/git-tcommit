@@ -13,10 +13,13 @@ else
 fi
 
 # Select the latest modified time of all staged files, excluding deletions.
-latest="$(git diff --staged --diff-filter=d --name-only -z |
-  xargs -0 "${stat[@]}" |
-  sort -rn |
-  head -1)"
+latest="$(
+  cd "$(git rev-parse --show-toplevel)" && \
+  git diff --staged --diff-filter=d --name-only -z |
+    xargs -0 "${stat[@]}" |
+    sort -rn |
+    head -1
+)"
 
 if [[ -n $latest ]]; then
   latest_seconds="${latest%% *}"
