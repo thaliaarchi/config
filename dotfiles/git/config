@@ -32,6 +32,8 @@
 [rebase]
 	autoSquash = true
 	instructionFormat = "%ai %s"
+[rerere]
+	enabled = true
 [submodule]
 	fetchJobs = 5
 	ignoreSubmodules = dirty
