@@ -193,6 +193,14 @@ if ! command -q pbcopy && command -q xclip
   alias pbpaste='xclip -selection clipboard -o'
 end
 
+function cgrep -a ident
+  ident=(string escape --style=regex $ident) \
+  func="^([^\s/#].+\s+\**)?$ident\s*\(" \
+  define="^\s*#\s*define\s+$ident([(\s]|\$)" \
+  typedef="(^|;)\s*typedef\s+.+\s+$ident\s*;" \
+  rg --glob='*.{c,h,cpp,cc,hpp}' "$func|$define|$typedef"
+end
+
 function rsyncclean
   set -l exclude Thumbs.db '$RECYCLE.BIN' 'System Volume Information' \
     .DS_Store .Spotlight-V100 .TemporaryItems .Trashes .fseventsd __MACOSX
