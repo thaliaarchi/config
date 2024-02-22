@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eEuo pipefail
 
 # `git commit`, using the latest file modification time as the commit and author
 # dates, when GIT_AUTHOR_DATE or GIT_COMMITTER_DATE, respectively, is not set.
@@ -36,4 +36,4 @@ fi
 
 GIT_AUTHOR_DATE="${GIT_AUTHOR_DATE-"$latest_seconds"}" \
 GIT_COMMITTER_DATE="${GIT_COMMITTER_DATE-"$latest_seconds"}" \
-git commit "$@"
+exec git commit "$@"

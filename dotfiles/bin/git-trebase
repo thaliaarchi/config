@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -eEuo pipefail
+
+# `git rebase` with exec lines after each commit to restore the original
+# committer information.
+
+exec git \
+  -c rebase.instructionFormat="%ai %s%nexec GIT_COMMITTER_DATE='%ci' GIT_COMMITTER_NAME='%cn' GIT_COMMITTER_EMAIL='%ce' git commit -q --amend --no-edit --allow-empty --allow-empty-message" \
+  rebase "$@"
