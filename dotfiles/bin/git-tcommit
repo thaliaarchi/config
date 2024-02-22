@@ -21,6 +21,7 @@ latest="$(
     head -1
 )"
 
+latest_seconds=
 if [[ -n $latest ]]; then
   latest_seconds="${latest%% *}"
   latest_file="${latest#* }"
