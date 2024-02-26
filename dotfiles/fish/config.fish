@@ -198,12 +198,12 @@ if ! command -q pbcopy && command -q xclip
   alias pbpaste='xclip -selection clipboard -o'
 end
 
-function cgrep -a ident
+function cdef -a ident
   ident=(string escape --style=regex $ident) \
-  func="^([^\s/#].+\s+\**)?$ident\s*\(" \
+  func_or_var="^([^\s/#].+\s+\**)?$ident\s*[(=]" \
   define="^\s*#\s*define\s+$ident([(\s]|\$)" \
   typedef="(^|;)\s*typedef\s+.+\s+$ident\s*;" \
-  rg --glob='*.{c,h,cpp,cc,hpp}' "$func|$define|$typedef"
+  rg --glob='*.{c,h,cpp,cc,hpp}' "$func_or_var|$define|$typedef"
 end
 
 function rsyncclean
