@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -eEuo pipefail
+
+# A shorthand for `git show -s --pretty=reference` with a Markdown link to the
+# commit.
+
+refname="$1"
+
+hash="$(git show -s --pretty=%H "$refname")"
+short_hash="$(git show -s --pretty=%h "$refname")"
+# Remove period at the end of a subject sentence.
+subject="$(git show -s --pretty=%s "$refname" | sed -E 's/(.)\.$/\1/')"
+date="$(git show -s --pretty=%as "$refname")"
+origin="$(git remote get-url origin 2>/dev/null || echo origin)"
+# Convert origin to a URL for the commit.
+url="$(
+  echo "$origin/$hash" |
+  perl -pe "
+    s,^https://(github\.com/[^/]+/[^/]+?)(\.git)?/?/$hash$,https://\1/commit/$hash,;
+    s,^https://(gitlab\.com/[^/]+/[^/]+?)(\.git)?/?/$hash$,https://\1/-/commit/$hash,;
+    s,^git\@github\.com:([^/]+/[^/]+?)(\.git)?/?/$hash$,https://github.com/\1/commit/$hash,;
+    s,^(https|git)://git\.kernel\.org/(.+\.git)/$hash$,https://git.kernel.org/\2/commit/?id=$hash,;
+  "
+)"
+echo "[$short_hash]($url) ($subject, $date)"
